@@ -1,0 +1,40 @@
+# Pronunciation Clip Generator Configuration
+
+# Audio processing settings
+audio:
+  sample_rate: 16000
+  channels: 1
+  buffer_seconds: 0.1  # Padding around word boundaries
+
+# Whisper transcription settings  
+whisper:
+  model: "base"  # base, small, medium, large
+  language: "es"  # Spanish
+  word_timestamps: true
+  temperature: 0.0  # Deterministic output
+  
+# Speaker identification settings
+speakers:
+  enable_diarization: false  # Disable for MVP - manual speaker mapping
+  min_speakers: 1
+  max_speakers: 10
+  
+# Output settings
+output:
+  database_path: "word_database.json"
+  encoding: "utf-8"
+  pretty_print: true
+  backup_on_update: true
+
+# Quality thresholds
+quality:
+  min_confidence: 0.5
+  min_word_duration: 0.1
+  max_word_duration: 3.0
+  
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "structured"  # structured, simple
+  file: "processing.log"
+  console: true
