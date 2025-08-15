@@ -3,3 +3,5 @@ pronunciation-clips
 venv/
 __pycache__/
 .DS_Store
+video_sources/
+*.mp3
