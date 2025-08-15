@@ -1,8 +1,7 @@
 ## CLAUDE.md — Pronunciation Clip Generator: MVP Objectives & Coding Practices
 
 ### Scope (MVP)
-- Local-only inputs: accept audio/video files from disk; no URLs or cloud sources.
-- Language/model agnostic, but implementation-neutral in this doc.
+- Local-only inputs: accept audio files from disk; no URLs or cloud sources.
 - Focus on a scalable pipeline; UI and long-term APIs are out of scope.
 
 ### Objectives (Specific)
@@ -12,7 +11,7 @@
 - Ensure quality: safe boundaries (no overlaps), configurable buffers, min/max duration, consistent sample rate/channels.
 - Reproducible outputs: deterministic given inputs + config; log basic provenance.
 - Scalable processing: stream/chunk long recordings; allow resumable runs; efficient batch file I/O.
-- Produce clips and minimal metadata suitable for later search/flashcards.
+- Proper data storage management for clips and words
 
 ### Best Coding Practices
 - Single responsibility

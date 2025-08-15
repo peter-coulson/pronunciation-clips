@@ -90,33 +90,6 @@ WHISPER_MODEL = "medium"    # Good speed/accuracy balance
 - `test_final_2s_099c_320ms.wav` - Short, crisp word
 - `test_primavera_4s_094c_940ms.wav` - Longer word, good for training
 
-## 🗂️ **File Organization System**
-
-### **Current Structure (validated)**
-```
-practice-clips/
-├── by-syllables/
-│   ├── 2-syllables/     # Beginner (45% of clips)
-│   ├── 3-syllables/     # Beginner (20% of clips)  
-│   ├── 4-syllables/     # Intermediate (29% of clips)
-│   └── 5-6-syllables/   # Advanced (6% of clips)
-├── by-word/
-│   └── [word]/
-│       ├── instance_001.wav
-│       ├── instance_002.wav  
-│       └── metadata.json
-└── flashcard-ready/
-    ├── beginner/        # 2-3 syllables
-    ├── intermediate/    # 4-5 syllables  
-    └── advanced/        # 6+ syllables
-```
-
-### **Searchability Requirements**
-- **Word-based search**: `by-word/` directory allows direct word lookup
-- **Metadata indexing**: JSON files contain searchable word information
-- **Difficulty filtering**: Separate directories by complexity level
-- **Multiple instances**: Track pronunciation variations of same word
-
 ## ⚙️ **System Architecture Decisions**
 
 ### **Whisper Model Choice**
