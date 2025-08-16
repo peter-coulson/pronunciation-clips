@@ -1,0 +1,35 @@
+# Test Configuration
+audio:
+  sample_rate: 16000
+  channels: 1
+  buffer_seconds: 0.025  # Smart buffering
+
+whisper:
+  model: "base"  # Faster for testing
+  language: "es"
+  word_timestamps: true
+  temperature: 0.0
+
+speakers:
+  enable_diarization: false
+  default_speaker:
+    name: "Test Speaker"
+    id: "speaker_0"
+
+output:
+  database_path: "tests/output/test_database.json"
+  encoding: "utf-8"
+  pretty_print: true
+  backup_on_update: false  # Disable for testing
+
+quality:
+  min_confidence: 0.8
+  min_word_duration: 0.3
+  max_word_duration: 3.0
+  syllable_range: [2, 6]
+
+logging:
+  level: "DEBUG"
+  format: "structured"
+  file: "tests/output/test.log"
+  console: false  # Quiet during testing
