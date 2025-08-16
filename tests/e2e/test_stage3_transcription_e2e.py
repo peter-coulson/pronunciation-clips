@@ -36,10 +36,10 @@ def test_transcription_e2e():
     assert len(words) < 1000  # Reasonable for 30 seconds
     
     for word in words:
-        assert word.start_time < word.end_time
-        assert 0.0 <= word.confidence <= 1.0
-        assert len(word.text.strip()) > 0
+        assert word["start"] < word["end"]
+        assert 0.0 <= word["confidence"] <= 1.0
+        assert len(word["text"].strip()) > 0
     
     # Check Spanish language processing
-    spanish_words = [w.text for w in words]
+    spanish_words = [w["text"] for w in words]
     assert any(word in ["hola", "buenos", "días", "cómo", "que", "de", "la", "el"] for word in spanish_words)
