@@ -1,7 +1,69 @@
-pronunciation-clips
-*.wav
-venv/
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+.cache
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp/*
+!temp/.gitkeep
+
+# Test outputs
+tests/output/*
+!tests/output/.gitkeep
+
+# OS
 .DS_Store
-video-sources/
-*.mp3
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Audio processing
+*.wav.tmp
+*.mp3.tmp
+
+# Model files (can be large)
+*.pt
+*.pth
+*.model
