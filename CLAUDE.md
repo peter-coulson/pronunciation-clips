@@ -41,6 +41,7 @@
   - Stable, human-readable filenames; path-safe normalization.
   - Consistent directory layout; do not duplicate raw sources in exports.
   - Record minimal provenance (config snapshot/hash and creation time).
+  - Ensure the home directory is kept clean from temporary scripts after every checkpoint.
 
 ### Testing Strategy (CRITICAL)
 - **E2E Test Immutability**: Once E2E test skeletons are created, they CANNOT be modified during implementation. This forces proper interface design upfront.

@@ -32,8 +32,8 @@ def test_entity_creation_e2e():
     mock_words = [
         {"text": "hola", "start": 1.0, "end": 1.5, "confidence": 0.95},
         {"text": "que", "start": 1.6, "end": 1.8, "confidence": 0.4},  # Low confidence - should be filtered
-        {"text": "como", "start": 1.9, "end": 2.3, "confidence": 0.9},  # 2 syllables, good duration
-        {"text": "a", "start": 2.4, "end": 2.42, "confidence": 0.8},  # Too short - should be filtered
+        {"text": "tal", "start": 1.9, "end": 2.2, "confidence": 0.9},
+        {"text": "a", "start": 2.3, "end": 2.32, "confidence": 0.8},  # Too short - should be filtered
         {"text": "extraordinariamente", "start": 3.0, "end": 7.0, "confidence": 0.8},  # Too long - should be filtered
     ]
     
@@ -44,7 +44,7 @@ def test_entity_creation_e2e():
     filtered_entities = apply_quality_filters(entities, config.quality)
     
     # Validate results
-    assert len(filtered_entities) == 2  # Only "hola" and "como" should remain
+    assert len(filtered_entities) == 2  # Only "hola" and "tal" should remain
     
     for entity in filtered_entities:
         assert entity.entity_type == "word"

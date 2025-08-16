@@ -9,11 +9,21 @@ from typing import List, Dict, Any
 import whisper
 import torch
 import numpy as np
+from dataclasses import dataclass
 
 from ..shared.config import WhisperConfig
 from ..shared.exceptions import TranscriptionError
 from ..shared.logging_config import LoggerMixin
 from .audio_processor import ProcessedAudio
+
+
+@dataclass
+class Word:
+    """Represents a transcribed word with timing information."""
+    text: str
+    start_time: float
+    end_time: float
+    confidence: float
 
 
 class TranscriptionEngine(LoggerMixin):
@@ -33,7 +43,7 @@ class TranscriptionEngine(LoggerMixin):
             self.log_progress("Whisper model loaded successfully")
         return self._model
     
-    def transcribe_audio(self, audio: ProcessedAudio) -> List[Dict[str, Any]]:
+    def transcribe_audio(self, audio: ProcessedAudio) -> List[Word]:
         """
         Transcribe audio with word-level timestamps.
         
@@ -41,7 +51,7 @@ class TranscriptionEngine(LoggerMixin):
             audio: ProcessedAudio object with audio data
             
         Returns:
-            List of word dictionaries with text, start, end, confidence
+            List of Word objects with text, start_time, end_time, confidence
             
         Raises:
             TranscriptionError: If transcription fails
@@ -73,13 +83,13 @@ class TranscriptionEngine(LoggerMixin):
                 for segment in result["segments"]:
                     if "words" in segment:
                         for word_info in segment["words"]:
-                            word_dict = {
-                                "text": word_info["word"].strip(),
-                                "start": word_info["start"],
-                                "end": word_info["end"],
-                                "confidence": word_info.get("probability", 0.0)
-                            }
-                            words.append(word_dict)
+                            word = Word(
+                                text=word_info["word"].strip(),
+                                start_time=word_info["start"],
+                                end_time=word_info["end"],
+                                confidence=word_info.get("probability", 0.0)
+                            )
+                            words.append(word)
             
             # Fallback: if no word timestamps, create from segments
             if not words and "segments" in result:
@@ -94,24 +104,24 @@ class TranscriptionEngine(LoggerMixin):
                         word_start = segment["start"] + (i * word_duration)
                         word_end = word_start + word_duration
                         
-                        word_dict = {
-                            "text": word_text.strip(),
-                            "start": word_start,
-                            "end": word_end,
-                            "confidence": segment.get("avg_logprob", 0.0)
-                        }
-                        words.append(word_dict)
+                        word = Word(
+                            text=word_text.strip(),
+                            start_time=word_start,
+                            end_time=word_end,
+                            confidence=segment.get("avg_logprob", 0.0)
+                        )
+                        words.append(word)
             
             # Validate results
             if not words:
                 raise TranscriptionError("No words extracted from transcription")
             
             # Filter out empty words
-            words = [w for w in words if w["text"] and len(w["text"].strip()) > 0]
+            words = [w for w in words if w.text and len(w.text.strip()) > 0]
             
             self.log_stage_complete("transcription",
                                   words_extracted=len(words),
-                                  avg_confidence=sum(w["confidence"] for w in words) / len(words) if words else 0)
+                                  avg_confidence=sum(w.confidence for w in words) / len(words) if words else 0)
             
             return words
             
@@ -122,7 +132,7 @@ class TranscriptionEngine(LoggerMixin):
             raise TranscriptionError(f"Transcription failed: {e}")
 
 
-def transcribe_audio(audio: ProcessedAudio, whisper_config: WhisperConfig) -> List[Dict[str, Any]]:
+def transcribe_audio(audio: ProcessedAudio, whisper_config: WhisperConfig) -> List[Word]:
     """
     Convenience function for transcribing audio.
     
@@ -131,7 +141,7 @@ def transcribe_audio(audio: ProcessedAudio, whisper_config: WhisperConfig) -> Li
         whisper_config: Whisper configuration
         
     Returns:
-        List of word dictionaries
+        List of Word objects
         
     Raises:
         TranscriptionError: If transcription fails
