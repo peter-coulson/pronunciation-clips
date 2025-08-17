@@ -74,7 +74,7 @@ class AudioToJsonPipeline(LoggerMixin):
                 words = transcribe_audio(processed_audio, self.config.whisper)
                 self.log_progress("Stage 2 complete", 
                                 word_count=len(words),
-                                avg_confidence=sum(w.confidence for w in words) / len(words))
+                                avg_confidence=sum(w.confidence for w in words) / len(words) if words else 0.0)
             else:
                 raise NotImplementedError("Resume functionality not yet implemented")
             
