@@ -6,3 +6,4 @@ pandas>=2.0.0
 numpy>=1.21.0
 torch>=2.0.0
 torchaudio>=2.0.0
+pyannote.audio>=3.0.0
