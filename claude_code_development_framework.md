@@ -546,39 +546,80 @@ provided_interfaces:
 - E2E tests passing (validates complete module)
 - Module ready for broader system integration
 
-### **Parallel Execution Strategy (Future Enhancement)**
+### **Parallel Execution Strategy**
 
-#### **Current MVP: Sequential Within Parallel Groups**
+#### **Phase 1: Sequential Development (Initial MVP)**
 ```bash
-# Group 1 (Independent) - Implemented sequentially
+# Single-agent sequential implementation
 Implement chunk-01 → Complete
 Implement chunk-02 → Complete  
 Implement chunk-03 → Complete
-
-# Group 2 (Depends on Group 1) - Implemented sequentially
-Implement chunk-04 → Complete
-Implement chunk-05 → Complete
-Implement chunk-06 → Complete
-
-# Group 3 (Integration)
-Implement chunk-07 → Complete
+# Validates: Chunk contracts, boundaries, handoffs work correctly
 ```
 
-#### **Future Enhancement: True Parallel Execution**
-**Agent Specialization Options**:
+#### **Phase 2: Parallel Subagent Implementation (Current Target)**
+**Approach**: One subagent per chunk, parallel execution within dependency groups
+**Implementation**:
+```bash
+# Group 1 (Independent chunks) - Parallel subagents
+Task A: "Subagent 1: Implement chunk-01 using CHUNK-CONTEXT.md"
+Task B: "Subagent 2: Implement chunk-02 using CHUNK-CONTEXT.md" 
+Task C: "Subagent 3: Implement chunk-03 using CHUNK-CONTEXT.md"
+# All Group 1 chunks run simultaneously
+
+# Wait for Group 1 completion, collect handoffs
+
+# Group 2 (Dependent chunks) - Parallel subagents with dependencies
+Task D: "Subagent 4: Implement chunk-04 using CHUNK-CONTEXT.md + Group 1 handoffs"
+Task E: "Subagent 5: Implement chunk-05 using CHUNK-CONTEXT.md + Group 1 handoffs"
+# All Group 2 chunks run simultaneously
+
+# Group 3 (Integration)
+Task F: "Subagent 6: Implement chunk-07 using CHUNK-CONTEXT.md + all handoffs"
+```
+
+**Each subagent**:
+- Gets isolated CHUNK-CONTEXT.md (~2000 tokens)
+- Implements production code and validates unit tests
+- Ensures interface contract compliance
+- Generates HANDOFF.md for dependent chunks
+- **No internal agent specialization** - single agent handles complete chunk
+
+**Coordination**:
+- Main session orchestrates subagent launches by dependency group
+- Collects HANDOFF.md files between groups
+- Runs integration tests after each group completes
+- Validates E2E tests after all chunks complete
+
+#### **Phase 3: Multi-Agent Per Chunk (Future Advanced Enhancement)**
+**Approach**: Multiple specialized agents within each chunk (implementation after proven MVP)
+
+**Agent Specialization Per Chunk**:
 - **Implementation Agent**: Focuses on production code only
 - **Test Agent**: Specializes in comprehensive test coverage
 - **Review Agent**: Analyzes security, performance, and quality
 - **Coordination Agent**: Integrates outputs and resolves conflicts
 
-**Parallel Session Structure (Future)**:
+**When to Consider Phase 3**:
+- Phase 2 is proven and working reliably
+- Identified quality bottlenecks that agent specialization would address
+- Complex chunks where single agents struggle with multiple concerns
+- Clear evidence that multi-agent coordination improves outcomes vs. adds overhead
+
+**Phase 3 Structure (Future)**:
 ```bash
-# Within each chunk - parallel agent execution
-Task A: "Implementation Agent: Implement chunk using IMPLEMENTATION-CONTEXT.md"
-Task B: "Test Agent: Write comprehensive tests using TEST-CONTEXT.md"  
-Task C: "Review Agent: Analyze implementation using REVIEW-CONTEXT.md"
-# Coordination: "Integrate outputs from all three agents"
+# Within each chunk - parallel specialized agents
+Task A1: "Implementation Agent: Code chunk using IMPLEMENTATION-CONTEXT.md"
+Task A2: "Test Agent: Write tests using TEST-CONTEXT.md"  
+Task A3: "Review Agent: Analyze quality using REVIEW-CONTEXT.md"
+# Coordination: "Integrate outputs from all three specialized agents"
 ```
+
+**Why Deferring Phase 3**:
+- Unproven coordination overhead between specialized agents
+- Need to validate chunk boundaries and contracts work first
+- Adds significant complexity that may not provide proportional benefits
+- Better to identify real bottlenecks through Phase 2 usage
 
 ### **Integration with 11-Stage Framework**
 
@@ -638,7 +679,7 @@ Task C: "Review Agent: Analyze implementation using REVIEW-CONTEXT.md"
 ### **Evolution Path**
 1. **Current MVP**: Sequential chunk development with contract-driven interfaces
 2. **Phase 2**: Parallel chunk execution within dependency groups
-3. **Phase 3**: Multi-agent chunk development (implementation/test/review agents)
+3. **Phase 3**: Multi-agent chunk development - First parallel subagents per chunk (Phase 2), then specialized agents within chunks (implementation/test/review agents per chunk)
 4. **Phase 4**: Automated chunk planning and contract generation
 5. **Phase 5**: Cross-module chunk coordination and reuse
 
