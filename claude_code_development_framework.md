@@ -197,6 +197,138 @@ The four-domain context system implements progressive disclosure through:
 3. **Task-Oriented Loading**: Context selection based on current work type (implementation, debugging, extending)
 4. **Single Source of Truth**: Each concept documented exactly once with explicit cross-references
 
+### **Current Implementation: MVP Manual System**
+**Status**: Manual context loading with organizational benefits only
+
+**What Works Now:**
+- Clean 4-domain file organization enables easy navigation
+- CLAUDE.md navigation hub provides clear entry points
+- Progressive disclosure reduces cognitive load
+- Structured contexts improve information findability
+
+**What Doesn't Work Yet:**
+- No automated context selection (Claude chooses files manually)
+- No XML wrapping or structured document processing
+- Context rules exist as documentation only
+- Metadata headers serve no functional purpose
+
+### **Future Enhancement Path: Automated Context Management**
+
+#### **Phase 1: Smart Context Selection (Token Savings: 20-40%)**
+
+**Implementation:** Task Agent Integration
+```markdown
+## Dynamic Context Loading Protocol
+For complex tasks requiring context understanding:
+1. Use Task agent to analyze user request keywords
+2. Agent reads context_rules.yaml for selection patterns
+3. Agent loads only relevant context sections (not full files)
+4. Agent returns XML-wrapped context for processing
+
+Benefits:
+- Selective content loading vs loading entire files
+- Keyword-driven context selection
+- 4,000-6,000 token savings per session
+```
+
+**Upgrade Indicators:**
+- Context files growing beyond 200 lines each
+- Frequently loading irrelevant context sections
+- Claude showing confusion from information overload
+- Token usage approaching conversation limits
+
+#### **Phase 2: XML Document Processing (Processing Quality: 15-30% improvement)**
+
+**Implementation:** Anthropic-Optimized Structure
+```xml
+<documents>
+  <document index="N">
+    <source>context/path/file.md</source>
+    <last_updated>auto-generated</last_updated>
+    <triggers>from-metadata-headers</triggers>
+    <document_content>[selective content]</document_content>
+  </document>
+</documents>
+```
+
+**Benefits:**
+- Precise source attribution: "from document 1, architecture.md"
+- Noise reduction through clear document boundaries
+- Enhanced Claude processing through structured inputs
+- Better quote extraction and context referencing
+
+**Upgrade Indicators:**
+- Claude making attribution errors or vague references
+- Need for precise source tracking across multiple contexts
+- Complex multi-document reasoning tasks becoming common
+- Quality issues from Claude processing mixed context sources
+
+#### **Phase 3: Metadata-Driven Automation (Maintenance: 50% reduction)**
+
+**Implementation:** YAML Frontmatter Processing
+```yaml
+---
+triggers: ["architecture", "design", "dependencies"]
+task_types: ["planning", "refactoring", "understanding"]  
+load_with: ["standards.md", "current-task.md"]
+relevance_score: 0.9
+---
+```
+
+**Benefits:**
+- Automatic context relevance scoring
+- Smart co-loading of related contexts
+- Maintenance rules automated through metadata
+- Consistent context selection patterns
+
+**Upgrade Indicators:**
+- Managing 10+ context files becomes cumbersome
+- Inconsistent context loading patterns between team members
+- Need for automated context validation and maintenance
+- Context relationships becoming complex and hard to track
+
+### **Implementation Sequence & ROI Analysis**
+
+#### **When to Upgrade: Clear Indicators**
+
+**Phase 1 Triggers** (Smart Context Selection):
+- Project context exceeds 50,000 tokens total
+- Regularly loading 3+ context files for single tasks
+- Token usage hitting session limits frequently
+- 30+ minutes spent per session on context management
+
+**Phase 2 Triggers** (XML Processing):
+- Multi-document reasoning tasks common (>30% of sessions)
+- Claude attribution becoming unreliable or vague
+- Need for precise cross-reference tracking
+- Complex context analysis requiring source isolation
+
+**Phase 3 Triggers** (Metadata Automation):
+- 15+ context files requiring management
+- Team consistency issues with context loading
+- Monthly context maintenance taking >2 hours
+- Context relationship complexity causing errors
+
+#### **ROI Estimates by Phase**
+
+**Phase 1: Smart Selection**
+- **Implementation Cost**: 2-4 hours setup
+- **Token Savings**: 20-40% per session  
+- **Time Savings**: 5-10 minutes per coding session
+- **Break-even**: After ~20 coding sessions
+
+**Phase 2: XML Processing**  
+- **Implementation Cost**: 4-8 hours setup
+- **Quality Improvement**: 15-30% better context processing
+- **Attribution Accuracy**: 90%+ improvement
+- **Break-even**: When multi-document tasks >30% of work
+
+**Phase 3: Metadata Automation**
+- **Implementation Cost**: 8-16 hours setup  
+- **Maintenance Reduction**: 50% less context management overhead
+- **Consistency Improvement**: 80%+ reduction in context selection errors
+- **Break-even**: When context maintenance >2 hours/month
+
 ### **Portability Design**
 The system separates portable structure from project-specific content:
 
@@ -205,15 +337,18 @@ The system separates portable structure from project-specific content:
 - Progressive disclosure patterns and token efficiency principles
 - Maintenance discipline and update timing rules
 - Context loading strategies by task type
+- Upgrade path and implementation phases
 
 #### **Project-Specific Elements**
 - Actual domain content (architecture decisions, coding standards)
 - Stage definitions and implementation progression
 - Workflow patterns specific to project type
 - Reference materials and API contracts
+- Specific context rules and metadata values
 
 #### **Framework Evolution Strategy**
 1. **Perfect in current implementation**: Refine context system until proven effective
 2. **Extract portable patterns**: Identify universal principles vs project-specific content
 3. **Create template system**: Develop scaffolding for rapid setup in new projects
 4. **Validate across project types**: Test portability with different development contexts
+5. **Assess token usage and upgrade indicators**: Track context complexity and automation needs
