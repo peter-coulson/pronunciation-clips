@@ -72,7 +72,7 @@ class TestDatabaseWriter:
             syllables=["ho", "la"],
             syllable_count=2,
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -444,7 +444,7 @@ class TestCreateDefaultDatabase:
         assert isinstance(database, WordDatabase)
         assert len(database.entities) == 0
         assert len(database.speaker_map) == 1
-        assert "speaker_0" in database.speaker_map
+        assert 0 in database.speaker_map
         assert database.metadata["version"] == "1.0"
         assert "created_at" in database.metadata
     
@@ -462,7 +462,7 @@ class TestCreateDefaultDatabase:
             syllables=["test"],
             syllable_count=1,
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -490,15 +490,15 @@ class TestCreateDefaultDatabase:
     def test_create_default_database_with_custom_speakers(self):
         """Test creating default database with custom speaker mapping."""
         custom_speakers = {
-            "alice": SpeakerInfo(name="Alice", gender="F", region="Colombia"),
-            "bob": SpeakerInfo(name="Bob", gender="M", region="Spain")
+            0: SpeakerInfo(name="Alice", gender="F", region="Colombia"),
+            1: SpeakerInfo(name="Bob", gender="M", region="Spain")
         }
         
         database = create_default_database(speaker_map=custom_speakers)
         
         assert len(database.speaker_map) == 2
-        assert database.speaker_map["alice"].name == "Alice"
-        assert database.speaker_map["bob"].name == "Bob"
+        assert database.speaker_map[0].name == "Alice"
+        assert database.speaker_map[1].name == "Bob"
     
     def test_create_default_database_all_custom(self):
         """Test creating database with all custom parameters."""
@@ -514,7 +514,7 @@ class TestCreateDefaultDatabase:
             syllables=["custom"],
             syllable_count=1,
             quality_score=0.8,
-            speaker_id="custom_speaker",
+            speaker_id=0,  # Custom speaker as integer
             recording_id="custom",
             recording_path="custom.wav",
             processed=False,
@@ -522,7 +522,7 @@ class TestCreateDefaultDatabase:
         )
         
         custom_metadata = {"version": "custom", "created_at": "custom_time"}
-        custom_speakers = {"custom_speaker": SpeakerInfo(name="Custom Speaker")}
+        custom_speakers = {0: SpeakerInfo(name="Custom Speaker")}
         
         database = create_default_database(
             entities=[entity],
@@ -533,7 +533,7 @@ class TestCreateDefaultDatabase:
         assert len(database.entities) == 1
         assert database.entities[0].text == "custom"
         assert database.metadata["version"] == "custom"
-        assert database.speaker_map["custom_speaker"].name == "Custom Speaker"
+        assert database.speaker_map[0].name == "Custom Speaker"
 
 
 class TestDatabaseWriterEdgeCases:
@@ -572,7 +572,7 @@ class TestDatabaseWriterEdgeCases:
                 syllables=[f"word{i}"],
                 syllable_count=1,
                 quality_score=0.8,
-                speaker_id="speaker_0",
+                speaker_id=0,
                 recording_id="test",
                 recording_path="test.wav",
                 processed=False,

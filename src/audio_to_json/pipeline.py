@@ -164,7 +164,7 @@ class AudioToJsonPipeline(LoggerMixin):
         
         # Ensure default speaker exists
         if not speaker_map:
-            speaker_map["speaker_0"] = SpeakerInfo(
+            speaker_map[0] = SpeakerInfo(
                 name="Default Speaker",
                 gender="Unknown", 
                 region="Unknown"

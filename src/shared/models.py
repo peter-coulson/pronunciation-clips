@@ -34,7 +34,7 @@ class Entity(BaseModel):
     quality_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall quality score")
     
     # Speaker & context
-    speaker_id: str = Field(..., description="Speaker identifier")
+    speaker_id: int = Field(..., ge=0, description="Speaker identifier (0, 1, 2, ...)")
     recording_id: str = Field(..., description="Recording identifier")
     recording_path: str = Field(..., description="Path to original recording")
     
@@ -96,6 +96,39 @@ class SpeakerInfo(BaseModel):
         return v
 
 
+class SpeakerSegment(BaseModel):
+    """Represents a continuous speech segment by one speaker."""
+    speaker_id: int = Field(..., ge=0, description="Speaker identifier (0, 1, 2, ...)")
+    start_time: float = Field(..., ge=0.0, description="Segment start in seconds")
+    end_time: float = Field(..., description="Segment end in seconds")
+    confidence: float = Field(..., gt=0.0, le=1.0, description="Diarization confidence")
+    
+    @field_validator('end_time')
+    @classmethod
+    def end_after_start(cls, v, info):
+        if hasattr(info, 'data') and 'start_time' in info.data and v <= info.data['start_time']:
+            raise ValueError('end_time must be greater than start_time')
+        return v
+
+
+class DiarizationResult(BaseModel):
+    """Complete result from speaker diarization process."""
+    speakers: List[int] = Field(..., description="List of detected speaker IDs")
+    segments: List[SpeakerSegment] = Field(..., description="All speaker segments")
+    audio_duration: float = Field(..., ge=0.0, description="Total audio duration")
+    processing_time: float = Field(..., ge=0.0, description="Processing time in seconds")
+    
+    @field_validator('segments')
+    @classmethod
+    def no_overlapping_segments(cls, segments):
+        """Validate no overlapping segments."""
+        sorted_segments = sorted(segments, key=lambda x: x.start_time)
+        for i in range(len(sorted_segments) - 1):
+            if sorted_segments[i].end_time > sorted_segments[i + 1].start_time:
+                raise ValueError('Segments must not overlap')
+        return segments
+
+
 class AudioMetadata(BaseModel):
     """Metadata about processed audio files."""
     path: str = Field(..., description="Path to audio file")
@@ -111,7 +144,7 @@ class WordDatabase(BaseModel):
     Complete database container for all entities and metadata.
     """
     metadata: Dict[str, Any] = Field(..., description="Database metadata")
-    speaker_map: Dict[str, SpeakerInfo] = Field(..., description="Speaker ID to info mapping")
+    speaker_map: Dict[int, SpeakerInfo] = Field(..., description="Speaker ID to info mapping")
     entities: List[Entity] = Field(..., description="All word/sentence/phrase entities")
     
     @field_validator('metadata')
@@ -128,7 +161,7 @@ class WordDatabase(BaseModel):
         """Get all entities of a specific type."""
         return [e for e in self.entities if e.entity_type == entity_type]
     
-    def get_entities_by_speaker(self, speaker_id: str) -> List[Entity]:
+    def get_entities_by_speaker(self, speaker_id: int) -> List[Entity]:
         """Get all entities for a specific speaker."""
         return [e for e in self.entities if e.speaker_id == speaker_id]
     

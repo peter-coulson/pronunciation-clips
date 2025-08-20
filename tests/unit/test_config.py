@@ -10,7 +10,7 @@ import os
 from pathlib import Path
 
 from src.shared.config import (
-    Config, AudioConfig, WhisperConfig, SpeakersConfig, 
+    Config, AudioConfig, WhisperConfig, SpeakersConfig, DiarizationConfig,
     QualityConfig, OutputConfig, LoggingConfig, load_config
 )
 from src.shared.exceptions import ConfigError
@@ -181,6 +181,59 @@ class TestSpeakersConfig:
         # Invalid - max too high (using Pydantic's le=50 constraint)
         with pytest.raises(ValueError):
             SpeakersConfig(max_speakers=51)
+
+
+class TestDiarizationConfig:
+    """Test DiarizationConfig validation."""
+    
+    def test_default_values(self):
+        """Test default diarization configuration."""
+        config = DiarizationConfig()
+        assert config.model == "pyannote/speaker-diarization"
+        assert config.min_speakers == 1
+        assert config.max_speakers == 10
+        assert config.segmentation_threshold == 0.5
+        assert config.clustering_threshold == 0.7
+    
+    def test_speaker_count_validation(self):
+        """Test speaker count validation."""
+        # Valid counts
+        DiarizationConfig(min_speakers=1, max_speakers=10)
+        DiarizationConfig(min_speakers=2, max_speakers=50)
+        
+        # Invalid - zero min (using Pydantic's ge=1 constraint)
+        with pytest.raises(ValueError):
+            DiarizationConfig(min_speakers=0)
+        
+        # Invalid - max too high (using Pydantic's le=50 constraint)
+        with pytest.raises(ValueError):
+            DiarizationConfig(max_speakers=51)
+    
+    def test_threshold_validation(self):
+        """Test threshold value validation."""
+        # Valid threshold values (0.0 to 1.0)
+        DiarizationConfig(segmentation_threshold=0.0, clustering_threshold=0.0)
+        DiarizationConfig(segmentation_threshold=0.5, clustering_threshold=0.7)
+        DiarizationConfig(segmentation_threshold=1.0, clustering_threshold=1.0)
+        
+        # Invalid segmentation threshold
+        with pytest.raises(ValueError):
+            DiarizationConfig(segmentation_threshold=-0.1)
+        
+        with pytest.raises(ValueError):
+            DiarizationConfig(segmentation_threshold=1.1)
+        
+        # Invalid clustering threshold
+        with pytest.raises(ValueError):
+            DiarizationConfig(clustering_threshold=-0.1)
+        
+        with pytest.raises(ValueError):
+            DiarizationConfig(clustering_threshold=1.1)
+    
+    def test_model_field(self):
+        """Test model field configuration."""
+        config = DiarizationConfig(model="custom/diarization-model")
+        assert config.model == "custom/diarization-model"
 
 
 class TestOutputConfig:

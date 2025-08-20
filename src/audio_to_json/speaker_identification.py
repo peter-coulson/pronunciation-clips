@@ -69,11 +69,11 @@ class SpeakerMapper(LoggerMixin):
         # Ensure all entities have default speaker
         for entity in entities:
             if not entity.speaker_id or entity.speaker_id == "":
-                entity.speaker_id = "speaker_0"
+                entity.speaker_id = 0
         
         # Create default speaker map
         speaker_map = {
-            "speaker_0": {
+            0: {
                 "name": "Test Speaker",
                 "gender": "Unknown",
                 "region": "Unknown"
@@ -104,7 +104,7 @@ class SpeakerMapper(LoggerMixin):
                 end_time = mapping.get("end", float('inf'))
                 
                 if start_time <= entity_center_time <= end_time:
-                    speaker_id = mapping.get("speaker_id", "speaker_0")
+                    speaker_id = mapping.get("speaker_id", 0)
                     speaker_name = mapping.get("speaker", "Unknown Speaker")
                     
                     # Update entity
@@ -122,9 +122,9 @@ class SpeakerMapper(LoggerMixin):
             else:
                 # No matching range found - use default
                 if not entity.speaker_id:
-                    entity.speaker_id = "speaker_0"
-                    if "speaker_0" not in speaker_map:
-                        speaker_map["speaker_0"] = {
+                    entity.speaker_id = 0
+                    if 0 not in speaker_map:
+                        speaker_map[0] = {
                             "name": "Default Speaker",
                             "gender": "Unknown",
                             "region": "Unknown"
@@ -176,9 +176,9 @@ class SpeakerMapper(LoggerMixin):
             else:
                 # No matching range - use default
                 if not entity.speaker_id:
-                    entity.speaker_id = "speaker_0"
-                    if "speaker_0" not in speaker_map:
-                        speaker_map["speaker_0"] = {
+                    entity.speaker_id = 0
+                    if 0 not in speaker_map:
+                        speaker_map[0] = {
                             "name": "Default Speaker",
                             "gender": "Unknown",
                             "region": "Unknown"

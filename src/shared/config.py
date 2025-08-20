@@ -36,9 +36,19 @@ class WhisperConfig(BaseModel):
         return v
 
 
+class DiarizationConfig(BaseModel):
+    """Diarization-specific configuration."""
+    model: str = Field(default="pyannote/speaker-diarization")
+    min_speakers: int = Field(default=1, ge=1)
+    max_speakers: int = Field(default=10, ge=1, le=50)
+    segmentation_threshold: float = Field(default=0.5, ge=0.0, le=1.0)
+    clustering_threshold: float = Field(default=0.7, ge=0.0, le=1.0)
+
+
 class SpeakersConfig(BaseModel):
     """Speaker identification configuration."""
     enable_diarization: bool = Field(default=False)
+    diarization: Optional[DiarizationConfig] = Field(default=None)
     min_speakers: int = Field(default=1, ge=1)
     max_speakers: int = Field(default=10, ge=1, le=50)
     default_speaker: Optional[Dict[str, str]] = Field(default=None)

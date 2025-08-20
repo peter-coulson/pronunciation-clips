@@ -52,7 +52,7 @@ class TestEntityCreator:
         assert entity1.probability == 0.9
         assert entity1.recording_id == "test_recording"
         assert entity1.recording_path == "test.wav"
-        assert entity1.speaker_id == "speaker_0"  # Default
+        assert entity1.speaker_id == 0  # Default
         assert entity1.processed is False
         assert entity1.clip_path is None
         assert entity1.selection_reason is None
@@ -77,15 +77,15 @@ class TestEntityCreator:
         ]
         
         speaker_mapping = {
-            "0.0-1.0": "speaker_a",
-            "1.0-2.5": "speaker_b"
+            "0.0-1.0": "0",  # Maps to speaker ID 0
+            "1.0-2.5": "1"   # Maps to speaker ID 1
         }
         
         entities = creator.create_entities(words, "test", "test.wav", speaker_mapping)
         
         assert len(entities) == 2
-        assert entities[0].speaker_id == "speaker_a"  # Word center 0.25 falls in 0.0-1.0
-        assert entities[1].speaker_id == "speaker_b"  # Word center 1.75 falls in 1.0-2.5
+        assert entities[0].speaker_id == 0  # Word center 0.25 falls in 0.0-1.0
+        assert entities[1].speaker_id == 1  # Word center 1.75 falls in 1.0-2.5
     
     def test_create_entities_syllable_analysis(self):
         """Test syllable analysis in entity creation."""
@@ -285,7 +285,7 @@ class TestEntityCreator:
         creator = EntityCreator(config)
         
         speaker_id = creator._get_speaker_id(0.0, 1.0, None)
-        assert speaker_id == "speaker_0"
+        assert speaker_id == 0
     
     def test_get_speaker_id_with_mapping(self):
         """Test speaker ID assignment with mapping."""
@@ -293,21 +293,21 @@ class TestEntityCreator:
         creator = EntityCreator(config)
         
         mapping = {
-            "0.0-2.0": "alice",
-            "2.0-4.0": "bob"
+            "0.0-2.0": "0",  # alice -> speaker 0
+            "2.0-4.0": "1"   # bob -> speaker 1
         }
         
         # Test word in first range
         speaker_id1 = creator._get_speaker_id(0.5, 1.0, mapping)
-        assert speaker_id1 == "alice"
+        assert speaker_id1 == 0
         
         # Test word in second range
         speaker_id2 = creator._get_speaker_id(2.5, 3.0, mapping)
-        assert speaker_id2 == "bob"
+        assert speaker_id2 == 1
         
         # Test word outside ranges
         speaker_id3 = creator._get_speaker_id(5.0, 6.0, mapping)
-        assert speaker_id3 == "speaker_0"
+        assert speaker_id3 == 0
     
     def test_get_speaker_id_invalid_mapping(self):
         """Test speaker ID assignment with invalid mapping format."""
@@ -320,7 +320,7 @@ class TestEntityCreator:
         }
         
         speaker_id = creator._get_speaker_id(0.5, 1.0, invalid_mapping)
-        assert speaker_id == "speaker_0"  # Should fallback to default
+        assert speaker_id == 0  # Should fallback to default
     
     def test_estimate_syllables_spanish_words(self):
         """Test Spanish syllable estimation."""
@@ -413,7 +413,7 @@ class TestEntityCreator:
             syllables=syllables,
             syllable_count=len(syllables),
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -483,7 +483,7 @@ class TestApplyQualityFiltersFunction:
             entity_id="test_001", entity_type="word", text="hello",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.9, probability=0.9, syllables=["hel", "lo"],
-            syllable_count=2, quality_score=0.8, speaker_id="speaker_0",
+            syllable_count=2, quality_score=0.8, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -492,7 +492,7 @@ class TestApplyQualityFiltersFunction:
             entity_id="test_002", entity_type="word", text="world",
             start_time=0.5, end_time=1.0, duration=0.5,
             confidence=0.7, probability=0.7, syllables=["wor", "ld"],
-            syllable_count=2, quality_score=0.6, speaker_id="speaker_0",
+            syllable_count=2, quality_score=0.6, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -584,7 +584,7 @@ class TestEntityCreatorEdgeCases:
             entity_id="good", entity_type="word", text="hello",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.9, probability=0.9, syllables=["hel", "lo"],
-            syllable_count=2, quality_score=0.9, speaker_id="speaker_0",
+            syllable_count=2, quality_score=0.9, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -594,7 +594,7 @@ class TestEntityCreatorEdgeCases:
             entity_id="bad_conf", entity_type="word", text="hello",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.7, probability=0.7, syllables=["hel", "lo"],
-            syllable_count=2, quality_score=0.7, speaker_id="speaker_0",
+            syllable_count=2, quality_score=0.7, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )

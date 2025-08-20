@@ -164,10 +164,10 @@ class EntityCreator(LoggerMixin):
             raise EntityError(f"Quality filtering failed: {e}")
     
     def _get_speaker_id(self, start_time: float, end_time: float, 
-                       speaker_mapping: Optional[Dict[str, str]]) -> str:
+                       speaker_mapping: Optional[Dict[str, str]]) -> int:
         """Determine speaker ID based on timing and mapping."""
         if not speaker_mapping:
-            return "speaker_0"
+            return 0
             
         # Find speaker based on time overlap
         word_center = (start_time + end_time) / 2
@@ -176,11 +176,14 @@ class EntityCreator(LoggerMixin):
             try:
                 range_start, range_end = map(float, time_range.split("-"))
                 if range_start <= word_center <= range_end:
-                    return speaker_id
+                    # Convert speaker_id to integer (handle both "speaker_0" and "0" formats)
+                    if isinstance(speaker_id, str) and speaker_id.startswith("speaker_"):
+                        return int(speaker_id.replace("speaker_", ""))
+                    return int(speaker_id)
             except (ValueError, AttributeError):
                 continue
                 
-        return "speaker_0"  # Default fallback
+        return 0  # Default fallback
         
     def _estimate_syllables(self, text: str) -> List[str]:
         """

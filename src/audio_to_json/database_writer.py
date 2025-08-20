@@ -188,7 +188,7 @@ def create_default_database(entities=None, metadata=None, speaker_map=None) -> W
         
     if speaker_map is None:
         speaker_map = {
-            "speaker_0": SpeakerInfo(
+            0: SpeakerInfo(
                 name="Default Speaker",
                 gender="Unknown",
                 region="Unknown"
