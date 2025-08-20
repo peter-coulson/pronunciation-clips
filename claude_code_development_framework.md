@@ -1,5 +1,13 @@
 # Claude Code Development Framework
 
+## Purpose & Scope
+This document serves as the master development strategy for complex Claude Code projects. It defines portable methodologies, patterns, and systems that can be applied across different project types while maintaining consistency and quality.
+
+The framework addresses three core challenges:
+1. **Specification Quality**: Front-loading critical decisions to prevent late-stage rework
+2. **Context Management**: Efficient information organization for token-constrained environments
+3. **Implementation Discipline**: Technical enforcement mechanisms that maintain standards
+
 ## Overview
 This framework enables rapid, high-quality software development using Claude Code by combining upfront planning with rigorous testing discipline and technical enforcement mechanisms.
 
@@ -175,3 +183,37 @@ This framework enables rapid, high-quality software development using Claude Cod
 - Remove obsolete contexts to prevent confusion
 - Keep context files focused on single concerns
 - Test context effectiveness by starting fresh chats
+
+## Context System Design Rationale
+
+### **Problem Statement**
+Complex Claude Code projects face a token efficiency crisis: loading all project context into every conversation wastes tokens and reduces focus. Traditional approaches either overwhelm Claude with irrelevant details or provide insufficient context for quality work.
+
+### **Solution Architecture**
+The four-domain context system implements progressive disclosure through:
+
+1. **Role Separation**: CLAUDE.md serves as lightweight navigation hub (< 30 lines) while detailed contexts load on demand
+2. **Domain Organization**: Knowledge separated into logical domains (architecture, standards, testing, data, deployment) 
+3. **Task-Oriented Loading**: Context selection based on current work type (implementation, debugging, extending)
+4. **Single Source of Truth**: Each concept documented exactly once with explicit cross-references
+
+### **Portability Design**
+The system separates portable structure from project-specific content:
+
+#### **Portable Elements**
+- Four-domain structure (domains/workflows/stages/reference)
+- Progressive disclosure patterns and token efficiency principles
+- Maintenance discipline and update timing rules
+- Context loading strategies by task type
+
+#### **Project-Specific Elements**
+- Actual domain content (architecture decisions, coding standards)
+- Stage definitions and implementation progression
+- Workflow patterns specific to project type
+- Reference materials and API contracts
+
+#### **Framework Evolution Strategy**
+1. **Perfect in current implementation**: Refine context system until proven effective
+2. **Extract portable patterns**: Identify universal principles vs project-specific content
+3. **Create template system**: Develop scaffolding for rapid setup in new projects
+4. **Validate across project types**: Test portability with different development contexts
