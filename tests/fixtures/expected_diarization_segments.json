@@ -1,0 +1,62 @@
+{
+  "multi_speaker_conversation": {
+    "filename": "spanish_complete_test.wav",
+    "expected_speakers": 2,
+    "expected_segments": [
+      {
+        "speaker_id": 0,
+        "start_time": 0.0,
+        "end_time": 15.0,
+        "confidence": 0.85
+      },
+      {
+        "speaker_id": 1,
+        "start_time": 15.0,
+        "end_time": 30.0,
+        "confidence": 0.82
+      },
+      {
+        "speaker_id": 0,
+        "start_time": 30.0,
+        "end_time": 45.0,
+        "confidence": 0.88
+      },
+      {
+        "speaker_id": 1,
+        "start_time": 45.0,
+        "end_time": 60.0,
+        "confidence": 0.79
+      }
+    ]
+  },
+  "two_speaker_clear": {
+    "filename": "spanish_30sec_44khz.wav",
+    "expected_speakers": 2,
+    "expected_segments": [
+      {
+        "speaker_id": 0,
+        "start_time": 0.0,
+        "end_time": 15.0,
+        "confidence": 0.92
+      },
+      {
+        "speaker_id": 1,
+        "start_time": 15.0,
+        "end_time": 30.0,
+        "confidence": 0.89
+      }
+    ]
+  },
+  "single_speaker": {
+    "filename": "spanish_30sec_16khz.wav",
+    "expected_speakers": 1,
+    "expected_segments": [
+      {
+        "speaker_id": 0,
+        "start_time": 0.0,
+        "end_time": 30.0,
+        "confidence": 0.95
+      }
+    ]
+  }
+}
