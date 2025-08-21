@@ -7,11 +7,11 @@ Implements the core workflow: Audio → Transcription → Entities → Database.
 """
 import time
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from datetime import datetime
 
 from ..shared.config import Config
-from ..shared.models import WordDatabase, SpeakerInfo, DiarizationResult
+from ..shared.models import WordDatabase, SpeakerInfo, DiarizationResult, Entity
 from ..shared.exceptions import PipelineError
 from ..shared.logging_config import LoggerMixin
 
@@ -132,6 +132,82 @@ class AudioToJsonPipeline(LoggerMixin):
             if isinstance(e, (PipelineError, NotImplementedError)):
                 raise
             raise PipelineError(f"Pipeline failed: {e}", {"audio_file": audio_path})
+    
+    def process_diarization(self, audio_path: str) -> DiarizationResult:
+        """
+        Process audio file for speaker diarization only.
+        
+        Args:
+            audio_path: Path to input audio file
+            
+        Returns:
+            DiarizationResult with speakers and segments
+            
+        Success Criteria:
+        - Detect 2+ speakers in multi-speaker audio
+        - Return valid speaker segments with timestamps
+        - Handle single-speaker gracefully (return 1 speaker)
+        - Confidence scores > 0.0 and <= 1.0
+        - No overlapping segments
+        """
+        try:
+            audio_file = Path(audio_path)
+            
+            self.log_stage_start("diarization_only", audio_file=str(audio_file))
+            
+            # Process audio to get duration
+            processed_audio = process_audio(audio_path, self.config)
+            
+            # Process diarization
+            diarization_result = self._process_diarization(audio_path, processed_audio.duration)
+            
+            if diarization_result is None:
+                # Create single-speaker fallback result
+                from ..shared.models import SpeakerSegment
+                single_segment = SpeakerSegment(
+                    speaker_id=0,
+                    start_time=0.0,
+                    end_time=processed_audio.duration,
+                    confidence=1.0
+                )
+                diarization_result = DiarizationResult(
+                    speakers=[0],
+                    segments=[single_segment],
+                    audio_duration=processed_audio.duration,
+                    processing_time=0.0
+                )
+            
+            self.log_stage_complete("diarization_only",
+                                  speakers_detected=len(diarization_result.speakers),
+                                  segments_created=len(diarization_result.segments))
+            
+            return diarization_result
+            
+        except Exception as e:
+            self.log_stage_error("diarization_only", e, audio_file=audio_path)
+            if isinstance(e, PipelineError):
+                raise
+            raise PipelineError(f"Diarization failed: {e}", {"audio_file": audio_path})
+    
+    def process(self, audio_path: str) -> List[Entity]:
+        """
+        Process audio through complete pipeline including diarization.
+        
+        Args:
+            audio_path: Path to input audio file
+            
+        Returns:
+            List of Entity objects with speaker_id assigned
+            
+        Success Criteria:
+        - All entities have valid integer speaker_ids
+        - Multi-speaker distribution (max speaker < 80%)
+        - Single speaker gets all entities with speaker_id=0
+        - Backward compatibility when diarization disabled
+        """
+        # Process through full pipeline
+        database = self.process_audio_to_json(audio_path)
+        return database.entities
     
     def _process_diarization(self, audio_path: str, audio_duration: float) -> Optional[DiarizationResult]:
         """

@@ -54,4 +54,4 @@ def test_entity_creation_e2e():
         assert entity.confidence >= config.quality.min_confidence
         assert entity.duration >= config.quality.min_word_duration
         assert entity.duration <= config.quality.max_word_duration
-        assert entity.speaker_id == "speaker_0"  # Default speaker
+        assert entity.speaker_id == 0  # Default speaker

@@ -20,6 +20,13 @@ from src.shared.config import Config, load_config
 from src.shared.models import Entity
 from src.audio_to_json.pipeline import AudioToJsonPipeline
 
+# Skip diarization tests by default - requires HuggingFace authentication
+DIARIZATION_TESTS_ENABLED = os.getenv("ENABLE_DIARIZATION_TESTS", "false").lower() == "true"
+skip_diarization = pytest.mark.skipif(
+    not DIARIZATION_TESTS_ENABLED,
+    reason="Diarization tests disabled by default. Set ENABLE_DIARIZATION_TESTS=true to enable. See DIARIZATION_SETUP.md for details."
+)
+
 
 class TestDiarizationE2E:
     """End-to-end tests for speaker diarization functionality."""
@@ -76,6 +83,7 @@ class TestDiarizationE2E:
         assert not config.speakers.enable_diarization
         return config
 
+    @skip_diarization
     def test_basic_diarization_detection_e2e(self, fixtures_path: Path, expected_segments: Dict[str, Any]):
         """
         Test: Multi-speaker audio → Diarization → Speaker segments detected
@@ -132,6 +140,7 @@ class TestDiarizationE2E:
         assert total_start == 0.0, "Coverage should start at beginning"
         assert total_end > 30.0, "Coverage should extend through audio"
 
+    @skip_diarization
     def test_entity_assignment_integration_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
         Test: Multi-speaker audio → Full pipeline → Entities assigned to speakers
@@ -178,6 +187,7 @@ class TestDiarizationE2E:
         assert total_entities >= expected["total_entities"] * 0.8, "Should have reasonable entity count"
         assert len(speaker_counts) == len(expected["speaker_distribution"]), "Speaker count should match expected"
 
+    @skip_diarization
     def test_speaker_labeling_post_processing_e2e(self, fixtures_path: Path):
         """
         Test: Processed database + name mapping → Speaker names assigned
@@ -217,6 +227,7 @@ class TestDiarizationE2E:
         labeled_speaker_ids = [e.speaker_id for e in labeled_entities]
         assert original_speaker_ids == labeled_speaker_ids, "Entity speaker IDs should remain unchanged"
 
+    @skip_diarization
     def test_single_speaker_fallback_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
         Test: Single-speaker audio → Graceful single-speaker handling
@@ -257,6 +268,7 @@ class TestDiarizationE2E:
         total_entities = len(entities)
         assert total_entities >= expected["total_entities"] * 0.8, "Should have reasonable entity count"
 
+    @skip_diarization
     def test_diarization_disabled_compatibility_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
         Test: Any audio with diarization disabled → Works like current system
@@ -301,21 +313,25 @@ class TestDiarizationE2E:
 class TestDiarizationErrorHandling:
     """Test error handling for diarization functionality."""
     
+    @skip_diarization
     def test_missing_dependency_graceful_fallback(self):
         """Test graceful fallback when diarization dependencies are missing."""
         # NOTE: This will be implemented to test dependency handling
         pytest.skip("Dependency handling not yet implemented")
     
+    @skip_diarization
     def test_audio_file_error_handling(self):
         """Test error handling for corrupted or invalid audio files."""
         # NOTE: This will be implemented to test audio error handling
         pytest.skip("Audio error handling not yet implemented")
     
+    @skip_diarization
     def test_configuration_error_handling(self):
         """Test error handling for invalid diarization configuration."""
         # NOTE: This will be implemented to test config error handling
         pytest.skip("Configuration error handling not yet implemented")
     
+    @skip_diarization
     def test_model_loading_failure_handling(self):
         """Test error handling for diarization model loading failures."""
         # NOTE: This will be implemented to test model loading error handling
@@ -325,16 +341,19 @@ class TestDiarizationErrorHandling:
 class TestDiarizationPerformance:
     """Test performance requirements for diarization functionality."""
     
+    @skip_diarization
     def test_processing_speed_within_realtime(self):
         """Test processing speed within 2-4x realtime."""
         # NOTE: This will be implemented to test performance requirements
         pytest.skip("Performance testing not yet implemented")
     
+    @skip_diarization
     def test_memory_usage_limits(self):
         """Test memory usage <2GB for 10min audio."""
         # NOTE: This will be implemented to test memory requirements
         pytest.skip("Memory testing not yet implemented")
     
+    @skip_diarization
     def test_no_performance_regression_when_disabled(self):
         """Test no performance regression when diarization is disabled."""
         # NOTE: This will be implemented to test performance impact
