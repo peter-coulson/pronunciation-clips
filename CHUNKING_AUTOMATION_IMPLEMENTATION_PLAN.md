@@ -6,6 +6,166 @@
 **Foundation**: Diarization experiment achieved 5/5 effectiveness with 95% contract accuracy and 120% development velocity  
 **Scope**: Automate the complete chunking workflow from E2E test analysis to handoff generation
 
+## Development Management and Context Strategy
+
+### **Session-Based Development Approach**
+
+**Development Methodology**: Build automated chunking system using manual Claude Code workflow with integrated context management
+
+**Session Structure**:
+```
+Session 0: Context Setup and E2E Test Definition
+Session 1: Stage 1 - Handoff Generation Engine
+Session 2: Stage 2 - Context Isolation Engine  
+Session 3: Stage 3 - Contract Validation Framework
+Session 4: Stage 4 - Sequential Orchestration System
+Session 5: Stage 5 - E2E Integration System
+Session 6+: Domain Validation Testing
+```
+
+**Context Management System**:
+```
+chunking-framework/
+├── context/                     # INTEGRATED: Single context system
+│   ├── domains/                 # IMPORTED: Architecture, standards, testing
+│   ├── chunking/                # IMPORTED: Experiment results, handoff examples
+│   ├── workflows/               # NEW: Session-based development workflow
+│   │   ├── session-state.md     # Current session context and objectives
+│   │   └── chunking-framework-development.md # Framework development workflow
+│   ├── framework/               # NEW: Framework-specific context
+│   │   ├── implementation-plan.md # This document
+│   │   ├── progress-tracking.md   # Implementation progress
+│   │   └── sessions/            # Session handoffs and completions
+│   └── stages/                  # IMPORTED: Stage definitions adapted for framework
+```
+
+**Minimal Prompting Workflow**:
+- **Session Start**: `"Start chunking framework session: [SESSION_NAME]"`
+  - Auto-reads `context/workflows/session-state.md`
+  - Loads required context files automatically
+  - Creates TodoWrite objectives from session state
+- **Session Complete**: `"Complete current session and prepare next: [NEXT_SESSION]"`
+  - Auto-generates session handoff
+  - Updates session-state.md for next session
+- **Session Resume**: `"Resume chunking framework development"`
+  - Auto-reads current session state and continues
+
+**Development Benefits**:
+- **Self-Contained**: Framework repo operates independently with essential context imported
+- **Resumable Development**: Complete session state preservation enables recovery anywhere
+- **Progressive Context**: Each session builds naturally on previous session results
+- **Manual Process Excellence**: Build automation using proven manual Claude Code methods
+
+### **Complete Session Workflow**
+
+**Session Start Workflow**:
+1. **User Prompt**: `"Start chunking framework session: [SESSION_NAME]"`
+2. **Context Loading** (Automatic):
+   - Read `context/workflows/session-state.md` for current objectives
+   - Read `context/framework/implementation-plan.md` (relevant sections)
+   - Read `context/framework/sessions/session-[N-1].md` (previous session results)
+   - Read relevant examples from `context/chunking/examples/`
+3. **Session Initialization**:
+   - TodoWrite objectives from session state
+   - Review success criteria and implementation boundaries
+   - Confirm context completeness
+
+**Session Implementation Workflow**:
+4. **Development Phase**: Use standard Claude Code tools (Read, Write, Edit, Bash)
+   - Implement session objectives using TDD approach
+   - Create unit/integration tests as part of implementation
+   - Validate against E2E tests and success criteria
+5. **Testing Phase**: Run tests and validate implementation
+   - Execute unit tests: `pytest tests/unit/`
+   - Execute integration tests: `pytest tests/integration/`
+   - Execute relevant E2E tests: `pytest tests/e2e/test_stage[N]_*.py`
+
+**Session Completion Workflow**:
+6. **User Prompt**: `"Complete current session and prepare next: [NEXT_SESSION_NAME]"`
+7. **Session Handoff Generation** (Manual):
+   - Write `context/framework/sessions/session-[N]-[NAME].md` (session completion handoff)
+   - Edit `context/workflows/session-state.md` (prepare next session context)
+   - Update `context/framework/progress-tracking.md` (mark completion status)
+8. **Context Preparation for Next Session**:
+   - Generate next session objectives based on implementation plan
+   - Prepare required context files for next session
+   - Document interfaces and dependencies created
+
+**Session Recovery Workflow**:
+- **User Prompt**: `"Resume chunking framework development"`
+- **Context Restoration**: Auto-read current session state and continue from last checkpoint
+
+### **System Analysis and Review Capabilities**
+
+**Core Analysis Functions** (What the finished system will provide):
+1. **Codebase Analysis**: Automated analysis of existing codebases to identify optimal chunk boundaries
+2. **Interface Extraction**: AST-based extraction of classes, functions, and integration points
+3. **Dependency Mapping**: Analysis of file dependencies and import relationships
+4. **Context Packaging**: Automated selection and packaging of relevant context for each chunk
+5. **Progress Tracking**: Systematic tracking of chunk completion and integration status
+
+**Review and Validation Capabilities**:
+- **Contract Validation**: Verify implementations match predicted interfaces
+- **Integration Compatibility**: Ensure chunk handoffs work together seamlessly
+- **Quality Assessment**: Compare generated handoffs against proven quality benchmarks
+- **Context Sufficiency**: Validate context packages enable focused implementation
+
+## Development Environment Setup
+
+### **DevOps Configuration**
+
+**Repository Structure**:
+```bash
+# Create framework subfolder (from pronunciation-clips root)
+mkdir chunking-framework && cd chunking-framework
+git init && git checkout -b develop
+cd .. && echo "chunking-framework/" >> .gitignore
+```
+
+**Python Environment**:
+```bash
+cd chunking-framework
+python -m venv venv && source venv/bin/activate
+# pyproject.toml setup with lightweight dependencies (~20MB)
+pip install -e ".[dev,test]" && pre-commit install
+```
+
+**Context Integration**:
+```bash
+# Import essential proven patterns
+mkdir -p context/{domains,chunking,workflows,framework,stages}
+cp -r ../context/domains/standards.md context/domains/
+cp -r ../context/domains/architecture.md context/domains/
+cp -r ../context/chunking/examples/ context/chunking/
+cp ../CHUNKING_AUTOMATION_IMPLEMENTATION_PLAN.md context/framework/implementation-plan.md
+```
+
+### **Testing Framework Setup**
+
+**Test Structure**:
+```bash
+mkdir -p tests/{unit,integration,e2e}
+# Session 0 creates comprehensive E2E tests first
+# Each implementation session creates corresponding unit/integration tests
+```
+
+**Testing Dependencies**:
+```toml
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21", 
+    "pytest-mock>=3.10",
+    "pytest-benchmark>=4.0",  # Performance measurement
+]
+```
+
+**Test Execution Strategy**:
+- **E2E Tests**: Created in Session 0, guide all implementation
+- **Unit Tests**: Created during each implementation session for immediate components
+- **Integration Tests**: Created during each session for cross-component functionality
+- **Test Validation**: Each session validates against relevant E2E test subset
+
 ## Test-Driven Development Strategy
 
 ### **TDD Philosophy: E2E Test Immutability + Lightweight Validation**
