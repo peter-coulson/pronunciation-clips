@@ -6,6 +6,94 @@
 **Foundation**: Diarization experiment achieved 5/5 effectiveness with 95% contract accuracy and 120% development velocity  
 **Scope**: Automate the complete chunking workflow from E2E test analysis to handoff generation
 
+## Test-Driven Development Strategy
+
+### **TDD Philosophy: E2E Test Immutability + Lightweight Validation**
+
+**Core Principle**: Define comprehensive E2E tests before any implementation, then build automation to pass these tests using lightweight validation rather than heavyweight NLP dependencies.
+
+**Testing Architecture - Multi-Layer Validation**:
+1. **Unit Tests** (Traditional TDD) - Deterministic components (AST parsing, file analysis)
+2. **Structure Validation** - Document format compliance, template matching
+3. **Interface Accuracy** - AST-based validation of predicted vs actual interfaces  
+4. **Workflow Integration** - Claude Code script orchestration testing
+5. **E2E Outcome Validation** - Complete chunking workflow effectiveness
+
+### **Phase 1 TDD Implementation (Phase 2A Foundation)**
+
+**Week 1: Define All E2E Tests Before Implementation**
+
+**E2E Test Creation Sequence**:
+```
+tests/e2e/test_stage1_handoff_generation_e2e.py    # 90% handoff quality vs HANDOFF-2.md
+tests/e2e/test_stage2_context_isolation_e2e.py     # 4.5+ context sufficiency, 3-4K tokens
+tests/e2e/test_stage3_contract_validation_e2e.py   # 95% contract accuracy baseline
+tests/e2e/test_stage4_orchestration_e2e.py         # Sequential workflow automation
+tests/e2e/test_stage5_integration_e2e.py           # Complete system integration
+tests/e2e/test_full_workflow_e2e.py                # End-to-end chunking effectiveness
+```
+
+**Lightweight Validation Dependencies (~20MB total)**:
+- `pyyaml` (500KB) - Contract specifications and progress tracking
+- `markdown` (200KB) - Handoff document parsing and structure validation
+- `psutil` (500KB) - Performance monitoring and development velocity measurement
+- **Built-in Python**: AST parsing, template matching, file analysis
+
+**Key Testing Technologies**:
+
+**Structure Validation** (No dependencies):
+- Template compliance scoring using text pattern matching
+- Required sections validation against HANDOFF-2.md structure
+- Interface completeness ratios (documented/total interfaces)
+- Context token counting with built-in tokenization
+
+**Interface Accuracy** (Built-in AST):
+- Parse implementations to extract actual classes/functions/methods
+- Compare predicted interfaces vs AST-extracted reality
+- Calculate precision/recall for interface predictions
+- Validate data types and method signatures match contracts
+
+**Workflow Integration** (Built-in subprocess):
+- Test Claude Code script orchestration via bash command execution
+- Validate automation script integration points work correctly
+- Progress tracking validation through file system state
+- Error handling and recovery testing
+
+**Outcome Measurement**:
+- Development velocity tracking through time measurement
+- Focus maintenance through context usage analysis
+- Integration reliability through handoff compatibility testing
+- Contract accuracy through post-implementation validation
+
+**TDD Implementation Sequence**:
+
+**Red Phase** (Week 1): All E2E tests fail initially
+- Define exact success criteria based on experiment metrics
+- Create validation benchmarks using proven HANDOFF-2.md example
+- Establish measurement baselines for all effectiveness metrics
+
+**Green Phase** (Week 2-3): Implement minimal automation to pass tests  
+- Focus on achieving benchmark quality through structure validation
+- Implement Claude Code integration points with lightweight validation
+- Build against proven templates rather than semantic sophistication
+
+**Refactor Phase** (Week 4): Optimize for reliability and cross-domain effectiveness
+- Improve validation accuracy based on test feedback
+- Enhance automation quality through iterative refinement
+- Optimize for consistent results across different implementation contexts
+
+### **Cross-LLM Compatibility Testing Strategy**
+
+**LLM Abstraction Design**: Framework tests automation outputs, not LLM-specific behavior
+- Tests validate **Claude Code's chunking automation** produces quality results
+- Validation logic is deterministic and LLM-agnostic
+- Success measured through outcome effectiveness, not process specifics
+
+**Future Expansion Notes**: 
+- **Tech Stack Specialization**: Add domain-specific validation as needed (Python AST vs TypeScript parsing)
+- **Enhanced Quality Metrics**: Consider NLP-based validation only if lightweight validation proves insufficient
+- **Cross-Domain Patterns**: Systematic validation expansion based on actual usage patterns rather than theoretical coverage
+
 ## System Architecture & Deployment Model
 
 ### **Development Strategy: Hybrid Claude Code Integration**
@@ -108,71 +196,103 @@ pronunciation-clips/
 - **Validation Phase**: Verify contract compliance, interface accuracy, integration compatibility
 - **Orchestration Phase**: Prepare next chunk context, track progress, manage dependencies
 
-### **Phase 2A: Core Automation System (2-3 weeks)**
+### **Phase 2A: Core Automation System (2-3 weeks) - TDD Implementation**
 
 #### **Stage 1: Handoff Generation Engine** 
 **Duration**: 5-6 days  
 **Priority**: Critical (Proven most important factor)
+**TDD Approach**: E2E tests define 90% quality benchmark before implementation
+
+**E2E Test Definition (Week 1)**:
+```python
+# tests/e2e/test_stage1_handoff_generation_e2e.py
+def test_handoff_generation_achieves_benchmark_quality():
+    """E2E: Generate handoff matching HANDOFF-2.md quality standards"""
+    # Test validates: structure compliance, interface completeness, context adequacy
+    
+def test_handoff_interface_accuracy_90_percent():
+    """E2E: Validate 90%+ interface prediction accuracy vs actual implementation"""
+    # Test measures: predicted interfaces vs AST-extracted actual interfaces
+    
+def test_context_package_3k_to_4k_tokens():
+    """E2E: Context packages consistently within proven effective range"""
+    # Test validates: token count, relevance scoring, minimal external loading required
+```
 
 **Scope & Boundaries**:
 - **Input**: Completed chunk implementation (source files, tests, git changes)
 - **Output**: Comprehensive HANDOFF-{N}.md document matching proven quality standards
 - **Boundaries**: Does NOT modify code, only analyzes and documents interfaces
+- **Validation**: Lightweight structure validation + AST-based interface accuracy
 
 **Core Components**:
 
-1. **Interface Analyzer**
-   - Extract classes, functions, data models from implementation
+1. **Interface Analyzer** (Unit + Integration Tests)
+   - Extract classes, functions, data models using Python AST parsing
    - Identify input/output contracts and method signatures  
-   - Detect integration points and dependencies
+   - Detect integration points and dependencies through import analysis
    - Generate usage examples from actual implementation patterns
 
-2. **Contract Specification Generator**
-   - Auto-generate INTERFACE-CONTRACT.yaml from code analysis
+2. **Contract Specification Generator** (Unit + Integration Tests)
+   - Auto-generate INTERFACE-CONTRACT.yaml from AST analysis
    - Map dependencies between chunks based on interface usage
-   - Validate contract completeness against implementation
-   - Predict requirements for dependent chunks
+   - Validate contract completeness against implementation via AST comparison
+   - Predict requirements for dependent chunks using dependency analysis
 
-3. **Context Preparation System**  
-   - Identify files required by dependent chunks
+3. **Context Preparation System** (Integration + E2E Tests)
+   - Identify files required by dependent chunks through dependency graphs
    - Extract relevant code patterns and integration examples
-   - Package focused context (3-4K tokens based on proven success)
+   - Package focused context (3-4K tokens validated through tokenization)
    - Generate troubleshooting and debugging guidance
 
-4. **Handoff Document Composer**
-   - Template engine using proven HANDOFF-{0-5} structure
-   - Automated generation of "Key Decisions Made", "Integration Points", "Context for Dependent Chunks"
-   - Quality validation against successful handoff examples
-   - Consistency checking for interface specifications
+4. **Handoff Document Composer** (E2E Tests)
+   - Template engine using proven HANDOFF-{0-5} structure validation
+   - Automated generation of required sections with completeness checking
+   - Quality validation against HANDOFF-2.md benchmark through structure comparison
+   - Consistency checking for interface specifications via template matching
 
-**Success Criteria**:
-- Generate HANDOFF documents matching quality of manual HANDOFF-2.md (perfect example)
-- 90%+ interface accuracy compared to actual usage in dependent chunks
-- Context packages enable zero-friction dependent chunk implementation
-- Handoff documents require minimal human review/editing
+**TDD Success Criteria** (Measured by automated tests):
+- **Structure Validation**: 95% template compliance vs HANDOFF-2.md format
+- **Interface Accuracy**: 90% precision/recall vs AST-extracted actual interfaces  
+- **Context Effectiveness**: 3-4K token packages with 4.5+ sufficiency simulation
+- **Integration Readiness**: Generated handoffs enable zero-friction dependent chunk implementation
 
 **Implementation Requirements**:
-- Code AST parsing for interface extraction
+- Python AST parsing for deterministic interface extraction
 - Git diff analysis for change identification  
-- Template system based on proven handoff structures
-- File dependency analysis for context preparation
+- Template matching system based on proven handoff structures
+- File dependency analysis through import graph construction
 
-**Claude Code Integration**:
+**Claude Code Integration** (Integration Tests):
 - **Script Execution**: `./chunking-framework/scripts/generate-handoff.py --stage=completed --target=next`
-- **Template Customization**: Claude Code reviews and refines generated handoffs using Read/Edit tools
-- **Quality Validation**: Compare generated handoffs against proven HANDOFF-2.md benchmark
-- **Context Packaging**: Automated preparation of focused 3-4K token context for next chunk
+- **Template Customization**: Claude Code reviews automated handoffs using Read/Edit tools
+- **Quality Validation**: Automated comparison against HANDOFF-2.md benchmark
+- **Context Packaging**: Automated preparation validated through token counting and relevance scoring
 
 ---
 
 #### **Stage 2: Context Isolation Engine**
 **Duration**: 4-5 days  
 **Priority**: High (Context focus proven critical)
+**TDD Approach**: E2E tests validate 4.5+ context sufficiency before implementation
+
+**E2E Test Definition (Week 1)**:
+```python
+# tests/e2e/test_stage2_context_isolation_e2e.py  
+def test_context_package_achieves_sufficiency_rating():
+    """E2E: Context packages achieve 4.5+ sufficiency rating through simulation"""
+    # Test simulates: chunk implementation with generated context, measures external loading
+    
+def test_context_token_count_optimization():
+    """E2E: Context consistently 3-4K tokens with maximum relevance"""
+    # Test validates: token counting accuracy, relevance scoring effectiveness
+```
 
 **Scope & Boundaries**:
 - **Input**: Chunk specification, dependency handoffs, codebase structure
 - **Output**: Focused context packages (3-4K tokens) for chunk implementation  
 - **Boundaries**: Read-only codebase analysis, no code modification
+- **Validation**: Token counting + relevance scoring + sufficiency simulation
 
 **Core Components**:
 
@@ -217,11 +337,25 @@ pronunciation-clips/
 #### **Stage 3: Contract Validation Framework**
 **Duration**: 4-5 days  
 **Priority**: High (95% accuracy needs systematic validation)
+**TDD Approach**: E2E tests validate 95% contract accuracy baseline before implementation
+
+**E2E Test Definition (Week 1)**:
+```python
+# tests/e2e/test_stage3_contract_validation_e2e.py
+def test_contract_validation_achieves_95_percent_accuracy():
+    """E2E: Contract predictions achieve 95% accuracy vs actual implementations"""
+    # Test measures: predicted contracts vs AST-extracted actual interfaces
+    
+def test_integration_compatibility_validation():
+    """E2E: Validate integration compatibility between chunk handoffs"""
+    # Test validates: handoff contracts work together without conflicts
+```
 
 **Scope & Boundaries**:
 - **Input**: Interface contracts, chunk implementation, integration points
 - **Output**: Validation reports and compliance verification
 - **Boundaries**: Validates existing implementations, suggests fixes but doesn't modify
+- **Validation**: AST-based contract comparison + integration compatibility testing
 
 **Core Components**:
 
@@ -266,11 +400,25 @@ pronunciation-clips/
 #### **Stage 4: Sequential Orchestration System**
 **Duration**: 3-4 days  
 **Priority**: Medium (Sequential flow proven, needs automation)
+**TDD Approach**: E2E tests validate sequential workflow automation before implementation
+
+**E2E Test Definition (Week 1)**:
+```python
+# tests/e2e/test_stage4_orchestration_e2e.py
+def test_sequential_workflow_automation():
+    """E2E: Generate correct chunk sequence and session preparation automatically"""
+    # Test validates: dependency ordering, session context preparation, progress tracking
+    
+def test_resumable_implementation_workflow():
+    """E2E: Enable resumable implementation across multiple sessions"""
+    # Test validates: progress state management, context restoration, dependency validation
+```
 
 **Scope & Boundaries**:
 - **Input**: Module specification, E2E tests, chunk dependencies
 - **Output**: Ordered chunk sequence, session preparation, progress tracking
 - **Boundaries**: Orchestrates existing systems, doesn't implement chunks directly
+- **Validation**: Dependency graph validation + progress state testing
 
 **Core Components**:
 
@@ -315,11 +463,25 @@ pronunciation-clips/
 #### **Stage 5: E2E Integration System**
 **Duration**: 3-4 days  
 **Priority**: Medium (E2E tests proven effective for boundaries)
+**TDD Approach**: E2E tests validate complete system integration before implementation
+
+**E2E Test Definition (Week 1)**:
+```python
+# tests/e2e/test_stage5_integration_e2e.py
+def test_complete_chunking_workflow_integration():
+    """E2E: All automation stages work together for complete chunking workflow"""
+    # Test validates: handoff generation → context isolation → contract validation → orchestration
+    
+def test_chunk_boundary_detection_accuracy():
+    """E2E: Detect optimal chunk boundaries from E2E tests automatically"""  
+    # Test validates: boundary detection vs proven 4-6 chunk effectiveness patterns
+```
 
 **Scope & Boundaries**:
 - **Input**: E2E test specifications, module requirements
 - **Output**: Chunk boundary analysis, success criteria extraction
 - **Boundaries**: Analyzes existing tests, suggests boundaries but doesn't modify tests
+- **Validation**: End-to-end workflow testing + boundary optimization validation
 
 **Core Components**:
 
@@ -353,7 +515,19 @@ pronunciation-clips/
 - Create contracts that achieve 95%+ accuracy in dependency prediction
 - Enable module breakdown matching proven 4-6 chunk effectiveness
 
-### **Phase 2B: Domain Validation Testing (2-3 weeks)**
+**Complete E2E Workflow Test (Week 1)**:
+```python
+# tests/e2e/test_full_workflow_e2e.py
+def test_complete_automated_chunking_workflow():
+    """E2E: Complete automation workflow achieves experiment-level effectiveness"""
+    # Test validates: 120% development velocity, 95% contract accuracy, 4.8+ focus maintenance
+    
+def test_cross_chunk_integration_reliability():
+    """E2E: Zero integration failures between automated chunk handoffs"""
+    # Test validates: handoff compatibility, dependency satisfaction, error isolation
+```
+
+### **Phase 2B: Domain Validation Testing (2-3 weeks) - TDD Expansion**
 
 #### **Validation Scenario 1: Greenfield React Application**
 **Duration**: 3-4 days  
@@ -507,19 +681,28 @@ pronunciation-clips/
 - **Developer Experience**: Reduce cognitive load and context switching vs traditional development
 - **Scalability Foundation**: System architecture ready for advanced features (parallel execution, etc.)
 
-## Implementation Timeline
+## Implementation Timeline - TDD Integrated
 
-### **Week 1-2: Core Handoff & Context Systems**
-- Stage 1: Handoff Generation Engine (5-6 days)
-- Stage 2: Context Isolation Engine (4-5 days)
+### **Week 1: E2E Test Definition & Setup (TDD Red Phase)**
+- **Day 1-2**: Define all E2E tests for Stages 1-5 + complete workflow
+- **Day 3-4**: Set up test infrastructure, validation frameworks, benchmarking system
+- **Day 5**: Repository structure setup, integration points, progress tracking
+- **All E2E tests fail initially (expected) - establishes success criteria**
 
-### **Week 3: Validation & Orchestration**  
-- Stage 3: Contract Validation Framework (4-5 days)
-- Stage 4: Sequential Orchestration System (3-4 days)
+### **Week 2: Core Handoff & Context Systems (TDD Green Phase)**  
+- **Day 1-3**: Stage 1 Handoff Generation Engine - implement to pass E2E tests
+- **Day 4-5**: Stage 2 Context Isolation Engine - implement to pass E2E tests
+- **Focus**: Achieve 90% handoff quality, 4.5+ context sufficiency through lightweight validation
 
-### **Week 4: Integration & E2E Testing**
-- Stage 5: E2E Integration System (3-4 days)
-- System integration and testing (3-4 days)
+### **Week 3: Validation & Orchestration (TDD Green Phase)**
+- **Day 1-3**: Stage 3 Contract Validation Framework - implement to pass E2E tests  
+- **Day 4-5**: Stage 4 Sequential Orchestration System - implement to pass E2E tests
+- **Focus**: Achieve 95% contract accuracy, reliable workflow automation
+
+### **Week 4: Integration & Testing (TDD Refactor Phase)**
+- **Day 1-2**: Stage 5 E2E Integration System - complete workflow integration
+- **Day 3-4**: System optimization based on E2E test feedback and performance analysis
+- **Day 5**: Complete workflow validation - all E2E tests passing consistently
 
 ### **Week 5-7: Domain Validation**
 - Validation Scenario 1: Greenfield React (3-4 days)
@@ -539,16 +722,19 @@ pronunciation-clips/
 3. **Template System**: Initialize with proven HANDOFF examples as benchmarks
 4. **Progress Tracking**: Set up `.chunking/current-chunk.yaml` state management
 
-### **Implementation Sequence** (This Week)
-1. **Stage 1 Focus**: Begin Handoff Generation Engine with Claude Code integration points
-2. **Template Validation**: Verify automation can match HANDOFF-2.md quality benchmark
-3. **Context Integration**: Ensure automation works with existing /context/ system
-4. **Script Testing**: Validate Claude Code orchestration via Bash tool integration
+### **Immediate Next Actions (TDD Implementation Start)**
 
-### **Architecture Validation** (Next Week)
-1. **Hybrid Model Testing**: Confirm Claude Code retains implementation authority
-2. **Context Effectiveness**: Validate 3-4K token context generation maintains experiment success
-3. **Integration Patterns**: Test automation augmentation without replacement of interactive development
-4. **Progress Framework**: Establish resumable implementation across multiple sessions
+**Week 1 Focus: E2E Test Definition First**
+1. **Day 1**: Create all E2E test files with failure expectations
+2. **Day 2**: Define validation benchmarks using HANDOFF-2.md as quality standard  
+3. **Day 3**: Set up lightweight validation infrastructure (AST parsing, template matching)
+4. **Day 4**: Test Claude Code integration points with placeholder automation
+5. **Day 5**: Validate all E2E tests fail appropriately - establish measurement baselines
+
+**Key Success Criteria for Week 1**:
+- All E2E tests exist and fail predictably
+- Validation infrastructure measures what matters (structure, interfaces, tokens, effectiveness)
+- Claude Code integration points tested with minimal dependencies  
+- Benchmarking system ready for quality comparison against proven examples
 
 This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness through hybrid Claude Code integration.
