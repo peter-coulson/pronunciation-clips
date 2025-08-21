@@ -1,9 +1,10 @@
 # CLAUDE.md — Pronunciation Clip Generator
 
 ## Current State
-**Stage**: Foundation Setup  
-**Phase**: Context System Implementation  
-**Tests Status**: Not yet created
+**Primary Focus**: Chunking System Automation Development
+**Stage**: Implementation Phase 2A - Core Automation Systems  
+**Phase**: Building automated chunking based on proven experiment results
+**Foundation**: Diarization chunking experiment achieved 5/5 effectiveness, 95% contract accuracy
 
 ## Core Rules
 - **E2E Test Immutability**: Once created, E2E tests CANNOT be modified during implementation
@@ -18,6 +19,16 @@
 - **Testing Strategy**: `/context/domains/testing.md`
 - **Current Work**: `/context/workflows/current-task.md`
 - **Stage Details**: `/context/stages/stage1-foundation.md`
+
+## Chunking System Development
+**Implementation Plan**: `CHUNKING_AUTOMATION_IMPLEMENTATION_PLAN.md` - Complete Phase 2A automation roadmap
+**Context Organization**: `/context/chunking/README.md` - Organized experiment results and examples
+
+### Chunking Context Loading
+- **Critical Reference**: `/context/chunking/experiment/CHUNKING_LEARNINGS_LOG.md` - Proven 5/5 effectiveness results
+- **Gold Standard Examples**: `/context/chunking/examples/HANDOFF-2.md` - Perfect handoff template
+- **Context Templates**: `/context/chunking/examples/DIARIZATION_CHUNK2_CONTEXT.md` - Effective 3.5K token context
+- **Framework Background**: `/context/chunking/framework/` - Design evolution and planning history
 
 ## Quick Commands
 - **Tests**: `./pytest_venv.sh tests/e2e/ -v`
