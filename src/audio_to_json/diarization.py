@@ -4,6 +4,7 @@ ML diarization module for speaker diarization using PyAnnote.
 Integrates with PyAnnote for speaker diarization using the foundation
 interfaces established in the shared models and configuration system.
 """
+import os
 import time
 from typing import List, Optional, Tuple, Any
 from pathlib import Path
@@ -125,24 +126,29 @@ class DiarizationProcessor(LoggerMixin):
             self.logger.info("Loading diarization pipeline", model=self.config.model)
             
             # Load the pipeline
+            # Get HuggingFace token from environment variable
+            hf_token = os.getenv('HF_TOKEN')
             self.pipeline = Pipeline.from_pretrained(
                 self.config.model,
-                use_auth_token=getattr(self.config, 'use_auth_token', None)
+                use_auth_token=hf_token
             )
             
             # Configure parameters
             if hasattr(self.pipeline, 'instantiate'):
-                # Set speaker constraints
-                self.pipeline.instantiate({
-                    "clustering": {
-                        "min_cluster_size": self.config.min_speakers,
-                        "max_num_speakers": self.config.max_speakers,
-                        "threshold": self.config.clustering_threshold
-                    },
-                    "segmentation": {
-                        "threshold": self.config.segmentation_threshold
-                    }
-                })
+                try:
+                    # Set speaker constraints - try with new API first
+                    self.pipeline.instantiate({
+                        "clustering": {
+                            "threshold": self.config.clustering_threshold
+                        },
+                        "segmentation": {
+                            "threshold": self.config.segmentation_threshold
+                        }
+                    })
+                except Exception as e:
+                    # Fallback to no custom parameters if instantiate fails
+                    self.logger.warning("Could not configure pipeline parameters", error=str(e))
+                    pass
             
             self.logger.info("Diarization pipeline loaded successfully")
             

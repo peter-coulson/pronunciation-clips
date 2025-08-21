@@ -7,6 +7,19 @@ import shutil
 from pathlib import Path
 
 
+def pytest_configure(config):
+    """Load .env file at test startup if it exists."""
+    try:
+        from dotenv import load_dotenv
+        env_file = Path(__file__).parent.parent / ".env"
+        if env_file.exists():
+            load_dotenv(env_file)
+            print(f"✅ Loaded environment variables from {env_file}")
+    except ImportError:
+        # dotenv not available, skip
+        pass
+
+
 @pytest.fixture
 def temp_dir():
     """Create a temporary directory for test outputs"""

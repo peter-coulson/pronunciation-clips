@@ -67,3 +67,7 @@ Thumbs.db
 *.pt
 *.pth
 *.model
+
+# Environment files
+.env
+.env.local
