@@ -8,7 +8,7 @@ generates unique entity IDs for database storage.
 from typing import List, Dict, Any, Optional, Union
 from datetime import datetime
 
-from ..shared.models import Entity
+from ..shared.models import Entity, DiarizationResult, SpeakerSegment
 from ..shared.config import QualityConfig
 from ..shared.exceptions import EntityError
 from ..shared.logging_config import LoggerMixin
@@ -25,7 +25,8 @@ class EntityCreator(LoggerMixin):
     def create_entities(self, words: List[Word], 
                        recording_id: str, 
                        recording_path: str,
-                       speaker_mapping: Optional[Dict[str, str]] = None) -> List[Entity]:
+                       speaker_mapping: Optional[Dict[str, str]] = None,
+                       diarization_result: Optional[DiarizationResult] = None) -> List[Entity]:
         """
         Create Entity objects from Whisper word transcription data.
         
@@ -33,7 +34,8 @@ class EntityCreator(LoggerMixin):
             words: List of Word objects from Whisper
             recording_id: Identifier for the source recording
             recording_path: Path to the source audio file
-            speaker_mapping: Optional mapping of time ranges to speaker IDs
+            speaker_mapping: Optional mapping of time ranges to speaker IDs (legacy support)
+            diarization_result: Optional DiarizationResult with speaker segments
             
         Returns:
             List of Entity objects
@@ -59,8 +61,8 @@ class EntityCreator(LoggerMixin):
                     end_time = float(word_data.end_time)
                     duration = end_time - start_time
                     
-                    # Determine speaker ID
-                    speaker_id = self._get_speaker_id(start_time, end_time, speaker_mapping)
+                    # Determine speaker ID (prioritize diarization_result over legacy speaker_mapping)
+                    speaker_id = self._assign_speaker_id(start_time, end_time, diarization_result, speaker_mapping)
                     
                     # Basic syllable analysis (simple heuristic)
                     text = word_data.text.strip()
@@ -163,13 +165,76 @@ class EntityCreator(LoggerMixin):
             self.log_stage_error("quality_filtering", e)
             raise EntityError(f"Quality filtering failed: {e}")
     
-    def _get_speaker_id(self, start_time: float, end_time: float, 
-                       speaker_mapping: Optional[Dict[str, str]]) -> int:
-        """Determine speaker ID based on timing and mapping."""
-        if not speaker_mapping:
-            return 0
+    def _assign_speaker_id(self, start_time: float, end_time: float, 
+                          diarization_result: Optional[DiarizationResult],
+                          speaker_mapping: Optional[Dict[str, str]] = None) -> int:
+        """
+        Assign speaker ID based on temporal overlap with diarization segments.
+        
+        Args:
+            start_time: Word start time in seconds
+            end_time: Word end time in seconds  
+            diarization_result: DiarizationResult with speaker segments (preferred)
+            speaker_mapping: Legacy time range mapping (fallback)
             
-        # Find speaker based on time overlap
+        Returns:
+            Speaker ID (integer, starting from 0)
+        """
+        # Prioritize diarization_result if available
+        if diarization_result and diarization_result.segments:
+            return self._assign_speaker_from_segments(start_time, end_time, diarization_result.segments)
+        
+        # Fallback to legacy speaker_mapping for backward compatibility
+        if speaker_mapping:
+            return self._assign_speaker_from_mapping(start_time, end_time, speaker_mapping)
+        
+        # Default fallback
+        return 0
+    
+    def _assign_speaker_from_segments(self, start_time: float, end_time: float, 
+                                     segments: List[SpeakerSegment]) -> int:
+        """
+        Assign speaker ID using temporal overlap with diarization segments.
+        
+        Implements the algorithm from HANDOFF-2:
+        1. Calculate word center time: (start_time + end_time) / 2
+        2. Find segment that contains the word center
+        3. If no segment contains center, use closest segment
+        4. If no segments exist, return 0
+        """
+        if not segments:
+            return 0
+        
+        word_center = (start_time + end_time) / 2
+        
+        # First pass: find segment that contains the word center
+        for segment in segments:
+            if segment.start_time <= word_center <= segment.end_time:
+                return segment.speaker_id
+        
+        # Second pass: if no containing segment, find closest segment
+        closest_segment = None
+        min_distance = float('inf')
+        
+        for segment in segments:
+            # Calculate distance from word center to segment
+            if word_center < segment.start_time:
+                distance = segment.start_time - word_center
+            elif word_center > segment.end_time:
+                distance = word_center - segment.end_time
+            else:
+                # This should not happen (covered in first pass), but handle it
+                return segment.speaker_id
+            
+            if distance < min_distance:
+                min_distance = distance
+                closest_segment = segment
+        
+        return closest_segment.speaker_id if closest_segment else 0
+    
+    def _assign_speaker_from_mapping(self, start_time: float, end_time: float,
+                                   speaker_mapping: Dict[str, str]) -> int:
+        """Legacy speaker assignment using time range mapping."""
         word_center = (start_time + end_time) / 2
         for time_range, speaker_id in speaker_mapping.items():
             # Parse time range format "start-end"
@@ -272,16 +337,18 @@ def create_entities(words: Union[List[Word], List[Dict[str, Any]]],
                    speaker_mapping: Optional[Dict[str, str]], 
                    recording_id: str,
                    recording_path: str = "unknown.wav",
-                   quality_config: Optional[QualityConfig] = None) -> List[Entity]:
+                   quality_config: Optional[QualityConfig] = None,
+                   diarization_result: Optional[DiarizationResult] = None) -> List[Entity]:
     """
     Convenience function for creating entities.
     
     Args:
         words: Whisper transcription Word objects or dictionaries
-        speaker_mapping: Optional speaker mapping
+        speaker_mapping: Optional speaker mapping (legacy support)
         recording_id: Recording identifier
         recording_path: Path to audio file
         quality_config: Quality configuration (uses defaults if None)
+        diarization_result: Optional DiarizationResult with speaker segments
         
     Returns:
         List of Entity objects
@@ -305,7 +372,7 @@ def create_entities(words: Union[List[Word], List[Dict[str, Any]]],
         words = word_objects
         
     creator = EntityCreator(quality_config)
-    return creator.create_entities(words, recording_id, recording_path, speaker_mapping)
+    return creator.create_entities(words, recording_id, recording_path, speaker_mapping, diarization_result)
 
 
 def apply_quality_filters(entities: List[Entity], quality_config: QualityConfig) -> List[Entity]:

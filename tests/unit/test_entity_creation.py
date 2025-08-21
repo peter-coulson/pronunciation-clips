@@ -279,15 +279,15 @@ class TestEntityCreator:
             mock_start.assert_called_once()
             mock_complete.assert_called_once()
     
-    def test_get_speaker_id_no_mapping(self):
+    def test_assign_speaker_id_no_mapping(self):
         """Test speaker ID assignment with no mapping."""
         config = QualityConfig()
         creator = EntityCreator(config)
         
-        speaker_id = creator._get_speaker_id(0.0, 1.0, None)
+        speaker_id = creator._assign_speaker_id(0.0, 1.0, None, None)
         assert speaker_id == 0
     
-    def test_get_speaker_id_with_mapping(self):
+    def test_assign_speaker_id_with_mapping(self):
         """Test speaker ID assignment with mapping."""
         config = QualityConfig()
         creator = EntityCreator(config)
@@ -298,18 +298,18 @@ class TestEntityCreator:
         }
         
         # Test word in first range
-        speaker_id1 = creator._get_speaker_id(0.5, 1.0, mapping)
+        speaker_id1 = creator._assign_speaker_id(0.5, 1.0, None, mapping)
         assert speaker_id1 == 0
         
         # Test word in second range
-        speaker_id2 = creator._get_speaker_id(2.5, 3.0, mapping)
+        speaker_id2 = creator._assign_speaker_id(2.5, 3.0, None, mapping)
         assert speaker_id2 == 1
         
         # Test word outside ranges
-        speaker_id3 = creator._get_speaker_id(5.0, 6.0, mapping)
+        speaker_id3 = creator._assign_speaker_id(5.0, 6.0, None, mapping)
         assert speaker_id3 == 0
     
-    def test_get_speaker_id_invalid_mapping(self):
+    def test_assign_speaker_id_invalid_mapping(self):
         """Test speaker ID assignment with invalid mapping format."""
         config = QualityConfig()
         creator = EntityCreator(config)
@@ -319,8 +319,68 @@ class TestEntityCreator:
             "0.0-not_a_number": "speaker2"
         }
         
-        speaker_id = creator._get_speaker_id(0.5, 1.0, invalid_mapping)
+        speaker_id = creator._assign_speaker_id(0.5, 1.0, None, invalid_mapping)
         assert speaker_id == 0  # Should fallback to default
+    
+    def test_assign_speaker_id_with_diarization_segments(self):
+        """Test speaker ID assignment with diarization segments."""
+        config = QualityConfig()
+        creator = EntityCreator(config)
+        
+        from src.shared.models import DiarizationResult, SpeakerSegment
+        
+        # Create diarization result with two speakers
+        segments = [
+            SpeakerSegment(speaker_id=0, start_time=0.0, end_time=2.0, confidence=0.9),
+            SpeakerSegment(speaker_id=1, start_time=2.0, end_time=4.0, confidence=0.8),
+            SpeakerSegment(speaker_id=0, start_time=4.0, end_time=6.0, confidence=0.85)
+        ]
+        diarization_result = DiarizationResult(
+            speakers=[0, 1],
+            segments=segments,
+            audio_duration=6.0,
+            processing_time=1.0
+        )
+        
+        # Test word in first segment (speaker 0)
+        speaker_id1 = creator._assign_speaker_id(0.5, 1.0, diarization_result, None)
+        assert speaker_id1 == 0
+        
+        # Test word in second segment (speaker 1)
+        speaker_id2 = creator._assign_speaker_id(2.5, 3.0, diarization_result, None)
+        assert speaker_id2 == 1
+        
+        # Test word in third segment (speaker 0 again)
+        speaker_id3 = creator._assign_speaker_id(4.5, 5.0, diarization_result, None)
+        assert speaker_id3 == 0
+        
+        # Test word in gap (should find closest segment)
+        speaker_id4 = creator._assign_speaker_id(6.5, 7.0, diarization_result, None)
+        assert speaker_id4 == 0  # Should match the closest segment (third one)
+    
+    def test_assign_speaker_id_diarization_priority(self):
+        """Test that diarization result takes priority over speaker mapping."""
+        config = QualityConfig()
+        creator = EntityCreator(config)
+        
+        from src.shared.models import DiarizationResult, SpeakerSegment
+        
+        # Create conflicting mappings
+        speaker_mapping = {"0.0-2.0": "5"}  # Old mapping says speaker 5
+        
+        segments = [
+            SpeakerSegment(speaker_id=2, start_time=0.0, end_time=2.0, confidence=0.9)
+        ]
+        diarization_result = DiarizationResult(
+            speakers=[2],
+            segments=segments,
+            audio_duration=2.0,
+            processing_time=1.0
+        )
+        
+        # Should use diarization result (speaker 2), not mapping (speaker 5)
+        speaker_id = creator._assign_speaker_id(1.0, 1.5, diarization_result, speaker_mapping)
+        assert speaker_id == 2
     
     def test_estimate_syllables_spanish_words(self):
         """Test Spanish syllable estimation."""

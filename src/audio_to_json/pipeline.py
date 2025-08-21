@@ -157,7 +157,7 @@ class AudioToJsonPipeline(LoggerMixin):
         speaker_ids = set(entity.speaker_id for entity in entities)
         for speaker_id in speaker_ids:
             speaker_map[speaker_id] = SpeakerInfo(
-                name=f"Speaker {speaker_id.split('_')[-1]}",
+                name=f"Speaker {speaker_id}",
                 gender="Unknown",
                 region="Unknown"
             )

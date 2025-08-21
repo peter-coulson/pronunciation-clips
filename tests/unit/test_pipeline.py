@@ -232,8 +232,8 @@ class TestAudioToJsonPipeline:
         pipeline = AudioToJsonPipeline(config)
         
         entities = [
-            self._create_mock_entity("hello", 0.0, 0.5, speaker_id="speaker_1"),
-            self._create_mock_entity("world", 0.5, 1.0, speaker_id="speaker_2")
+            self._create_mock_entity("hello", 0.0, 0.5, speaker_id=1),
+            self._create_mock_entity("world", 0.5, 1.0, speaker_id=2)
         ]
         
         processed_audio = self._create_mock_processed_audio()
@@ -243,8 +243,8 @@ class TestAudioToJsonPipeline:
         assert isinstance(database, WordDatabase)
         assert len(database.entities) == 2
         assert len(database.speaker_map) == 2
-        assert "speaker_1" in database.speaker_map
-        assert "speaker_2" in database.speaker_map
+        assert 1 in database.speaker_map
+        assert 2 in database.speaker_map
         assert database.metadata["version"] == "1.0"
         assert database.metadata["entity_count"] == 2
         assert database.metadata["audio_duration"] == 1.0
@@ -261,7 +261,7 @@ class TestAudioToJsonPipeline:
         assert isinstance(database, WordDatabase)
         assert len(database.entities) == 0
         assert len(database.speaker_map) == 1  # Default speaker
-        assert "speaker_0" in database.speaker_map
+        assert 0 in database.speaker_map
     
     def test_apply_smart_buffering_zero_gaps(self):
         """Test smart buffering with zero gaps (Colombian Spanish characteristic)."""
@@ -277,7 +277,7 @@ class TestAudioToJsonPipeline:
         
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": datetime.now().isoformat()},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         
@@ -305,7 +305,7 @@ class TestAudioToJsonPipeline:
         
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": datetime.now().isoformat()},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         
@@ -330,7 +330,7 @@ class TestAudioToJsonPipeline:
         
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": datetime.now().isoformat()},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         
@@ -346,7 +346,7 @@ class TestAudioToJsonPipeline:
         
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": datetime.now().isoformat()},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=[]
         )
         
@@ -356,7 +356,7 @@ class TestAudioToJsonPipeline:
         assert len(result.entities) == 0
     
     def _create_mock_entity(self, text: str, start_time: float, end_time: float, 
-                           speaker_id: str = "speaker_0") -> Entity:
+                           speaker_id: int = 0) -> Entity:
         """Helper to create mock Entity objects."""
         return Entity(
             entity_id=f"word_{text}",
@@ -554,7 +554,7 @@ class TestPipelineEdgeCases:
             syllables=[text],
             syllable_count=1,
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test_recording",
             recording_path="test.wav",
             processed=False,
