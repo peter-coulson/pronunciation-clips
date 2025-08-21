@@ -96,38 +96,57 @@ tests/e2e/test_full_workflow_e2e.py                # End-to-end chunking effecti
 
 ## Repository Structure & DevOps Setup
 
-### **Dedicated Repository Architecture**
+### **Subfolder Repository Architecture**
 
-**Repository Strategy**: Create separate `claude-code-chunking-framework` repository with modern Python project structure
+**Repository Strategy**: Create `chunking-framework` as git-ignored subfolder within current repository, maintaining independent git history while enabling selective context import
 
-**Project Structure**:
+**Hybrid Repository Structure**:
 ```
-claude-code-chunking-framework/
-├── pyproject.toml                    # Modern Python project configuration
-├── src/
-│   └── chunking_framework/
-│       ├── __init__.py
-│       ├── analysis/                 # Interface analysis, AST parsing
-│       ├── generation/               # Handoff generation, context isolation
-│       ├── validation/               # Contract validation, integration testing
-│       └── orchestration/            # Sequential workflow management
-├── templates/
-│   ├── handoff_templates/            # HANDOFF-N.md template structures
-│   └── context_templates/            # Context packaging templates
-├── scripts/
-│   ├── generate-handoff.py           # Claude Code integration scripts
-│   ├── prepare-context.py
-│   ├── validate-contracts.py
-│   └── orchestrate-chunks.py
-├── tests/
-│   ├── unit/                         # Deterministic component testing
-│   ├── integration/                  # Cross-component integration
-│   └── e2e/                          # Complete workflow validation
-├── docs/
-│   └── integration-guide.md          # Claude Code integration instructions
-└── .github/
-    └── workflows/                    # CI/CD automation
+pronunciation-clips/                   # Main audio processing project
+├── .gitignore                        # Add: chunking-framework/
+├── chunking-framework/               # NEW: Independent git repository as subfolder
+│   ├── .git/                        # Separate git history for framework
+│   ├── CLAUDE.md                    # Framework-specific development instructions
+│   ├── pyproject.toml               # Lightweight dependencies (~20MB)
+│   ├── context/                     # IMPORTED proven patterns
+│   │   ├── reference/               # Selective import from ../context/
+│   │   │   ├── handoff-examples/    # HANDOFF-*.md templates
+│   │   │   └── standards.md         # Proven development standards
+│   │   └── development/             # Framework-specific context
+│   │       ├── architecture/        # Framework design decisions
+│   │       └── validation/          # Testing and quality patterns
+│   ├── src/
+│   │   └── chunking_framework/
+│   │       ├── analysis/            # Interface analysis, AST parsing
+│   │       ├── generation/          # Handoff generation, context isolation
+│   │       ├── validation/          # Contract validation, integration testing
+│   │       └── orchestration/       # Sequential workflow management
+│   ├── templates/
+│   │   ├── handoff_templates/       # Generated from proven examples
+│   │   └── context_templates/       # Context packaging templates
+│   ├── scripts/
+│   │   ├── generate-handoff.py      # Claude Code integration scripts
+│   │   ├── prepare-context.py
+│   │   ├── validate-contracts.py
+│   │   └── orchestrate-chunks.py
+│   ├── tests/
+│   │   ├── unit/                    # Deterministic component testing
+│   │   ├── integration/             # Cross-component integration
+│   │   └── e2e/                     # Complete workflow validation
+│   └── .github/
+│       └── workflows/               # Independent CI/CD for framework
+├── context/                         # EXISTING: Audio project context (preserved)
+│   ├── chunking/                    # Proven experiment results (preserved)
+│   └── domains/                     # Audio-specific context (preserved)
+└── src/audio_to_json/               # EXISTING: Audio processing (preserved)
 ```
+
+**Architectural Benefits**:
+- **Clean Separation**: Framework dependencies (~20MB) isolated from ML dependencies (~500MB+)
+- **Independent Development**: Separate git history, branching, CI/CD, versioning
+- **Proven Pattern Import**: Selective import of 4.8/5 effectiveness context patterns
+- **Real-world Validation**: Audio project serves as primary testing scenario
+- **Context Preservation**: Maintain proven context-with-code effectiveness
 
 ### **Modern Python DevOps Configuration**
 
@@ -321,72 +340,75 @@ repos:
 - Linting with ruff (zero violations)
 - Pre-commit hooks must pass
 
-## System Architecture & Deployment Model
+## System Architecture & Integration Model
 
-### **Development Strategy: Hybrid Claude Code Integration**
+### **Hybrid Claude Code Integration Strategy**
 
-**Architectural Decision**: Maintain hybrid model where Claude Code orchestrates automation while retaining full implementation authority
-
-**Integration Repository Structure**:
-```
-pronunciation-clips/
-├── chunking-integration/         # Integration state and configuration
-│   ├── .chunking/               # Active automation state
-│   │   ├── current-chunk.yaml   # Progress tracking
-│   │   ├── handoffs/            # Generated handoff documents
-│   │   └── contexts/            # Prepared context packages
-│   └── config/
-│       └── chunking-config.yaml # Framework configuration
-└── context/chunking/experiment/ # Proven reference patterns (preserved)
-```
-
-**Separate Framework Repository**: `claude-code-chunking-framework/` (see Repository Structure above)
+**Architectural Decision**: Framework operates as independent subfolder with selective context import while maintaining proven development patterns
 
 **Integration Pattern**:
-- **Claude Code**: Interactive development, decision-making, code implementation
-- **Automation Scripts**: Analysis, template generation, validation, context preparation
-- **Coordination**: Claude Code orchestrates via Bash tool integration
+- **Claude Code**: Interactive development, decision-making, implementation authority
+- **Framework Scripts**: Analysis, template generation, validation, context preparation
+- **Selective Import**: Proven context patterns imported without domain-specific bloat
+- **Independent Testing**: Framework validates against audio project as real-world scenario
 
 **Workflow Example**:
 ```bash
-# 1. Claude Code analyzes completed chunk implementation
-./chunking-framework/scripts/analyze-completion.py --stage=foundation
+# 1. Claude Code analyzes completed chunk in audio project
+cd chunking-framework
+./scripts/analyze-completion.py --project=../src/audio_to_json --stage=foundation
 
-# 2. Automation generates handoff template based on proven patterns
-./chunking-framework/scripts/generate-handoff.py --from=foundation --to=audio
+# 2. Framework generates handoff using imported proven patterns
+./scripts/generate-handoff.py --from=foundation --to=audio --templates=context/reference/handoff-examples/
 
-# 3. Claude Code reviews and customizes handoff using Read/Edit tools
-# Uses generated templates as high-quality starting points
+# 3. Claude Code reviews generated handoff in framework context
+# Uses Read/Edit tools within chunking-framework/ directory
 
-# 4. Claude Code prepares next chunk context with automation assistance
-./chunking-framework/scripts/prepare-context.py --chunk=audio --handoff=foundation-audio.md
+# 4. Apply validated handoff to audio project implementation
+cd ..
+# Continue with audio project development using framework-generated guidance
 ```
 
 ### **Context Management Strategy**
 
-**Design Principle**: Context travels with code (proven in experiment)
-- **Framework**: Provides templates and analysis capabilities
-- **Repository**: Stores active handoffs, progress tracking, context packages
-- **Claude Code**: Manages workflow decisions and implementation execution
+**Selective Import Principle**: Preserve proven effectiveness patterns while eliminating domain bloat
 
-**Rationale**: Experiment success demonstrates context-with-code effectiveness. Framework can later extract while preserving context locality.
+**Context Import Strategy**:
+```bash
+# Import proven organizational patterns
+cp -r context/domains/standards.md chunking-framework/context/reference/
+cp -r context/chunking/examples/HANDOFF-*.md chunking-framework/context/reference/handoff-examples/
 
-### **Repository Evolution Plan**
+# Exclude domain-specific content
+# Skip: context/domains/data.md (audio-specific)
+# Skip: context/stages/ (audio project stages)
+# Skip: context/workflows/ (audio project workflows)
+```
 
-**Phase 2A (Current → 4 weeks)**: Develop in current repository
-- Leverage existing test infrastructure and context system
-- Use proven experiment patterns as development templates
-- Rapid iteration with established Claude Code integration patterns
+**Benefits**:
+- **Proven Patterns**: Import 4.8/5 effectiveness context methodology
+- **Clean Architecture**: Framework context focused on chunking automation
+- **Reduced Complexity**: No audio/ML specific context in framework
+- **Validation Path**: Audio project tests framework in real-world scenario
 
-**Phase 2B+ (After core automation proven)**: Extract to dedicated framework repository
-- Migration to `claude-code-chunking-framework` repository
-- Current repository becomes first production user of framework
-- Framework provides automation while preserving proven context patterns
+### **Development Strategy**
+
+**Phase 2A (Immediate)**: Subfolder framework development
+- Initialize independent git repository in `chunking-framework/` subfolder
+- Import selective context patterns from proven experiments
+- Develop framework with audio project as primary validation scenario
+- Maintain separate dependencies, CI/CD, and development lifecycle
+
+**Phase 2B+ (Post-validation)**: Cross-domain expansion
+- Validate framework effectiveness with audio project implementation
+- Test framework with additional validation scenarios (React, database, API)
+- Refine based on real-world usage patterns and effectiveness metrics
+- Consider extraction to standalone repository if cross-domain proven
 
 **Future Integration Options**:
-- **MCP Integration**: Convert successful automation scripts to MCP tools (post-validation)
-- **Dependency Model**: Framework as external dependency with local context management
-- **Template System**: Abstract successful patterns for cross-domain application  
+- **MCP Tools**: Convert successful scripts to Claude Code MCP tools
+- **Template Library**: Generalize successful patterns for cross-domain use
+- **Standalone Distribution**: Extract to independent repository post-validation  
 
 ## Experiment Results Foundation
 
@@ -952,59 +974,72 @@ def test_cross_chunk_integration_reliability():
 
 ### **Development Environment Setup** (Immediate)
 
-**Phase 1: Repository Creation & Setup** (Day 1)
-1. **Create Dedicated Repository**: `claude-code-chunking-framework`
+**Phase 1: Subfolder Repository Creation & Setup** (Day 1)
+1. **Create Framework Subfolder with Independent Git**:
    ```bash
-   git init claude-code-chunking-framework
-   cd claude-code-chunking-framework
+   # From pronunciation-clips root directory
+   mkdir chunking-framework
+   cd chunking-framework
+   git init
    git checkout -b develop
+   
+   # Add to main project .gitignore
+   cd ..
+   echo "chunking-framework/" >> .gitignore
    ```
 
-2. **Modern Python Project Initialization**:
+2. **Framework Project Structure Initialization**:
    ```bash
-   # Create project structure
+   cd chunking-framework
+   
+   # Create framework-specific structure
    mkdir -p src/chunking_framework/{analysis,generation,validation,orchestration}
-   mkdir -p {templates,scripts,tests/{unit,integration,e2e},docs}
+   mkdir -p context/{reference,development}
+   mkdir -p {templates,scripts,tests/{unit,integration,e2e}}
    
-   # Initialize pyproject.toml with recommended configuration
-   # (See Repository Structure & DevOps Setup above)
+   # Initialize framework-specific CLAUDE.md
+   touch CLAUDE.md
    
-   # Set up development environment
+   # Initialize pyproject.toml with lightweight dependencies
+   # (See Modern Python DevOps Configuration above)
+   ```
+
+3. **Selective Context Import**:
+   ```bash
+   # Import proven patterns (from pronunciation-clips root)
+   mkdir -p context/reference/handoff-examples
+   cp ../context/chunking/examples/HANDOFF-*.md context/reference/handoff-examples/
+   cp ../context/domains/standards.md context/reference/
+   
+   # Create framework-specific context structure
+   mkdir -p context/development/{architecture,validation,integration}
+   
+   # Initialize templates from imported examples
+   cp context/reference/handoff-examples/HANDOFF-2.md templates/handoff_templates/base-template.md
+   ```
+
+4. **Modern Python Environment Setup**:
+   ```bash
+   # Set up independent development environment
    python -m venv venv
    source venv/bin/activate  # or venv/Scripts/activate on Windows
    pip install -e ".[dev,test]"
    
-   # Install pre-commit hooks
+   # Install pre-commit hooks for framework
    pre-commit install
    ```
 
-3. **Quality Assurance Setup**:
+5. **Quality Assurance Validation**:
    ```bash
-   # Validate development environment
-   python -m chunking_framework --version
-   pytest --version
-   ruff --version
-   black --version
-   mypy --version
-   
-   # Run initial quality checks (should pass with empty codebase)
+   # Validate framework environment (should pass with empty codebase)
    pytest tests/
    ruff check src/
    black --check src/
    mypy src/
-   ```
-
-**Phase 2: Integration Configuration** (Day 1-2)
-4. **Integration State Setup**: Create integration directories in current project
-   ```bash
-   # In pronunciation-clips repository
-   mkdir -p chunking-integration/{.chunking/{handoffs,contexts},config}
-   ```
-
-5. **Template System**: Initialize with proven HANDOFF examples as benchmarks
-   ```bash
-   # Copy proven templates to framework repository
-   cp context/chunking/examples/HANDOFF-*.md claude-code-chunking-framework/templates/handoff_templates/
+   
+   # Initial git commit for framework
+   git add .
+   git commit -m "feat: initial framework structure with selective context import"
    ```
 
 6. **CI/CD Pipeline** (Optional for Phase 2A, recommended for Phase 2B):
@@ -1033,7 +1068,7 @@ def test_cross_chunk_integration_reliability():
 **Development Workflow Validation**:
 ```bash
 # Complete development setup validation
-cd claude-code-chunking-framework
+cd chunking-framework
 
 # Run all quality checks
 hatch run quality    # lint + typecheck + unit tests
@@ -1049,15 +1084,23 @@ hatch run test-e2e
 ./scripts/prepare-context.py --help
 ./scripts/validate-contracts.py --help
 ./scripts/orchestrate-chunks.py --help
+
+# Test integration with parent audio project
+cd ..
+# Validate framework can analyze audio project structure
+./chunking-framework/scripts/analyze-completion.py --project=src/audio_to_json --stage=foundation
 ```
 
 ### **Immediate Next Actions (TDD Implementation Start)**
 
 **Week 1 Focus: E2E Test Definition First**
-1. **Day 1**: Repository setup + Create all E2E test files with failure expectations
+1. **Day 1**: Subfolder repository setup + Context import + E2E test structure
    ```bash
-   # Repository initialization (see Development Environment Setup above)
-   # Then create E2E test structure
+   # Subfolder initialization with selective context import
+   # (see Development Environment Setup above)
+   cd chunking-framework
+   
+   # Create E2E test structure
    hatch run test-e2e  # All tests should fail initially (TDD Red phase)
    ```
 
@@ -1098,11 +1141,12 @@ hatch run test-e2e
 - Development workflow validated: `hatch run validate` executes complete test suite
 
 **DevOps Foundation Established**:
-- Separate `claude-code-chunking-framework` repository with modern Python project structure
-- Lightweight dependency management (~20MB total) via pyproject.toml
+- Framework as independent git subfolder with selective context import
+- Lightweight dependency management (~20MB total) isolated from ML dependencies (~500MB+)
 - Multi-layer testing strategy (unit/integration/e2e) with pytest configuration
-- Code quality automation (ruff, black, mypy) with pre-commit hooks
-- Development scripts for streamlined workflow management
-- CI/CD ready configuration for future deployment automation
+- Code quality automation (ruff, black, mypy) with independent pre-commit hooks
+- Proven context patterns imported (4.8/5 effectiveness) without domain bloat
+- Audio project serves as primary real-world validation scenario
+- Independent CI/CD pipeline for framework development lifecycle
 
-This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness through hybrid Claude Code integration and modern DevOps practices.
+This implementation plan preserves proven experiment success (4.8/5 context effectiveness, 95% contract accuracy) while enabling clean framework development through architectural separation and selective pattern import.
