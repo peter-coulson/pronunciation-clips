@@ -4,7 +4,73 @@
 
 **Objective**: Build automated chunking development system based on proven manual experiment results  
 **Foundation**: Diarization experiment achieved 5/5 effectiveness with 95% contract accuracy and 120% development velocity  
-**Scope**: Automate the complete chunking workflow from E2E test analysis to handoff generation  
+**Scope**: Automate the complete chunking workflow from E2E test analysis to handoff generation
+
+## System Architecture & Deployment Model
+
+### **Development Strategy: Hybrid Claude Code Integration**
+
+**Architectural Decision**: Maintain hybrid model where Claude Code orchestrates automation while retaining full implementation authority
+
+**Repository Structure**:
+```
+pronunciation-clips/
+├── chunking-framework/           # Automation systems development
+│   ├── src/                      # Core automation logic
+│   ├── templates/                # Handoff/context templates
+│   └── scripts/                  # Claude Code integration points
+├── .chunking/                    # Active automation state
+│   ├── current-chunk.yaml       # Progress tracking
+│   ├── handoffs/                 # Generated handoff documents
+│   └── contexts/                 # Prepared context packages
+└── context/chunking/experiment/  # Proven reference patterns (preserved)
+```
+
+**Integration Pattern**:
+- **Claude Code**: Interactive development, decision-making, code implementation
+- **Automation Scripts**: Analysis, template generation, validation, context preparation
+- **Coordination**: Claude Code orchestrates via Bash tool integration
+
+**Workflow Example**:
+```bash
+# 1. Claude Code analyzes completed chunk implementation
+./chunking-framework/scripts/analyze-completion.py --stage=foundation
+
+# 2. Automation generates handoff template based on proven patterns
+./chunking-framework/scripts/generate-handoff.py --from=foundation --to=audio
+
+# 3. Claude Code reviews and customizes handoff using Read/Edit tools
+# Uses generated templates as high-quality starting points
+
+# 4. Claude Code prepares next chunk context with automation assistance
+./chunking-framework/scripts/prepare-context.py --chunk=audio --handoff=foundation-audio.md
+```
+
+### **Context Management Strategy**
+
+**Design Principle**: Context travels with code (proven in experiment)
+- **Framework**: Provides templates and analysis capabilities
+- **Repository**: Stores active handoffs, progress tracking, context packages
+- **Claude Code**: Manages workflow decisions and implementation execution
+
+**Rationale**: Experiment success demonstrates context-with-code effectiveness. Framework can later extract while preserving context locality.
+
+### **Repository Evolution Plan**
+
+**Phase 2A (Current → 4 weeks)**: Develop in current repository
+- Leverage existing test infrastructure and context system
+- Use proven experiment patterns as development templates
+- Rapid iteration with established Claude Code integration patterns
+
+**Phase 2B+ (After core automation proven)**: Extract to dedicated framework repository
+- Migration to `claude-code-chunking-framework` repository
+- Current repository becomes first production user of framework
+- Framework provides automation while preserving proven context patterns
+
+**Future Integration Options**:
+- **MCP Integration**: Convert successful automation scripts to MCP tools (post-validation)
+- **Dependency Model**: Framework as external dependency with local context management
+- **Template System**: Abstract successful patterns for cross-domain application  
 
 ## Experiment Results Foundation
 
@@ -25,6 +91,22 @@
 6. **Error Isolation** - Chunk boundaries contain failures and simplify debugging
 
 ## Implementation Architecture
+
+### **Claude Code Integration Specifications**
+
+**Tool Integration Strategy**: Automation augments Claude Code capabilities without replacing interactive development
+
+**Critical Design Constraints**:
+1. **Claude Code Authority**: All implementation decisions remain with Claude Code
+2. **Automation Support**: Scripts provide analysis, templates, validation - not autonomous implementation
+3. **Context Preservation**: Maintain proven 3-4K token context effectiveness patterns
+4. **Sequential Orchestration**: Claude Code manages chunk progression with automation assistance
+
+**Integration Points**:
+- **Analysis Phase**: Automation extracts interfaces, dependencies, patterns from completed implementations
+- **Generation Phase**: Create handoff templates, context packages, contract specifications
+- **Validation Phase**: Verify contract compliance, interface accuracy, integration compatibility
+- **Orchestration Phase**: Prepare next chunk context, track progress, manage dependencies
 
 ### **Phase 2A: Core Automation System (2-3 weeks)**
 
@@ -75,6 +157,12 @@
 - Template system based on proven handoff structures
 - File dependency analysis for context preparation
 
+**Claude Code Integration**:
+- **Script Execution**: `./chunking-framework/scripts/generate-handoff.py --stage=completed --target=next`
+- **Template Customization**: Claude Code reviews and refines generated handoffs using Read/Edit tools
+- **Quality Validation**: Compare generated handoffs against proven HANDOFF-2.md benchmark
+- **Context Packaging**: Automated preparation of focused 3-4K token context for next chunk
+
 ---
 
 #### **Stage 2: Context Isolation Engine**
@@ -117,6 +205,12 @@
 - Context size consistently 3-4K tokens (proven effective range)
 - Minimal external context loading required during implementation
 - Context enables focused implementation without decision paralysis
+
+**Claude Code Integration**:
+- **Context Generation**: `./chunking-framework/scripts/prepare-context.py --chunk=target --dependencies=handoffs`
+- **Relevance Scoring**: Automated file selection based on interface dependencies and proven patterns
+- **Package Validation**: Claude Code reviews context completeness before chunk implementation
+- **Progressive Loading**: Context packages integrate with existing /context/ system navigation
 
 ---
 
@@ -161,6 +255,12 @@
 - Validate implementations meet specifications without manual checking
 - Provide clear guidance for contract violation resolution
 
+**Claude Code Integration**:
+- **Validation Execution**: `./chunking-framework/scripts/validate-contracts.py --implementation=current --contracts=handoffs`
+- **Compliance Reporting**: Automated generation of validation reports for Claude Code review
+- **Error Guidance**: Specific recommendations for resolving contract violations
+- **Integration Testing**: Automated verification of handoff compatibility between chunks
+
 ---
 
 #### **Stage 4: Sequential Orchestration System**
@@ -203,6 +303,12 @@
 - Prepare complete session contexts requiring minimal setup time
 - Track progress accurately with clear completion criteria
 - Enable resumable implementation across multiple sessions
+
+**Claude Code Integration**:
+- **Orchestration Management**: `./chunking-framework/scripts/orchestrate-chunks.py --module=target --progress=.chunking/state.yaml`
+- **Session Preparation**: Automated setup of context, handoffs, and objectives for each chunk
+- **Progress Tracking**: Real-time updates to `.chunking/current-chunk.yaml` for resumable implementation
+- **Dependency Resolution**: Automated validation of prerequisite completion before chunk progression
 
 ---
 
@@ -366,6 +472,19 @@
 - Build domain-specific intelligence incrementally
 - Maintain manual chunking as fallback for complex scenarios
 
+### **Architecture Evolution Path**
+
+**Repository Boundaries Decision Timeline**:
+- **Immediate (Phase 2A)**: Develop integrated with current repository structure
+- **Post-Validation (Phase 2B)**: Evaluate extraction to dedicated framework repository
+- **Post-Refinement (Phase 2C)**: Implement chosen architecture with proven patterns
+
+**System Boundary Considerations**:
+- **Context Storage**: Active automation state in repository, framework logic potentially extractable
+- **Claude Code Integration**: Hybrid model preserves interactive development effectiveness
+- **Framework Portability**: Design enables future extraction without losing proven context patterns
+- **MCP Conversion**: Successful automation scripts can evolve to MCP tools for enhanced integration
+
 ## Success Criteria
 
 ### **Phase 2A Success (Core Automation)**
@@ -414,8 +533,22 @@
 
 ## Next Actions
 
-1. **Immediate** (Today): Complete context file organization and system architecture setup
-2. **This Week**: Begin Stage 1 (Handoff Generation Engine) implementation
-3. **Next Week**: Continue with Context Isolation Engine and validation framework
+### **Development Environment Setup** (Immediate)
+1. **Repository Structure**: Create `chunking-framework/` and `.chunking/` directories
+2. **Integration Scripts**: Establish Claude Code orchestration points
+3. **Template System**: Initialize with proven HANDOFF examples as benchmarks
+4. **Progress Tracking**: Set up `.chunking/current-chunk.yaml` state management
 
-This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness.
+### **Implementation Sequence** (This Week)
+1. **Stage 1 Focus**: Begin Handoff Generation Engine with Claude Code integration points
+2. **Template Validation**: Verify automation can match HANDOFF-2.md quality benchmark
+3. **Context Integration**: Ensure automation works with existing /context/ system
+4. **Script Testing**: Validate Claude Code orchestration via Bash tool integration
+
+### **Architecture Validation** (Next Week)
+1. **Hybrid Model Testing**: Confirm Claude Code retains implementation authority
+2. **Context Effectiveness**: Validate 3-4K token context generation maintains experiment success
+3. **Integration Patterns**: Test automation augmentation without replacement of interactive development
+4. **Progress Framework**: Establish resumable implementation across multiple sessions
+
+This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness through hybrid Claude Code integration.
