@@ -11,7 +11,7 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 
 from ..shared.config import Config
-from ..shared.models import WordDatabase, SpeakerInfo
+from ..shared.models import WordDatabase, SpeakerInfo, DiarizationResult
 from ..shared.exceptions import PipelineError
 from ..shared.logging_config import LoggerMixin
 
@@ -19,6 +19,7 @@ from .audio_processor import process_audio
 from .transcription import transcribe_audio
 from .entity_creation import create_entities, apply_quality_filters
 from .database_writer import write_database
+from .diarization import process_diarization, check_diarization_dependencies
 
 
 class AudioToJsonPipeline(LoggerMixin):
@@ -78,6 +79,11 @@ class AudioToJsonPipeline(LoggerMixin):
             else:
                 raise NotImplementedError("Resume functionality not yet implemented")
             
+            # Stage 2.5: Speaker Diarization (conditional)
+            diarization_result = None
+            if resume_from_stage not in ["entities", "database"]:
+                diarization_result = self._process_diarization(audio_path, processed_audio.duration)
+            
             # Stage 3: Entity Creation
             if resume_from_stage not in ["database"]:
                 self.log_progress("Starting Stage 3: Entity Creation")
@@ -87,7 +93,8 @@ class AudioToJsonPipeline(LoggerMixin):
                     speaker_mapping, 
                     recording_id,
                     str(audio_file),
-                    self.config.quality
+                    self.config.quality,
+                    diarization_result
                 )
                 
                 # Apply quality filtering
@@ -126,6 +133,54 @@ class AudioToJsonPipeline(LoggerMixin):
                 raise
             raise PipelineError(f"Pipeline failed: {e}", {"audio_file": audio_path})
     
+    def _process_diarization(self, audio_path: str, audio_duration: float) -> Optional[DiarizationResult]:
+        """
+        Process diarization if enabled in configuration.
+        
+        Args:
+            audio_path: Path to audio file
+            audio_duration: Duration of audio in seconds
+            
+        Returns:
+            DiarizationResult if successful, None if disabled/failed
+        """
+        # Check if diarization is enabled
+        if not hasattr(self.config, 'speakers') or not getattr(self.config.speakers, 'enable_diarization', False):
+            self.log_progress("Diarization disabled by configuration")
+            return None
+        
+        # Check dependencies
+        available, error = check_diarization_dependencies()
+        if not available:
+            self.logger.warning("Diarization dependencies not available, skipping", 
+                              reason=error)
+            return None
+        
+        try:
+            self.log_progress("Starting Stage 2.5: Speaker Diarization")
+            
+            # Get diarization config
+            diarization_config = getattr(self.config.speakers, 'diarization', None)
+            
+            # Process diarization
+            diarization_result = process_diarization(
+                audio_path=audio_path,
+                audio_duration=audio_duration,
+                config=diarization_config
+            )
+            
+            self.log_progress("Stage 2.5 complete",
+                            speakers_detected=len(diarization_result.speakers),
+                            segments_created=len(diarization_result.segments),
+                            processing_time=f"{diarization_result.processing_time:.2f}s")
+            
+            return diarization_result
+            
+        except Exception as e:
+            self.logger.warning("Diarization failed, continuing with single speaker", 
+                              error=str(e))
+            return None
+
     def _generate_recording_id(self, audio_file: Path) -> str:
         """Generate unique recording ID from file path."""
         # Use filename + timestamp for uniqueness
