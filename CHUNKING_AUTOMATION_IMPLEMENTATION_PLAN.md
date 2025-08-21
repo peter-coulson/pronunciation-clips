@@ -94,25 +94,253 @@ tests/e2e/test_full_workflow_e2e.py                # End-to-end chunking effecti
 - **Enhanced Quality Metrics**: Consider NLP-based validation only if lightweight validation proves insufficient
 - **Cross-Domain Patterns**: Systematic validation expansion based on actual usage patterns rather than theoretical coverage
 
+## Repository Structure & DevOps Setup
+
+### **Dedicated Repository Architecture**
+
+**Repository Strategy**: Create separate `claude-code-chunking-framework` repository with modern Python project structure
+
+**Project Structure**:
+```
+claude-code-chunking-framework/
+├── pyproject.toml                    # Modern Python project configuration
+├── src/
+│   └── chunking_framework/
+│       ├── __init__.py
+│       ├── analysis/                 # Interface analysis, AST parsing
+│       ├── generation/               # Handoff generation, context isolation
+│       ├── validation/               # Contract validation, integration testing
+│       └── orchestration/            # Sequential workflow management
+├── templates/
+│   ├── handoff_templates/            # HANDOFF-N.md template structures
+│   └── context_templates/            # Context packaging templates
+├── scripts/
+│   ├── generate-handoff.py           # Claude Code integration scripts
+│   ├── prepare-context.py
+│   ├── validate-contracts.py
+│   └── orchestrate-chunks.py
+├── tests/
+│   ├── unit/                         # Deterministic component testing
+│   ├── integration/                  # Cross-component integration
+│   └── e2e/                          # Complete workflow validation
+├── docs/
+│   └── integration-guide.md          # Claude Code integration instructions
+└── .github/
+    └── workflows/                    # CI/CD automation
+```
+
+### **Modern Python DevOps Configuration**
+
+**Core pyproject.toml Structure**:
+```toml
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chunking-framework"
+version = "0.1.0"
+description = "Automated chunking system for development workflows"
+authors = [{name = "Development Team", email = "dev@example.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.9"
+
+# Lightweight runtime dependencies (~20MB total)
+dependencies = [
+    "pyyaml~=6.0",      # 500KB - Contract specifications
+    "markdown~=3.5",    # 200KB - Document parsing
+    "psutil~=5.9",      # 500KB - Performance monitoring
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",      # Fast linting and formatting
+    "black>=23.0",      # Code formatting
+    "mypy>=1.0",        # Type checking
+    "pre-commit>=3.0",  # Git hooks
+]
+test = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-mock>=3.10",
+    "pytest-benchmark>=4.0",  # Performance measurement
+]
+integration = [
+    "subprocess32;python_version<'3.2'",  # Claude Code script testing
+]
+
+[project.scripts]
+chunking-framework = "chunking_framework.cli:main"
+
+# Development workflow scripts
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-unit = "pytest tests/unit/ -m unit"
+test-integration = "pytest tests/integration/ -m integration"
+test-e2e = "pytest tests/e2e/ -m e2e --tb=short"
+lint = "ruff check src tests"
+format = "black src tests"
+typecheck = "mypy src"
+quality = ["lint", "typecheck", "test-unit"]
+validate = ["quality", "test-integration", "test-e2e"]
+```
+
+**Testing Configuration for TDD Approach**:
+```toml
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src/chunking_framework",
+    "--cov-report=html",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-fail-under=90",
+]
+markers = [
+    "unit: Unit tests for deterministic components",
+    "integration: Integration tests for cross-component functionality",
+    "e2e: End-to-end workflow validation tests",
+    "slow: Tests that take >1 second to run",
+    "benchmark: Performance measurement tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+```
+
+**Code Quality Standards**:
+```toml
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = [
+    "E",   # pycodestyle errors
+    "F",   # Pyflakes
+    "W",   # pycodestyle warnings
+    "I",   # isort
+    "N",   # pep8-naming
+    "B",   # flake8-bugbear
+    "A",   # flake8-builtins
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "PTH", # flake8-use-pathlib
+]
+ignore = [
+    "E501",  # Line too long (handled by black)
+]
+
+[tool.ruff.per-file-ignores]
+"tests/**/*.py" = [
+    "ARG",     # Unused function arguments in tests
+    "S101",    # Use of assert in tests
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+strict = false  # Relax strictness for test files
+```
+
+**Pre-commit Configuration** (`.pre-commit-config.yaml`):
+```yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-PyYAML, types-psutil]
+```
+
+### **Development Workflow Standards**
+
+**Branch Strategy**: 
+- `main` - Production-ready code
+- `develop` - Integration branch for features
+- `feature/*` - Individual development features
+- `phase/2a-core-automation` - Phase-specific development
+
+**Commit Standards**:
+- Conventional commits format: `type(scope): description`
+- Examples: `feat(handoff): add AST-based interface extraction`, `test(e2e): add workflow validation tests`
+
+**Quality Gates**:
+- All tests must pass before merge
+- Code coverage ≥90% for new code
+- Type checking with mypy strict mode
+- Linting with ruff (zero violations)
+- Pre-commit hooks must pass
+
 ## System Architecture & Deployment Model
 
 ### **Development Strategy: Hybrid Claude Code Integration**
 
 **Architectural Decision**: Maintain hybrid model where Claude Code orchestrates automation while retaining full implementation authority
 
-**Repository Structure**:
+**Integration Repository Structure**:
 ```
 pronunciation-clips/
-├── chunking-framework/           # Automation systems development
-│   ├── src/                      # Core automation logic
-│   ├── templates/                # Handoff/context templates
-│   └── scripts/                  # Claude Code integration points
-├── .chunking/                    # Active automation state
-│   ├── current-chunk.yaml       # Progress tracking
-│   ├── handoffs/                 # Generated handoff documents
-│   └── contexts/                 # Prepared context packages
-└── context/chunking/experiment/  # Proven reference patterns (preserved)
+├── chunking-integration/         # Integration state and configuration
+│   ├── .chunking/               # Active automation state
+│   │   ├── current-chunk.yaml   # Progress tracking
+│   │   ├── handoffs/            # Generated handoff documents
+│   │   └── contexts/            # Prepared context packages
+│   └── config/
+│       └── chunking-config.yaml # Framework configuration
+└── context/chunking/experiment/ # Proven reference patterns (preserved)
 ```
+
+**Separate Framework Repository**: `claude-code-chunking-framework/` (see Repository Structure above)
 
 **Integration Pattern**:
 - **Claude Code**: Interactive development, decision-making, code implementation
@@ -615,14 +843,18 @@ def test_cross_chunk_integration_reliability():
 
 **High Risk**:
 - **Handoff Generation Quality**: Auto-generated handoffs don't match manual quality
-  - **Mitigation**: Use proven HANDOFF examples as validation benchmarks, extensive testing against manual standards
+  - **Mitigation**: Use proven HANDOFF examples as validation benchmarks, extensive testing against manual standards, automated quality scoring via pytest
 
 **Medium Risk**:
 - **Context Isolation Accuracy**: Automated context selection misses critical information
-  - **Mitigation**: Conservative approach including more context initially, learn from successful patterns
+  - **Mitigation**: Conservative approach including more context initially, learn from successful patterns, comprehensive integration testing
 
 - **Contract Prediction Complexity**: Interface prediction fails for complex integration scenarios
-  - **Mitigation**: Start with simpler contract patterns, iterative improvement based on validation failures
+  - **Mitigation**: Start with simpler contract patterns, iterative improvement based on validation failures, AST-based validation
+
+**DevOps Risk**:
+- **Development Environment Complexity**: Multi-stage testing requirements create setup friction
+  - **Mitigation**: Modern pyproject.toml configuration, automated environment setup scripts, pre-commit hooks for quality assurance
 
 ### **Phase 2B Risks (Domain Validation)**
 
@@ -684,10 +916,12 @@ def test_cross_chunk_integration_reliability():
 ## Implementation Timeline - TDD Integrated
 
 ### **Week 1: E2E Test Definition & Setup (TDD Red Phase)**
-- **Day 1-2**: Define all E2E tests for Stages 1-5 + complete workflow
-- **Day 3-4**: Set up test infrastructure, validation frameworks, benchmarking system
-- **Day 5**: Repository structure setup, integration points, progress tracking
-- **All E2E tests fail initially (expected) - establishes success criteria**
+- **Day 1**: Repository setup + Modern Python project initialization (pyproject.toml, dev environment)
+- **Day 2**: Define all E2E tests for Stages 1-5 + complete workflow + test infrastructure setup
+- **Day 3**: Set up validation frameworks, benchmarking system, quality assurance tools
+- **Day 4**: Claude Code integration points, script orchestration testing
+- **Day 5**: Complete TDD Red phase validation - all E2E tests fail appropriately
+- **Deliverable**: Fully configured development environment with comprehensive failing test suite
 
 ### **Week 2: Core Handoff & Context Systems (TDD Green Phase)**  
 - **Day 1-3**: Stage 1 Handoff Generation Engine - implement to pass E2E tests
@@ -717,24 +951,158 @@ def test_cross_chunk_integration_reliability():
 ## Next Actions
 
 ### **Development Environment Setup** (Immediate)
-1. **Repository Structure**: Create `chunking-framework/` and `.chunking/` directories
-2. **Integration Scripts**: Establish Claude Code orchestration points
-3. **Template System**: Initialize with proven HANDOFF examples as benchmarks
-4. **Progress Tracking**: Set up `.chunking/current-chunk.yaml` state management
+
+**Phase 1: Repository Creation & Setup** (Day 1)
+1. **Create Dedicated Repository**: `claude-code-chunking-framework`
+   ```bash
+   git init claude-code-chunking-framework
+   cd claude-code-chunking-framework
+   git checkout -b develop
+   ```
+
+2. **Modern Python Project Initialization**:
+   ```bash
+   # Create project structure
+   mkdir -p src/chunking_framework/{analysis,generation,validation,orchestration}
+   mkdir -p {templates,scripts,tests/{unit,integration,e2e},docs}
+   
+   # Initialize pyproject.toml with recommended configuration
+   # (See Repository Structure & DevOps Setup above)
+   
+   # Set up development environment
+   python -m venv venv
+   source venv/bin/activate  # or venv/Scripts/activate on Windows
+   pip install -e ".[dev,test]"
+   
+   # Install pre-commit hooks
+   pre-commit install
+   ```
+
+3. **Quality Assurance Setup**:
+   ```bash
+   # Validate development environment
+   python -m chunking_framework --version
+   pytest --version
+   ruff --version
+   black --version
+   mypy --version
+   
+   # Run initial quality checks (should pass with empty codebase)
+   pytest tests/
+   ruff check src/
+   black --check src/
+   mypy src/
+   ```
+
+**Phase 2: Integration Configuration** (Day 1-2)
+4. **Integration State Setup**: Create integration directories in current project
+   ```bash
+   # In pronunciation-clips repository
+   mkdir -p chunking-integration/{.chunking/{handoffs,contexts},config}
+   ```
+
+5. **Template System**: Initialize with proven HANDOFF examples as benchmarks
+   ```bash
+   # Copy proven templates to framework repository
+   cp context/chunking/examples/HANDOFF-*.md claude-code-chunking-framework/templates/handoff_templates/
+   ```
+
+6. **CI/CD Pipeline** (Optional for Phase 2A, recommended for Phase 2B):
+   ```yaml
+   # .github/workflows/ci.yml
+   name: CI
+   on: [push, pull_request]
+   jobs:
+     test:
+       runs-on: ubuntu-latest
+       strategy:
+         matrix:
+           python-version: ["3.9", "3.10", "3.11"]
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-python@v4
+           with:
+             python-version: ${{ matrix.python-version }}
+         - run: pip install -e ".[dev,test]"
+         - run: pytest
+         - run: ruff check
+         - run: black --check .
+         - run: mypy src/
+   ```
+
+**Development Workflow Validation**:
+```bash
+# Complete development setup validation
+cd claude-code-chunking-framework
+
+# Run all quality checks
+hatch run quality    # lint + typecheck + unit tests
+hatch run validate   # quality + integration + e2e tests
+
+# Test development scripts
+hatch run test-unit
+hatch run test-integration  
+hatch run test-e2e
+
+# Validate Claude Code integration points
+./scripts/generate-handoff.py --help
+./scripts/prepare-context.py --help
+./scripts/validate-contracts.py --help
+./scripts/orchestrate-chunks.py --help
+```
 
 ### **Immediate Next Actions (TDD Implementation Start)**
 
 **Week 1 Focus: E2E Test Definition First**
-1. **Day 1**: Create all E2E test files with failure expectations
-2. **Day 2**: Define validation benchmarks using HANDOFF-2.md as quality standard  
+1. **Day 1**: Repository setup + Create all E2E test files with failure expectations
+   ```bash
+   # Repository initialization (see Development Environment Setup above)
+   # Then create E2E test structure
+   hatch run test-e2e  # All tests should fail initially (TDD Red phase)
+   ```
+
+2. **Day 2**: Define validation benchmarks using HANDOFF-2.md as quality standard
+   ```bash
+   # Set up benchmark validation infrastructure
+   pytest tests/e2e/test_stage1_handoff_generation_e2e.py -v --tb=short
+   # Expected: All tests fail with clear baseline measurements
+   ```
+
 3. **Day 3**: Set up lightweight validation infrastructure (AST parsing, template matching)
+   ```bash
+   # Validate development environment supports all testing technologies
+   python -c "import ast, yaml, markdown, psutil; print('All dependencies available')"
+   hatch run quality  # Should pass with empty implementation
+   ```
+
 4. **Day 4**: Test Claude Code integration points with placeholder automation
+   ```bash
+   # Test script orchestration from Claude Code
+   ./scripts/generate-handoff.py --stage=placeholder --target=test
+   ./scripts/prepare-context.py --chunk=test --dependencies=none
+   ```
+
 5. **Day 5**: Validate all E2E tests fail appropriately - establish measurement baselines
+   ```bash
+   # Complete TDD Red phase validation
+   hatch run test-e2e --tb=no  # Clean failure output
+   # Document baseline metrics for Green phase implementation
+   ```
 
 **Key Success Criteria for Week 1**:
-- All E2E tests exist and fail predictably
+- All E2E tests exist and fail predictably with clear error messages
 - Validation infrastructure measures what matters (structure, interfaces, tokens, effectiveness)
-- Claude Code integration points tested with minimal dependencies  
+- Claude Code integration points tested with minimal dependencies
+- Modern development environment configured with quality assurance automation
 - Benchmarking system ready for quality comparison against proven examples
+- Development workflow validated: `hatch run validate` executes complete test suite
 
-This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness through hybrid Claude Code integration.
+**DevOps Foundation Established**:
+- Separate `claude-code-chunking-framework` repository with modern Python project structure
+- Lightweight dependency management (~20MB total) via pyproject.toml
+- Multi-layer testing strategy (unit/integration/e2e) with pytest configuration
+- Code quality automation (ruff, black, mypy) with pre-commit hooks
+- Development scripts for streamlined workflow management
+- CI/CD ready configuration for future deployment automation
+
+This implementation plan builds directly on proven experiment success while systematically scaling automation to cross-domain effectiveness through hybrid Claude Code integration and modern DevOps practices.
