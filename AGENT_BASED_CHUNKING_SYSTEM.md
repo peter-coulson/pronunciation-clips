@@ -1,5 +1,33 @@
 # Agent-Based Chunking System
 
+## Implementation Strategy Checklist
+
+### Phase 1: Standards Definition ✅ **START HERE**
+- [ ] Create `context/chunking/standards.md` with specification format requirements
+- [ ] Define session structure templates within context system
+- [ ] Establish input format standards for consistent orchestration
+- [ ] Document orchestration prompt patterns that integrate with CLAUDE.md
+
+### Phase 2: Session Management Architecture
+- [ ] Design session lifecycle within existing context system
+- [ ] Implement session creation/archival workflow
+- [ ] Create session-to-context referencing system
+- [ ] Build session progress tracking mechanisms
+
+### Phase 3: Orchestration Integration
+- [ ] Develop Control Agent prompts that work with Claude Code sessions
+- [ ] Create Sub-Agent coordination patterns
+- [ ] Implement CLAUDE.md integration for session orchestration
+- [ ] Build context handoff mechanisms between agents
+
+### Phase 4: MVP Testing
+- [ ] Test with single simple implementation
+- [ ] Validate session management workflow
+- [ ] Verify context system integration
+- [ ] Measure effectiveness against proven patterns (4.8/5 context management target)
+
+**Templates System**: Deferred until post-MVP - focus on working system first, patterns will emerge naturally
+
 ## System Overview
 
 A simple, prompt-based chunking system that leverages Claude's proven architectural decision-making capabilities while providing structure and coordination for complex implementation projects. The system uses a Control Agent to analyze specifications and coordinate Sub-Agents that implement individual chunks, enabling parallel execution where dependencies allow.
@@ -33,27 +61,27 @@ Sub-Agents (Implementers)
 ### Repository Structure
 ```
 repository/
-├── .chunking/                      # Chunking session management
-│   ├── sessions/                   # Active chunking sessions
-│   │   └── session-YYYYMMDD-HHMMSS/
-│   │       ├── control-state.md    # Control agent state
-│   │       ├── execution-plan.md   # Chunk dependency graph
-│   │       └── chunks/             # Sub-agent contexts
-│   │           ├── chunk-1-foundation/
-│   │           │   ├── specification.md
-│   │           │   ├── context/
-│   │           │   ├── contracts/
-│   │           │   └── state.md
-│   │           └── chunk-2-ml-module/
-│   │               └── [same structure]
-│   └── templates/                  # Reusable templates
-│       ├── specification-template.md
-│       ├── chunk-template.md
-│       └── prompts/
-├── context/                        # Repository context system
+├── context/                        # Repository context system (ENHANCED)
 │   ├── domains/                    # Domain-specific knowledge
 │   ├── standards/                  # Development standards
-│   └── patterns/                   # Proven implementation patterns
+│   ├── patterns/                   # Proven implementation patterns
+│   ├── workflows/                  # Development processes
+│   └── chunking/                   # Chunking subdomain
+│       ├── sessions/               # Active/completed sessions
+│       │   └── YYYY-MM-DD-feature-name/
+│       │       ├── specification.md    # Initial specification
+│       │       ├── execution-plan.md   # Control agent plan
+│       │       ├── chunks/             # Sub-agent contexts
+│       │       │   ├── chunk-1-foundation/
+│       │       │   │   ├── specification.md
+│       │       │   │   ├── context/
+│       │       │   │   ├── contracts/
+│       │       │   │   └── state.md
+│       │       │   └── chunk-2-ml-module/
+│       │       │       └── [same structure]
+│       │       └── results.md          # Session outcomes
+│       ├── standards.md            # Input format standards
+│       └── experiments/            # Proven results (existing)
 └── src/                           # Implementation code
 ```
 
@@ -164,71 +192,6 @@ Control Agent generates:
 4. Updated development standards if discovered
 ```
 
-## Template Structure
-
-### Specification Template
-```markdown
-# [Feature Name] Implementation Specification
-
-## Overview
-Brief description of feature and goals
-
-## Current System Analysis  
-Current architecture, problems, limitations
-
-## Target Architecture
-Desired end state, new components, flow diagrams
-
-## Detailed Implementation Specifications
-Models, configurations, modules with exact interfaces
-
-## E2E Test Specifications  
-Complete test scenarios with success criteria
-
-## Dependencies & Installation
-New requirements, setup instructions
-
-## Performance Requirements
-Speed, memory, accuracy targets
-
-## Migration Strategy
-Implementation phases, rollback plan
-
-## Success Metrics
-Technical and user experience validation
-```
-
-### Chunk Specification Template
-```markdown
-# Chunk [N]: [Chunk Name]
-
-## Scope
-What this chunk implements (specific boundaries)
-
-## Success Criteria  
-How to know this chunk is complete
-
-## Input Interfaces
-What this chunk receives from previous chunks
-
-## Output Interfaces
-What this chunk provides to dependent chunks
-
-## Context Focus
-Key files, patterns, integration points for implementation
-
-## Integration Requirements
-How this chunk connects to existing system
-
-## Testing Requirements
-Unit, integration, E2E tests to implement
-
-## Completion Checklist
-- [ ] All interfaces implemented as specified
-- [ ] Tests passing
-- [ ] Integration points validated
-- [ ] Documentation updated
-```
 
 ## Essential Reference Documents
 
@@ -265,7 +228,14 @@ From `CHUNKING_LEARNINGS_LOG.md`:
 - Session Start: "Start chunking session with specification: [spec-file.md]"
 - Session Complete: "Complete current session and prepare next: [NEXT_SESSION]"  
 - Session Resume: "Resume chunking development"
+- Session Archive: "Archive completed session and update main context"
 ```
+
+**Session Lifecycle Management**:
+1. **Creation**: Control Agent creates session directory, updates CLAUDE.md with active session
+2. **Execution**: Sub-agents work within session, Control Agent updates progress in CLAUDE.md  
+3. **Completion**: Session results feed back to context system, CLAUDE.md updated to completed
+4. **Archival**: Session archived, CLAUDE.md cleared of session references
 
 **Initial Analysis Prompt**:
 ```
@@ -310,20 +280,26 @@ Your task:
 Reference the handoff quality patterns from HANDOFF examples for guidance.
 ```
 
-### Execution Commands
+**Orchestration Integration with CLAUDE.md**:
+- **High-Level State**: CLAUDE.md tracks active session and overall progress (`Foundation ✅ | ML Module ⏳`)
+- **Session Coordination**: Control Agent updates CLAUDE.md's "Current State" section
+- **Rule Preservation**: All existing E2E test immutability and sequential stage rules maintained
+- **Quick Commands**: Resume/status commands added to CLAUDE.md for easy access
+
+**Claude Code Session Integration**:
 ```bash
-# Start chunking session
-claude-code "Start chunking session with specification: [spec-file.md]"
+# Control Agent session (coordinates overall chunking)
+claude-code --session=chunking-control "Start chunking session with specification: [spec-file.md]"
 
-# Control Agent creates execution plan and spawns sub-agents
-# Sub-agents implement chunks in parallel where possible
-# Control Agent coordinates integration and manages dependencies
+# Sub-agent sessions (implement individual chunks) 
+claude-code --session=chunk-foundation "Implement chunk 1: foundation layer"
+claude-code --session=chunk-ml-module "Implement chunk 2: ML module integration"
 
-# Monitor session progress
-claude-code --session=control-agent "Check chunking session status"
+# Session state queries work across agent hierarchy
+claude-code --session=chunking-control "Check all chunk progress and coordinate next wave"
 
-# Resume specific chunk if needed  
-claude-code --session=chunk-3-integration "Continue chunk implementation"
+# Resume capabilities at any level
+claude-code --session=chunk-integration "Continue chunk 3 implementation from last state"
 ```
 
 ## Success Criteria
@@ -336,9 +312,9 @@ claude-code --session=chunk-3-integration "Continue chunk implementation"
 - **Parallel Efficiency**: 30-50% time reduction through parallel execution
 
 ### Repository Integration Success
-- **Context Pollution**: Zero - existing context system unchanged
+- **Context Pollution**: Zero - chunking integrates cleanly within existing context system
 - **Knowledge Capture**: New patterns and interfaces automatically flow back to repository context
-- **Reusability**: Templates and approaches work across different repositories
+- **Session Management**: Clean lifecycle from creation → execution → archival → reference
 - **Maintainability**: Simple prompt-based system requires minimal maintenance
 
 ## Implementation Benefits
