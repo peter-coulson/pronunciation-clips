@@ -2,31 +2,43 @@
 
 ## Implementation Strategy Checklist
 
-### Phase 1: Standards Definition ✅ **START HERE**
-- [ ] Create `context/chunking/standards.md` with specification format requirements
-- [ ] Define session structure templates within context system
-- [ ] Establish input format standards for consistent orchestration
-- [ ] Document orchestration prompt patterns that integrate with CLAUDE.md
+### Phase 1: System Boundaries Definition ✅ **START HERE**
+- [ ] Define exactly what the chunking system handles → `/context/chunking/methodology/workflow.md`
+- [ ] Document full potential specification requirements → `/context/chunking/templates/input-spec.md` (initial draft)
+- [ ] Abstract requirements into: system-handled, repo-context, template-required → `/context/chunking/standards.md`
+- [ ] Build minimal input template around remaining requirements → `/context/chunking/templates/input-spec.md` (final)
 
-### Phase 2: Session Management Architecture
-- [ ] Design session lifecycle within existing context system
-- [ ] Implement session creation/archival workflow
-- [ ] Create session-to-context referencing system
-- [ ] Build session progress tracking mechanisms
+### Phase 2: Chunking Methodology Definition
+- [ ] Document proven workflow rules (E2E tests first, immutability, TDD sequencing) → `/context/chunking/methodology/workflow.md`
+- [ ] Define chunking boundary decision patterns from experiments → `/context/chunking/methodology/boundaries.md`
+- [ ] Establish quality gates and validation procedures → `/context/chunking/methodology/validation.md`
+- [ ] Create dependency sequencing and coordination rules → `/context/chunking/methodology/workflow.md`
 
-### Phase 3: Orchestration Integration
-- [ ] Develop Control Agent prompts that work with Claude Code sessions
-- [ ] Create Sub-Agent coordination patterns
-- [ ] Implement CLAUDE.md integration for session orchestration
-- [ ] Build context handoff mechanisms between agents
+### Phase 3: Agent Instructions and Prompts
+- [ ] Define Control Agent behavior and decision-making prompts → `/context/chunking/instructions/control-agent.md`
+- [ ] Create Sub-Agent implementation and handoff instructions → `/context/chunking/instructions/sub-agents.md`
+- [ ] Establish communication patterns between agents → `/context/chunking/instructions/handoffs.md`
+- [ ] Document how methodology gets encoded into agent instructions → `.claude/agents/chunking-control.md` + `.claude/agents/chunking-sub.md`
 
-### Phase 4: MVP Testing
-- [ ] Test with single simple implementation
-- [ ] Validate session management workflow
-- [ ] Verify context system integration
+### Phase 4: Input Specification Standards
+- [ ] Create template structure for minimal input requirements → `/context/chunking/templates/input-spec.md`
+- [ ] Define required vs optional specification sections → `/context/chunking/standards.md`
+- [ ] Establish specification validation criteria → `/context/chunking/standards.md`
+- [ ] Document format standards for consistent processing → `/context/chunking/templates/handoff.md` + `/context/chunking/templates/summary.md`
+
+### Phase 5: System Architecture Implementation
+- [ ] Evaluate and design sessions internal structure → `/context/chunking/sessions/YYYY-MM-DD-feature-name/[structure-to-be-designed]`
+- [ ] Design session lifecycle within existing context system → `/context/chunking/methodology/workflow.md` (session management section)
+- [ ] Implement session creation/archival workflow → `.claude/agents/chunking-control.md` (session commands)
+- [ ] Create session-to-context referencing system → `/context/chunking/sessions/` (structure + indexing)
+- [ ] Build context handoff mechanisms between agents → `/context/chunking/instructions/handoffs.md`
+- [ ] Implement CLAUDE.md integration for session orchestration → `CLAUDE.md` (chunking section updates)
+
+### Phase 6: MVP Testing
+- [ ] Test with single simple implementation → `/context/chunking/sessions/[test-session]/`
+- [ ] Validate specification template effectiveness → `/context/chunking/templates/` (refinements)
+- [ ] Verify methodology encoding in agent instructions → `.claude/agents/` (agent behavior validation)
 - [ ] Measure effectiveness against proven patterns (4.8/5 context management target)
-
-**Templates System**: Deferred until post-MVP - focus on working system first, patterns will emerge naturally
 
 ## System Overview
 
@@ -61,29 +73,46 @@ Sub-Agents (Implementers)
 ### Repository Structure
 ```
 repository/
+├── .claude/agents/                 # Claude Code agent definitions
+│   ├── chunking-control.md         # Control agent (coordinates chunking)
+│   │   # Imports: @context/chunking/methodology/*, @context/chunking/instructions/control-agent.md
+│   └── chunking-sub.md             # Sub-agent (implements chunks)
+│       # Imports: @context/chunking/instructions/sub-agents.md, @context/chunking/standards.md
 ├── context/                        # Repository context system (ENHANCED)
 │   ├── domains/                    # Domain-specific knowledge
 │   ├── standards/                  # Development standards
 │   ├── patterns/                   # Proven implementation patterns
 │   ├── workflows/                  # Development processes
-│   └── chunking/                   # Chunking subdomain
+│   └── chunking/                   # Chunking subdomain (distributed for maintainability)
+│       ├── methodology/            # Core workflow rules (referenceable by agents)
+│       │   ├── workflow.md         # TDD, E2E first, immutability rules
+│       │   ├── boundaries.md       # Chunking decision patterns from experiments
+│       │   └── validation.md       # Quality gates, success criteria
+│       ├── instructions/           # Agent behaviors and coordination
+│       │   ├── control-agent.md    # Analysis and coordination prompts
+│       │   ├── sub-agents.md       # Implementation instructions
+│       │   └── handoffs.md         # Communication patterns between agents
+│       ├── templates/              # Standardized formats (extensible)
+│       │   ├── input-spec.md       # Input specification template
+│       │   ├── handoff.md          # Chunk handoff template
+│       │   ├── summary.md          # Session completion template
+│       │   └── [additional templates as needed]
+│       ├── standards.md            # Input format validation criteria
 │       ├── sessions/               # Active/completed sessions
 │       │   └── YYYY-MM-DD-feature-name/
-│       │       ├── specification.md    # Initial specification
-│       │       ├── execution-plan.md   # Control agent plan
-│       │       ├── chunks/             # Sub-agent contexts
-│       │       │   ├── chunk-1-foundation/
-│       │       │   │   ├── specification.md
-│       │       │   │   ├── context/
-│       │       │   │   ├── contracts/
-│       │       │   │   └── state.md
-│       │       │   └── chunk-2-ml-module/
-│       │       │       └── [same structure]
-│       │       └── results.md          # Session outcomes
-│       ├── standards.md            # Input format standards
+│       │       # NOTE: Internal structure TBD - evaluate after methodology defined
+│       │       └── [structure-to-be-designed]
 │       └── experiments/            # Proven results (existing)
 └── src/                           # Implementation code
 ```
+
+### Phase-to-Context Mapping
+**Phase 1: System Boundaries** → `/context/chunking/methodology/` + `/context/chunking/instructions/`
+**Phase 2: Methodology** → `/context/chunking/methodology/workflow.md`, `boundaries.md`, `validation.md`
+**Phase 3: Agent Instructions** → `/context/chunking/instructions/` + `.claude/agents/`
+**Phase 4: Input Standards** → `/context/chunking/standards.md` + `/context/chunking/templates/`
+**Phase 5: System Architecture** → Sessions structure design (deferred until methodology complete)
+**Phase 6: MVP Testing** → All components integration testing
 
 ## Workflow Design
 
