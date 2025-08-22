@@ -10,6 +10,24 @@ This should allow for very little decisions made by the chunking system as they 
 ## System Foundation
 The foundation of the system is its test driven framework. This starts with the main predefined E2E testing scenarios in the input file. These E2E tests will be solely for the entire implementation and not at the chunk level.
 
+## Agent Specialization
+The system employs approximately 6+ specialized agents:
+- **Input validation agent** - Validates specification file completeness and clarity
+- **E2E setup agent** - Sets up and validates E2E tests (with separate permissions)
+- **Chunking analysis agent** - Divides tasks into chunks and defines dependencies
+- **Implementation agents** - Execute chunks in parallel where possible
+- **Final validation/bug-fix agent** - Runs all tests and fixes issues until working
+- **Context update agent** - Updates main context system (possibly specialized)
+
+## Permission System
+- **E2E test protection**: Enforced via different agent permissions
+- **Override mechanism**: Requires user decision when E2E tests need modification
+- **Permission enforcement**: Maintained during implementation phase
+
+## Communication System
+- **Handoff templates**: Standardized markdown files built from templates between dependent agents
+- **Template-based communication**: Ensures consistent information transfer between agents
+
 ## Workflow Steps
 
 ### 1. Input Validation
@@ -29,6 +47,11 @@ The system will then run a chunking analysis that will likely require a speciali
 ### 4. Implementation
 The system then implements the main code of the project, as defined by the chunking agent. Running the tasks in parallel if possible, and using handoff markdown files built from templates between dependent agents. The agent cannot mark the task complete without all tests passing unless there is some catastrophic failure.
 
+**Failure Criteria**:
+- **Test-passing requirement**: All tests must pass before task completion
+- **Catastrophic failure exception**: Only exception to test-passing requirement
+- **Distinction**: Clear separation between recoverable issues vs. catastrophic failure
+
 ### 5. Final Validation
 Once all coding has been completed, a specialized final agent will be called to run the E2E tests + all other tests. It will implement any bug fixes it finds from these E2E tests until everything is working. It will then generate the final report with the full details of the implementation.
 
@@ -37,6 +60,12 @@ Then the main agent will update the main context system with the results of the 
 
 ## System Orchestration
 The entirety of this will be ran by the main agent through claude code. The main agent will be keeping the rest of the context system up to date with progress as we go along, including the main claude.md file in the case of a failure.
+
+**Coordination State Management**:
+- **Main agent tracking**: Coordinates all specialized agents throughout process
+- **Progress updates**: Continuous updates to context system during execution
+- **CLAUDE.md updates**: Real-time updates, especially in case of failure
+- **State consistency**: Maintains coordination state across agent hierarchy
 
 ## Target Scope
 The target change size of this system is at minimum a large single file implementation and at maximum a medium to medium/large sized module.
