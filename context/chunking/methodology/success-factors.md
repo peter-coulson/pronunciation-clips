@@ -19,9 +19,10 @@ As validated in experimental implementation, handoff quality enables zero-fricti
 **Reference Standard**: Maintain quality equivalent to `/context/chunking/examples/HANDOFF-2.md` proven patterns.
 
 ## **3. Context Size Management**
-- **Target**: 3-4K token contexts (validated experimental range)
+- **Target**: 3-4K token implementation agent instruction contexts (validated experimental range)
 - **Risk**: Chunking Analysis Agent requiring excessive context for large module analysis
 - **Mitigation**: Focus agent on architectural analysis rather than detailed implementation planning
+- **Note**: Handoff documents can be larger as they are reference material, not instruction context
 
 ## **4. Sequential Execution Discipline**
 - **Dependency Isolation**: Each chunk must complete fully before dependent chunks begin

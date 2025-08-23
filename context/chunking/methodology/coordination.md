@@ -2,8 +2,8 @@
 
 ## Document-Based Coordination Model
 **Approach**: Document-based coordination aligns with Task tool constraints
-- **Stateless Agents**: Complete context via documents, no state sharing
-- **File System Handoffs**: Inter-agent communication through documents
+- **Stateless Agents**: Each agent invocation is independent, complete context via documents
+- **File System Handoffs**: Inter-agent communication through documents (Main Agent reads sub-agent outputs)
 - **Upfront Planning**: Dependencies resolved by Analysis Agent
 - **Token Boundaries**: Agents operate within prepared contexts
 
