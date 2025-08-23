@@ -80,13 +80,18 @@ repository/
 │   ├── workflows/                  # Development processes
 │   └── chunking/                   # Chunking subdomain (distributed for maintainability)
 │       ├── methodology/            # Core workflow rules (referenceable by agents)
-│       │   ├── workflow.md         # TDD, E2E first, immutability rules
+│       │   ├── workflow.md         # Core phase sequence and steps only
+│       │   ├── architecture.md     # Agent specialization, scale limits, coordination model
+│       │   ├── testing.md          # E2E immutability, contract fulfillment, test execution rules
+│       │   ├── templates.md        # Template standards, format specifications, quality criteria
+│       │   ├── coordination.md     # Main agent orchestration, document handoffs, progress tracking
 │       │   ├── boundaries.md       # Chunking decision patterns from experiments
-│       │   └── validation.md       # Quality gates, success criteria
+│       │   ├── validation.md       # Quality gates, success criteria, validation procedures
+│       │   └── success-factors.md  # Critical elements, proven patterns, risk mitigation
 │       ├── instructions/           # Agent behaviors and coordination
-│       │   ├── control-agent.md    # Analysis and coordination prompts
-│       │   ├── sub-agents.md       # Implementation instructions
-│       │   └── handoffs.md         # Communication patterns between agents
+│       │   ├── planning-agents/    # Input validation, E2E setup, analysis agents
+│       │   ├── implementation-agents/ # Sequential chunk implementation
+│       │   └── coordination/       # Main agent orchestration patterns
 │       ├── templates/              # Standardized formats (extensible)
 │       │   ├── input-spec.md       # Input specification template
 │       │   ├── handoff.md          # Chunk handoff template
@@ -100,6 +105,20 @@ repository/
 │       └── experiments/            # Proven results (existing)
 └── src/                           # Implementation code
 ```
+
+### Content Division Principles
+
+**Single Responsibility**: Each methodology file covers exactly one domain to eliminate duplication:
+- **validation.md** = Quality gates and success criteria (WHEN things are correct)
+- **templates.md** = Format specifications only (HOW communication is structured)  
+- **testing.md** = Test execution rules only (HOW tests run, not when they pass)
+- **coordination.md** = Agent orchestration (HOW agents interact)
+- **architecture.md** = Agent capabilities (WHO does what, including scale constraints)
+
+**Key Overlaps Resolved**:
+- Scale limits: architecture.md owns agent constraints, boundaries.md owns chunking decision patterns
+- Validation: validation.md owns quality gates, templates.md owns format standards
+- Agent behavior: architecture.md defines roles, coordination.md defines interactions
 
 
 
