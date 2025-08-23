@@ -2,7 +2,7 @@
 
 ## Template Types
 
-The system uses **8 template types** for document-based coordination:
+The system uses **7 template types** for document-based coordination:
 
 ### **Core Communication Templates**
 
@@ -37,7 +37,7 @@ The system uses **8 template types** for document-based coordination:
 ## Required Interfaces
 [Dependencies from previous chunks]
 
-## Output Contracts
+## Output Interface Specifications
 [What this chunk must provide]
 
 ## Implementation Requirements
@@ -62,7 +62,7 @@ The system uses **8 template types** for document-based coordination:
 ## Error Handling Patterns
 [Established error recovery and fallback strategies]
 
-## Data Models & Contracts
+## Data Models & Interface Specifications
 [Complete interface specifications with examples]
 
 ## Integration Requirements
@@ -159,29 +159,10 @@ The system uses **8 template types** for document-based coordination:
 [Failure handling procedures]
 ```
 
-#### **8. Contract Specification Template**
-**Output Files**: `chunks/chunk-[N]-[name]/CONTRACTS.yaml`
-**Format Structure**:
-```yaml
-chunk_name: [name]
-chunk_number: [N]
-
-input_contracts:
-  - interface: [interface_name]
-    specification: [exact requirements]
-    
-output_contracts:
-  - interface: [interface_name] 
-    specification: [exact provisions]
-    
-validation_criteria:
-  - requirement: [what must be validated]
-    method: [how to validate]
-```
 
 ## Template Naming Conventions
 
 - **Sequential numbering**: HANDOFF-0.md, HANDOFF-1.md, etc.
 - **Chunk identification**: chunk-[N]-[descriptive-name]/
-- **Consistent extensions**: .md for documents, .yaml for contracts
+- **Consistent extensions**: .md for documents
 - **Descriptive filenames**: Use clear, descriptive names for all outputs
