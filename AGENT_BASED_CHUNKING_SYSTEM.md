@@ -1,5 +1,39 @@
 # Agent-Based Chunking System
 
+## What Has Been Defined
+
+- **Core workflow structure**: Two-phase execution with specialized agents and document-based coordination
+- **Scale boundaries**: 4-25 chunk system with proven experimental effectiveness metrics
+- **Testing foundation**: E2E test immutability and sequential validation requirements
+- **Architecture constraints**: Stateless agent design aligned with Task tool limitations
+
+## What Is Yet To Be Defined
+
+### **Template & Communication Systems**
+- **Template specification standards**: Input specification, handoff document, context package, summary report formats
+- **Template validation protocols**: Quality gates and validation procedures for communication backbone
+- **Handoff document implementation**: Concrete standards beyond reference examples
+
+### **Chunk Definition Methodology**
+- **Phase B implementation**: Module decomposition techniques and boundary decision patterns
+- **Interface contract specifications**: Detailed input/output relationship definitions with validation criteria
+- **Dependency mapping protocols**: Sequential execution order determination methods
+
+### **System Integration Architecture**
+- **Session lifecycle management**: Creation, execution, archival, and reference workflows within context system
+- **Repository context integration**: How chunking sessions connect to existing context domains and standards
+- **Progress tracking implementation**: Minor progress protocols and state management beyond main CLAUDE.md updates
+
+### **Operational Protocols**
+- **Failure handling mechanisms**: Recovery procedures, restart vs escalation decision criteria
+- **Test specification placement**: Where unit, integration, and chunk-level E2E tests are defined and managed
+- **Main Agent coordination details**: Process orchestration, report interpretation, and error recovery implementation
+
+### **Agent Instruction Encoding**
+- **Methodology to prompt translation**: How workflow rules get encoded into actual agent instruction files
+- **Control and Sub-Agent behaviors**: Specific decision-making prompts and communication patterns
+- **Input specification validation**: Completeness criteria and gap identification procedures
+
 ## Implementation Strategy Checklist
 
 ### Phase 1: System Boundaries Definition ✅ **START HERE**
