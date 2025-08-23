@@ -2,28 +2,11 @@
 
 ## Input Structure
 
-### Dual Template Strategy
-The system uses two template types to optimize input quality:
-
-**User-Facing Template (Simplified)**:
-- Domain expert friendly format
-- Focuses on business requirements and implementation decisions
-- Excludes overwhelming system coordination details
-- Optimized for completion rates and cognitive load
-
-**System Template (Complete)**:
-- Contains comprehensive requirement analysis
-- Ensures agents make zero implementation assumptions
-- Generated through translation from user input
-- Combined with auto-populated repository context
-
 ### Input Sources
 The complete system input comes from:
 1. **User Template**: Simplified specification completed by domain expert
 2. **Repository Context**: Auto-populated project guidelines and standards
 3. **System Translation**: Input Validation Agent transforms user template to complete specification
-
-This dual approach maximizes input quality while ensuring agents have complete context with minimal decision-making requirements.
 
 ## Failure Handling & Recovery (to be defined later)
 

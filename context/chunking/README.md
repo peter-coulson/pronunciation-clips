@@ -63,8 +63,8 @@ repository/
 - **architecture.md** = Agent capabilities (WHO does what, including scale constraints)
 
 **Key Overlaps Resolved**:
-- Scale limits: architecture.md owns agent constraints, boundaries.md owns chunking decision patterns
-- Validation: validation.md owns quality gates, templates.md owns format standards
+- Scale limits: architecture.md owns agent constraints
+- Validation: validation.md owns quality gates, templates.md owns format standards  
 - Agent behavior: architecture.md defines roles, coordination.md defines interactions
 
 ## Control Agent Commands

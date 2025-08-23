@@ -8,10 +8,7 @@
 - **Token Boundaries**: Agents operate within prepared contexts
 
 ## Input Validation Agent Integration
-**Role**: Template translation and validation gateway
-- **Input**: User-facing template (simplified)
-- **Output**: System template with repository context integration
-- **Coordination**: First agent in workflow, feeds Chunking Analysis Agent
+**Coordination Role**: First agent in workflow, feeds Chunking Analysis Agent
 
 ## Main Agent Responsibilities (to be fleshed out)
 - **Process Orchestration**: Sequences specialized agents based on dependency chart

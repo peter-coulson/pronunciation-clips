@@ -1,23 +1,6 @@
 # Context Requirements Specification
 
-## Dual Template Strategy
-
-The system uses a dual template approach to maximize input quality while ensuring complete agent context:
-
-### User-Facing Template (Simplified)
-**Purpose**: Domain expert completion without overwhelming detail
-- Focuses on business requirements and implementation decisions
-- Excludes system-specific coordination requirements
-- Optimized for domain expert cognitive load
-- Higher completion rates and faster specification
-
-### System Template (Complete)
-**Purpose**: Agent processing with complete context
-- Contains comprehensive requirement analysis
-- Ensures agents make zero implementation assumptions
-- Generated via translation from user template
-
-### Translation Process
+## Input Translation Process
 **Input Validation Agent** transforms user input:
 1. Validate completeness
 2. Translate to system template
