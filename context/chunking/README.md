@@ -47,7 +47,7 @@ repository/
 │       ├── standards.md            # Input format validation criteria
 │       ├── sessions/               # Active/completed sessions
 │       │   └── YYYY-MM-DD-feature-name/
-│       │       # NOTE: Internal structure TBD - evaluate after methodology defined
+│       │       # NOTE: Structure TBD after methodology complete
 │       │       └── [structure-to-be-designed]
 │       └── experiments/            # Proven results (existing)
 └── src/                           # Implementation code

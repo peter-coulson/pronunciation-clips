@@ -1,5 +1,13 @@
 # Agent-Based Chunking System Development
 
+## Current Phase: System Development
+We are currently **developing** the agent-based chunking system, not operating it. This involves:
+- Building methodology files and agent instruction templates
+- Creating communication standards and validation procedures
+- Defining workflow patterns and coordination mechanisms
+
+**Note**: The `sessions/` folder is for actual implementation when the system is operationally used within the larger context system. We do not use sessions during development.
+
 ## Development Standards
 - Always read necessary methodology files before implementing new components
 - Follow single responsibility principle for methodology content division
