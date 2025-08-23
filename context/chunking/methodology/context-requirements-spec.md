@@ -1,5 +1,29 @@
 # Context Requirements Specification
 
+## Dual Template Strategy
+
+The system uses a dual template approach to maximize input quality while ensuring complete agent context:
+
+### User-Facing Template (Simplified)
+**Purpose**: Domain expert completion without overwhelming detail
+- Focuses on business requirements and implementation decisions
+- Excludes system-specific coordination requirements
+- Optimized for domain expert cognitive load
+- Higher completion rates and faster specification
+
+### System Template (Complete)
+**Purpose**: Agent processing with complete context
+- Contains comprehensive requirement analysis
+- Ensures agents make zero implementation assumptions
+- Generated via translation from user template
+
+### Translation Process
+**Input Validation Agent** transforms user input:
+1. Validate completeness
+2. Translate to system template
+3. Identify gaps
+4. Integrate with repository context
+
 ## Context Categories
 
 The system divides input context into four distinct categories for structured agent processing:
@@ -34,13 +58,24 @@ Context not included in above categories that must be specified in user input.
 ## System Integration Points
 
 ### Agent First Action Workflow
-1. Read categories 1-3 from context system
-2. Extract category 4 from user input specification  
-3. Combine into single input for Chunking Analysis Agent
-4. Proceed with Phase A (Scale Validation)
+1. **Input Validation Agent** receives user-facing template
+2. Read categories 1-3 from context system
+3. Translate user input to complete system template
+4. Extract category 4 from completed system template
+5. Combine into single input for Chunking Analysis Agent
+6. Proceed with Phase A (Scale Validation)
+
+## Input Template Requirements Analysis
+
+### Comprehensive Requirements Collection (`input_template_requirements.md`)
+
+**Purpose**: Complete capture of all possible input requirements
+- **Status**: Temporary analytical document (DO NOT MODIFY)
+- **Usage**: Categorization and boundary definition only
+- **Process**: Will be refined after categorization is complete
 
 ## Critical Design Constraints
 
-- **Validation**: Implementation Level Context completeness must be validated upfront
-- **Combination Logic**: Categories must merge without duplication or conflicts
+- **Validation**: Implementation Level Context must be complete upfront
+- **Translation Quality**: User input must map to complete system requirements
 - **Token Limits**: Combined context must fit within agent processing limits

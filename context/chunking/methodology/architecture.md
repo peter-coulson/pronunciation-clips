@@ -22,8 +22,10 @@
 The system employs specialized agents for upfront analysis and preparation:
 
 #### **Input Validation Agent**
-- **Purpose**: Validates specification completeness
-- **Output**: Validation report identifying gaps
+- **Purpose**: Template translation and validation
+- **Input**: User-facing template (simplified)
+- **Process**: Validate completeness, translate to system template, integrate repository context
+- **Output**: Complete system template with validation report
 
 #### **E2E Setup Agent**  
 - **Purpose**: Sets up E2E tests (only agent with E2E modification rights)

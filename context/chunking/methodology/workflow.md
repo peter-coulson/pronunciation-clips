@@ -1,11 +1,29 @@
 # Chunking System Workflow
 
 ## Input Structure
-The input to this system will come from a combination of:
-- Repository main context for generic project wide guidelines
-- A highly detailed file containing all the necessary specifications for the chunking system to implement the changes
 
-This should allow for very little decisions made by the chunking system as they should be predefined in this file or in the repository context.
+### Dual Template Strategy
+The system uses two template types to optimize input quality:
+
+**User-Facing Template (Simplified)**:
+- Domain expert friendly format
+- Focuses on business requirements and implementation decisions
+- Excludes overwhelming system coordination details
+- Optimized for completion rates and cognitive load
+
+**System Template (Complete)**:
+- Contains comprehensive requirement analysis
+- Ensures agents make zero implementation assumptions
+- Generated through translation from user input
+- Combined with auto-populated repository context
+
+### Input Sources
+The complete system input comes from:
+1. **User Template**: Simplified specification completed by domain expert
+2. **Repository Context**: Auto-populated project guidelines and standards
+3. **System Translation**: Input Validation Agent transforms user template to complete specification
+
+This dual approach maximizes input quality while ensuring agents have complete context with minimal decision-making requirements.
 
 ## Failure Handling & Recovery (to be defined later)
 
@@ -15,10 +33,16 @@ This should allow for very little decisions made by the chunking system as they 
 
 ### **Phase 1: Planning & Preparation**
 
-#### **1. Input Validation**
+#### **1. Input Validation & Translation**
 - **Agent**: Input Validation Agent
-- **Output**: Validation report
-- **Success Gate**: Specification complete
+- **Input**: User-facing template (simplified)
+- **Process**: 
+  1. Validate user specification completeness
+  2. Translate to complete system template
+  3. Integrate with auto-populated repository context
+  4. Identify and flag any remaining gaps
+- **Output**: Complete system template with validation report
+- **Success Gate**: System template complete with all critical requirements specified
 
 #### **2. E2E Test Setup**  
 - **Agent**: E2E Setup Agent (only agent with E2E modification rights)
