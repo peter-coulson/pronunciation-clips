@@ -40,14 +40,30 @@ The system employs specialized agents for upfront analysis and preparation:
 - **Output**: Operational E2E test confirmation
 
 #### **Chunking Analysis Agent** (Critical Success Path)
-- **Purpose**: Module analysis and coordination artifact creation
-- **Outputs**:
-  - `SCALE-VALIDATION.md` - Chunk count estimate and appropriateness
-  - `DEPENDENCY-CHART.md` - Sequential execution order
-  - `COORDINATION-PLAN.md` - Execution sequence and timing
-  - `chunks/chunk-[N]-[name]/CONTEXT.md` - Implementation contexts
-  - `chunks/chunk-[N]-[name]/CONTRACTS.yaml` - Interface specifications
-- **Success Criteria**: Scale validation complete, all contexts ready, no additional analysis required
+- **Purpose**: Complete module decomposition and coordination artifact creation
+
+**Phase A - Scale Validation**:
+- **Chunk Count Estimation**: Analyze module complexity to estimate required chunks (4-25 range)
+- **Scale Assessment**: Validate appropriateness for chunking vs single-session implementation
+- **User Decision Point**: Require explicit approval if outside optimal limits
+
+**Phase B - Chunk Definition** (to be defined later):
+- **Interface Contracts**: Specify exact input/output relationships between chunks
+- **Dependency Mapping**: Create sequential execution order with no parallel coordination complexity
+
+**Phase C - Context Preparation**:
+- **Implementation Contexts**: 3-4K token focused contexts for each chunk (sufficient for implementation without additional analysis)
+- **Integration Guidance**: How each chunk integrates with existing codebase patterns
+- **Contract Specifications**: Detailed interface requirements with examples and validation criteria
+
+**Critical Outputs**:
+- `SCALE-VALIDATION.md` - Chunk count estimate, appropriateness assessment, user decision documentation
+- `DEPENDENCY-CHART.md` - Sequential execution order for main agent coordination
+- `COORDINATION-PLAN.md` - Detailed execution sequence, timing estimates, checkpoints
+- `chunks/chunk-[N]-[name]/CONTEXT.md` - Complete implementation contexts (no additional analysis required)
+- `chunks/chunk-[N]-[name]/CONTRACTS.yaml` - Interface specifications and validation criteria
+
+**Success Criteria**: Scale validation approved, all chunk boundaries clearly defined with working interfaces, implementation contexts complete and sufficient
 
 ### **Implementation Phase Agents**
 
@@ -57,25 +73,42 @@ The system employs specialized agents for upfront analysis and preparation:
 - **Output**: Handoff document for dependent chunks
 - **Success Criteria**: Tests pass, contracts satisfied, handoff complete
 
-### **Coordination Model**
-- **Sequential only**: One agent at a time, no parallel coordination
-- **Document-based handoffs**: Complete context via prepared documents
-- **Failure isolation**: Failed chunks restart independently
 
-### **Failure Handling**
-- **Planning failures**: Regenerate analysis
-- **Implementation failures**: Restart chunk with same context
-- **Catastrophic failures**: Escalate to user
+## Testing Strategy
 
-## Communication System
-**CRITICAL SUCCESS FACTOR**: Handoff document quality is make-or-break for system effectiveness
+### **E2E Test Rules**
+- **Input Specification**: E2E tests must be specified in the main input file
+- **Immutability Principle**: Once E2E tests are created by E2E Setup Agent, they cannot be modified by any subsequent agent
+- **Implementation Timing**: E2E tests created before any chunk implementation begins
 
-**Required Handoff Elements**:
-- Interface specifications with examples
-- Integration patterns and error handling
-- Performance requirements and success criteria
+### **Unit and Integration Test Requirements**
+- **Contract Fulfillment**: Chunk contracts are only fulfilled when all unit tests, integration tests, and potentially E2E tests pass for the chunk
+- **Test Specification Location**: Must still decide exactly where in the system all of these tests are specified
+- **Final Validation**: All tests including E2E tests must pass at the end before completion (main agent validates and corrects)
 
-**Reference**: `/context/chunking/examples/HANDOFF-2.md` for proven patterns
+### **To Be Specified**
+- How and where the unit, intergration, and E2E testing requirements for each chunk contracts are to be specified. 
+- E2E testing requirements within chunks are seperate from the full module E2E tests at the start. These are E2E tests within a module. (This may not prove necessary in the final evaluation).
+
+## Templates & Communication Standards
+
+### **Template Structure & Validation**
+**CRITICAL SUCCESS FACTOR**: Template quality is the communication backbone - handoff document quality is make-or-break for system effectiveness
+
+**Template Types**:
+- **Input Specification Template**: Standardized format for user requirements input
+- **Handoff Document Template**: Critical communication between dependent chunks
+- **Context Package Template**: Standardized 3-4K token contexts for implementation agents
+- **Summary Report Template**: Session completion and results documentation
+
+### **Handoff Document Standards** (to be defined)
+Based on validated patterns from `/context/chunking/examples/HANDOFF-2.md` and `/context/chunking/examples/DIARIZATION_CHUNK2_CONTEXT.md`
+
+**Template Validation Required**: Template validation must occur at every stage (specific protocols to be defined)
+
+## Failure Handling & Recovery (to be defined later)
+
+**Initial Approach**: Start with minimal failure handling that can be implemented and improved as the MVP is used in production
 
 ## Workflow Steps
 
@@ -111,10 +144,27 @@ Main agent runs all tests, implements fixes until working, generates final repor
 #### **6. Context System Update**
 Update main context system with results, track system success metrics
 
-## System Orchestration
-- **Main agent coordination**: Runs entire process through claude code
-- **Progress tracking**: Continuous context system and CLAUDE.md updates
-- **State management**: Maintains coordination state across agent hierarchy
+## Main Agent Coordination Architecture
+
+### **Document-Based Coordination Model**
+The system uses document-based coordination instead of programmatic dependency management:
+- **Stateless Agent Design**: Each agent receives complete context via documents, no runtime state sharing
+- **File System Handoffs**: All inter-agent communication through prepared documents and handoff files
+- **No Runtime Coordination**: All dependency relationships resolved through upfront planning by Analysis Agent
+- **Context Window Boundaries**: Child agents operate within 3-4K token contexts from prepared documents
+
+**Why Document Coordination**: Aligns with Claude Code's Task tool constraints while ensuring reproducible, debuggable agent interactions
+
+### **Main Agent Responsibilities** (to be fleshed out)
+- **Process Orchestration**: Sequences all specialized agents based on dependency chart
+- **Report Interpretation**: Analyzes sub-agent outputs for success/failure states and next actions
+- **Final Validation**: Ensures all tests pass before completion, implements corrections as needed
+- **Error Recovery**: Determines restart vs escalation procedures (protocols to be defined)
+
+### **Progress Tracking Protocols**
+- **Main Progress**: Chunking progress captured in CLAUDE.md
+- **Minor Progress Tracking**: Still needs to be defined
+- **State Management**: Tracks completion status of each agent across all phases
 
 ## Target Scope
 The target change size of this system is at minimum a large single file implementation and at maximum a medium to medium/large sized module.
