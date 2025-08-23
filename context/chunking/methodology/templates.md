@@ -1,5 +1,20 @@
 # Template Format Specifications
 
+## Implementation Priority Order
+
+### **Phase 1: Foundation Templates (Build First)**
+1. **Input Specification Template** - System entry point; nothing can start without this
+2. **Context Package Template** - Required for agent communication and work scope definition
+
+### **Phase 2: Coordination Templates (Build Second)**
+3. **Handoff Document Template** - Critical for chunk-to-chunk information transfer
+4. **Dependency Chart Template** - Required for execution order determination
+
+### **Phase 3: Management Templates (Build Third)**
+5. **Scale Validation Template** - Control Agent upfront chunking decisions
+6. **Coordination Plan Template** - Overall orchestration planning
+7. **Summary Report Template** - End-of-session reporting (blocks nothing, build last)
+
 ## Template Types
 
 The system uses **7 template types** for document-based coordination:
