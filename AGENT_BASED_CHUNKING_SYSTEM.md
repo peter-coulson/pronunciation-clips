@@ -54,21 +54,6 @@ A simple, prompt-based chunking system that leverages Claude's proven architectu
 
 ## System Architecture
 
-### Agent Hierarchy
-```
-Control Agent (Coordinator)
-├── Analyzes specification documents
-├── Makes chunking boundary decisions  
-├── Creates dependency graphs
-├── Manages parallel execution waves
-└── Coordinates final integration
-
-Sub-Agents (Implementers)
-├── Implement individual chunks
-├── Use focused 3-4K token contexts
-├── Follow interface contracts
-└── Report completion to Control Agent
-```
 
 ### Repository Structure
 ```
@@ -114,112 +99,7 @@ repository/
 **Phase 5: System Architecture** → Sessions structure design (deferred until methodology complete)
 **Phase 6: MVP Testing** → All components integration testing
 
-## Workflow Design
 
-### Phase 1: Control Agent Analysis
-**Input**: Comprehensive specification document (400+ lines, similar to `diarization_implementation.md`)
-
-**Control Agent Process**:
-1. **Specification Analysis** - Identify implementation boundaries, complexity areas, dependencies
-2. **Chunk Boundary Decision** - Apply proven patterns to determine optimal chunk divisions
-3. **Dependency Graph Creation** - Map chunk relationships and execution order
-4. **Parallel Execution Planning** - Identify which chunks can run simultaneously
-5. **Context Package Generation** - Create focused 3-4K token contexts for each chunk
-6. **Interface Contract Definition** - Specify input/output contracts between chunks
-
-**Outputs**: 
-- `execution-plan.md` - Complete chunk execution strategy
-- `chunks/*/specification.md` - Individual chunk specifications
-- `chunks/*/context/` - Focused context packages
-- `chunks/*/contracts/` - Interface specifications
-
-### Phase 2: Sub-Agent Coordination
-**Execution Waves**:
-```
-Wave 1 (Parallel): Independent chunks (Foundation + E2E Tests)
-Wave 2: Dependent implementations (ML Module)
-Wave 3: Integration layers (Entity Integration)
-Wave 4 (Parallel): Application layers (Pipeline + CLI)
-Wave 5: Final validation and integration
-```
-
-**Sub-Agent Process**:
-1. **Context Loading** - Read chunk specification + focused context + contracts
-2. **Implementation** - Code implementation following interface contracts
-3. **Validation** - Test against chunk success criteria
-4. **Contract Compliance** - Verify actual interfaces match specifications
-5. **Completion Reporting** - Update state and notify Control Agent
-
-### Phase 3: Integration Management
-**Control Agent Integration**:
-1. **Interface Validation** - Verify chunk outputs match expected contracts
-2. **Dependency Resolution** - Ensure dependent chunks have required inputs
-3. **Conflict Detection** - Identify any integration issues across chunks
-4. **Context Updates** - Feed completed chunk results back to repository context
-5. **Next Wave Coordination** - Spawn dependent chunks with updated contexts
-
-## Context Integration Strategy
-
-### Micro Context Structure (Single Chunk)
-```
-.chunking/sessions/session-ID/chunks/chunk-2-ml-module/
-├── specification.md                # What to implement (500-800 tokens)
-│   ├── Scope definition
-│   ├── Success criteria  
-│   ├── Interface contracts
-│   └── Integration requirements
-├── context/                        # Focused context (3-4K tokens total)
-│   ├── relevant-files.md           # Essential files for this chunk
-│   ├── integration-patterns.md     # How to integrate with existing code
-│   ├── dependencies.md             # Required inputs from other chunks
-│   └── examples.md                 # Code patterns and usage examples
-├── contracts/                      # Interface specifications (300-500 tokens)
-│   ├── inputs.md                   # What this chunk receives
-│   └── outputs.md                  # What this chunk provides
-└── state.md                        # Implementation progress tracking
-```
-
-### Repository Context Integration
-```
-Existing Repository Context → Chunking System Flow:
-
-1. Control Agent reads:
-   - context/domains/ (architecture patterns)
-   - context/standards/ (coding standards) 
-   - context/patterns/ (proven approaches)
-
-2. Control Agent creates chunk contexts by:
-   - Filtering relevant files (3K tokens max per chunk)
-   - Including applicable standards/patterns
-   - Adding chunk-specific integration guidance
-
-3. Sub-Agents implement using focused contexts
-
-4. Completed implementations flow back:
-   - New interfaces → context/patterns/interfaces.md
-   - Proven patterns → context/patterns/[domain].md
-   - Updated architecture → context/domains/architecture.md
-```
-
-### Context Update Mechanisms
-**After Each Chunk Completion**:
-```
-Control Agent updates repository context:
-1. Extract new patterns from implementation
-2. Update interface documentation
-3. Record integration approaches that worked
-4. Feed lessons learned back to context/patterns/
-5. Update architecture documentation if needed
-```
-
-**After Session Completion**:
-```
-Control Agent generates:
-1. Session summary for context/chunking/sessions/
-2. Pattern updates for context/patterns/
-3. Architectural learnings for context/domains/
-4. Updated development standards if discovered
-```
 
 
 ## Essential Reference Documents
@@ -241,13 +121,6 @@ Control Agent generates:
 - `/context/chunking/framework/` - Automation framework designs
 - Any content related to "automated handoff generation" or "system analysis"
 
-### Key Success Patterns from Experiment
-From `CHUNKING_LEARNINGS_LOG.md`:
-- **Context Management**: 4.8/5 effectiveness with 3.2K average token contexts
-- **Contract Accuracy**: 95% - upfront interface design prevents integration issues
-- **Handoff Quality**: 5/5 - comprehensive interface specifications enable zero-friction implementation
-- **Development Velocity**: 120% of expected (4.2 hours vs 5-7 hour target)
-- **Integration Reliability**: Zero integration failures between chunks
 
 ## Implementation Approach
 
@@ -333,12 +206,6 @@ claude-code --session=chunk-integration "Continue chunk 3 implementation from la
 
 ## Success Criteria
 
-### System Effectiveness Targets
-- **Context Management**: 4.5+ effectiveness rating (proven: 4.8/5)
-- **Contract Accuracy**: 90%+ interface prediction accuracy (proven: 95%)  
-- **Development Velocity**: 100%+ of traditional development speed (proven: 120%)
-- **Integration Quality**: Zero integration failures between chunks (proven: 5/5)
-- **Parallel Efficiency**: 30-50% time reduction through parallel execution
 
 ### Repository Integration Success
 - **Context Pollution**: Zero - chunking integrates cleanly within existing context system
