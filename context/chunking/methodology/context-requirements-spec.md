@@ -39,7 +39,7 @@ The chunking system requires comprehensive specification planning before agents 
 **Too Detailed**: Wastes the users time overspecifying what claude can safely assume
 **Optimal Level**: The minimum level of context where no critical assumptions are made
 
-The system needs an "implementation abstraction dial" that can be tuned based on findings when running the MVP.
+Through running of the MVP the user can adjust these to find the optimal level. 
 
 ## Experimental Data Resource
 
@@ -50,11 +50,8 @@ The system needs an "implementation abstraction dial" that can be tuned based on
 1. **Requirements Abstraction Level for MVP**: What granularity should initial requirements templates use?
 2. **Experimental Data Calibration**: How to extract abstract requirements from MVP data?
 3. **Validation Architecture**: Separate validation agent vs unified agent approach?
-4. **Requirements Scope Boundaries**: Where does requirements validation end and implementation begin?
-5. **Agent Instruction Abstraction**: How abstractly can the system and implementation details be described to Claude?
-6. **Failure Feedback Mechanism**: How does Claude indicate what requirements are missing?
-7. **Requirements Interdependency Handling**: How does discovering one requirement reveal needs for others?
-8. **Abstraction Dial Mechanics**: What parameters control requirement detail level and how are they adjusted?
+4. **Agent Instruction Abstraction**: How abstractly can the system and implementation details be described to Claude?
+5. **Failure Feedback Mechanism**: How does Claude indicate what requirements are missing?
 
 ## Success Criteria
 
