@@ -23,20 +23,12 @@ We are currently **developing** the agent-based chunking system, not operating i
 
 ## Project Context
 @context/chunking/README.md
-Only pull when planning which area to implement next: '@context/chunking/PLANNING.md' 
 
-## Implementation Priority Order
-1. **Template specification standards** (communication backbone) - Dual template strategy implementation
-2. Methodology to prompt translation (agent instructions)
-3. Phase B implementation (module decomposition)
-
-## Current Priority: Input Template Design Strategy
-Working on dual template approach with Input Validation Agent for translation.
-
-**Temporary Analysis File**: `@context/chunking/input_template_requirements.md`
-- Contains comprehensive requirement analysis
-- **DO NOT MODIFY** - Used for systematic categorization analysis only
-- Will be refined after boundary definition is complete
+## Current Development Tasks
+### High Level
+Currently developing the input requirements and methodology in the file: methodology/context-requirements-spec.md
+### Current Task:
+Define Abstraction Level for MVP Requirements Templates
 
 ## Critical Constraints
 - Stateless agent design (Task tool limitations)
