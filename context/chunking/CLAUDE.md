@@ -23,8 +23,7 @@ We are currently **developing** the agent-based chunking system, not operating i
 
 ## Project Context
 @context/chunking/README.md
-Only pull when planning which area to implement next:
-@context/chunking/PLANNING.md 
+Only pull when planning which area to implement next: '@context/chunking/PLANNING.md' 
 
 ## Implementation Priority Order
 1. **Template specification standards** (communication backbone) - Dual template strategy implementation
