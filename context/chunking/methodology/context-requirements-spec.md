@@ -1,60 +1,31 @@
 # Context Requirements Specification
 
-## Input Translation Process
-**Input Validation Agent** transforms user input:
-1. Validate completeness
-2. Translate to system template
-3. Identify gaps
-4. Integrate with repository context
+## Requirements Categories - Natural Technical Boundaries
 
-## Context Categories - Natural Technical Boundaries
+The system divides input requirements into three categories based on **natural technical boundaries** - each requirement has a clear home based on its source of authority:
 
-The system divides input context into four categories based on **natural technical boundaries** - each requirement has a clear home based on its source of authority:
-
-### 1. Chunking System Context
-Context related to the chunking system's functionality or methods.
-- **Source**: `/context/chunking/methodology/*`
-- **Boundary**: System coordination and methodology requirements
-
-**Core Components**:
-- **Testing Strategy**: Universal execution rules
-  - E2E test immutability principle (tests cannot be modified after setup)
-  - Contract fulfillment requirements (all tests must pass before chunk completion)
-- **What this means in practice**:
-  - The specifics of testing implementation in the rest of the context outside of the E2E tests can be light.
-  - We can also go into detail about the testing strategies to use and the system should take these into account.
-  - It will be the role of the chunking creation agent to put these into practice.
-
-### 2. Repository Level Context  
+### 1. Repository Level Requirements
 **System cannot proceed** without these being defined in the repository's context system.
 - **Source**: `/context/domains/`, `/context/standards/`, `/context/patterns/`
 - **Boundary**: Inferable from existing codebase patterns and established project standards
 - **Examples**: Dependencies, tech stack, architecture patterns, development standards, file organization
 - **Blocker**: If missing, chunking system fails
 
-### 3. Area Level Context
+### 2. Area Level Requirements
 For specific technology areas, **system cannot proceed** without the specific protocols/frameworks being defined.
 - **Source**: `/context/domains/` technology-specific files
 - **Boundary**: Technology-specific patterns and frameworks for backend, frontend, database, etc.
 - **Examples**: API frameworks, database patterns, authentication methods, deployment strategies
 - **Blocker**: If missing for relevant project areas, chunking system fails
 
-### 4. Implementation Level Context
+### 3. Implementation Level Requirements
 User **must specify** because it's not inferable from repository patterns or technology standards.
 - **Source**: User specification only
 - **Boundary**: Business-specific logic, feature requirements, user workflows
-- **Examples**: Business rules, user stories, specific feature behavior, domain logic
+- **Examples**: Business rules, user stories, specific feature behavior, domain logic, testing requirements beyond E2E tests
 - **Requirement**: Must be complete in user input for system to proceed
 
-## System Integration Points
-
-### Agent First Action Workflow
-1. **Input Validation Agent** receives user-facing template
-2. Read categories 1-3 from context system
-3. Translate user input to complete system template
-4. Extract category 4 from completed system template
-5. Combine into single input for Chunking Analysis Agent
-6. Proceed with Phase A (Scale Validation)
+**Note on Testing**: Testing requirements outside of main E2E tests can be specified lightly in implementation requirements, as the chunking system methodology already defines universal execution rules (E2E test immutability principle and contract fulfillment requirements).
 
 ## Input Template Requirements Analysis
 
@@ -97,10 +68,10 @@ Specific Level: "Use Express.js with JWT auth for user APIs"
 - **Maintainability**: Each layer adds specificity
 - **Robustness**: Most specific specification wins
 
-### Critical Boundary (Only One That Matters)
-**System-Inferable** (Repository + Area + Chunking) vs **User-Must-Specify** (Implementation)
+### Critical Boundary
+**System-Inferable** (Repository + Area) vs **User-Must-Specify** (Implementation)
 
-All other categorization is internal system organization optimized for consistency, not perfect classification.
+The three-category structure provides natural technical boundaries for requirements organization and template population.
 
 ## Requirements Specification Structure
 
@@ -112,7 +83,7 @@ Each requirements specification serves dual purposes:
 ### File Structure & Homes
 ```
 /context/chunking/requirements/
-├── system-requirements.md          # System-level info requirements
+├── repository-requirements.md       # Repository-level info requirements
 ├── areas/
 │   ├── backend-api-requirements.md
 │   ├── frontend-web-requirements.md  
@@ -141,10 +112,10 @@ This eliminates ambiguity - Claude knows exactly what to collect, where to find 
 System and area context should be treated as the same process with prioritization hierarchy respected:
 
 #### Single Collection Phase
-Claude processes all context sources simultaneously, applying override hierarchy:
+Input Validation Agent processes all requirements sources, applying override hierarchy:
 
 1. **Multi-Source Template Filling**
-   - System requirements → Repository context + user input (user wins)
+   - Repository requirements → Repository context + user input (user wins)
    - Area requirements → Repository context + user input (user wins)  
    - Implementation requirements → User input only
 
@@ -153,10 +124,10 @@ Claude processes all context sources simultaneously, applying override hierarchy
    User Input > Repository Patterns > Inference
    ```
 
-3. **Unified Template Population**
-   - All templates filled in single pass
+3. **Template Population**
+   - Requirements templates filled in single validation pass
    - Conflicts resolved by hierarchy during population
-   - No sequential system → area → specific workflow
+   - Agent translates user input to complete system specification
 
 **Benefits**: Maintains hierarchy while simplifying process - no complex multi-phase template coordination needed.
 
