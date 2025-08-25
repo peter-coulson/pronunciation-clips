@@ -24,12 +24,6 @@ We are currently **developing** the agent-based chunking system, not operating i
 ## Project Context
 @context/chunking/README.md
 
-## Current Development Tasks
-### High Level
-Currently developing the input requirements and methodology in the file: methodology/context-requirements-spec.md
-### Current Task:
-Define Abstraction Level for MVP Requirements Templates
-
 ## Critical Constraints
 - Stateless agent design (Task tool limitations)
 - Document-based handoffs only

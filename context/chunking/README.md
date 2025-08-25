@@ -5,7 +5,7 @@ A simple, prompt-based chunking system that leverages Claude's proven architectu
 ## Core Goals
 
 1. **Preserve Claude's Judgment** - Control Agent makes all chunking decisions using proven patterns
-2. **Enable Parallel Execution** - Sub-Agents implement independent chunks simultaneously 
+2. **Enable Parallel Execution** - Sub-Agents implement independent chunks simultaneously (Long term goal after MVP)
 3. **Maintain Integration Quality** - Interface specification-based handoffs ensure seamless chunk integration
 4. **Repository Agnostic** - Works with any codebase without complex setup
 5. **Leverage Proven Patterns** - Built on 5/5 effectiveness experiment results (4.8/5 context management, 95% interface specification accuracy, 120% velocity)
