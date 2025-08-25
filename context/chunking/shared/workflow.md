@@ -11,7 +11,11 @@
 
 2. **Sequential Implementation**
    - Execute chunks in dependency order
-   - Maintain context between chunks
+   - Provide complete context package for each chunk:
+     * HANDOFF document from previous chunk (workflow + interfaces)
+     * CONTEXT document for current chunk (focused requirements)
+     * Targeted existing source files (integration points, patterns)
+     * Related configuration and test files
    - Handle integration points
 
 3. **Result Integration**

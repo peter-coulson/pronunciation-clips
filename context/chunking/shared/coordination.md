@@ -6,6 +6,7 @@
 - **Phase Transition Management**: Validates completion of current phase before initiating next phase
 - **Handoff Validation**: Ensures standardized formats are maintained between phases  
 - **Context Preservation**: Maintains overall project context across phase boundaries
+- **Repository Context Management**: Identifies and provides targeted existing source files, integration points, and patterns needed by each chunk beyond specification documents
 - **Progress Tracking**: Monitors overall system progress and completion status
 
 ### Delegation Patterns

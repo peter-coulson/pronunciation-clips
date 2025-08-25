@@ -8,10 +8,9 @@
 - **When in doubt, leave it out**
 
 ## Current Phase: System Development
-We are currently **developing** the agent-based chunking system, not operating it. This involves:
-- Building methodology files and agent instruction templates
-- Creating communication standards and validation procedures
-- Defining workflow patterns and coordination mechanisms
+We are currently **developing** the agent-based chunking system, not operating it. 
+### Current Focus
+Creation of handover standards between planning and execution agents
 
 **Note**: The `sessions/` folder is for actual implementation when the system is operationally used within the larger context system. We do not use sessions during development.
 
