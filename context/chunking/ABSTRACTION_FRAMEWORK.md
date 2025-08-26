@@ -2,6 +2,8 @@
 
 ## Problem Statement
 
+**System Context**: Stateless agents with document handoffs performing universal, project-agnostic specification transformation.
+
 ### Planning Module Goal 
 The planning module performs bi-directional specification transformation: 
 1. **Quality Assessment** - evaluating input specifications for completeness, coherence, feasibility, and alignment across all relevant knowledge domains, with capability to reject insufficient inputs or request refinements.
@@ -23,21 +25,30 @@ Sequential refinement from business intent to executable code - defines the TARG
 6. **Signature Level** - Exact method contracts, parameters, return types
 7. **Implementation Level** - Actual syntax, variable names, implementation details
 
-### Knowledge Domains (What Do I Already Know About The Existing System?)
-Orthogonal categories of existing system knowledge that inform decisions at any specification level:
+### Knowledge Requirements Framework
+This framework generates context requirements for any change by mapping universal risk patterns to specific project contexts. Requirements are determined dynamically based on specification level and risk prevention needs.
 
-1. **Codebase Knowledge** - Existing patterns, utilities, architectural conventions, code organization
-2. **Technology Knowledge** - Dependencies, frameworks, language idioms, tooling, libraries
-3. **Domain Knowledge** - Business logic, existing data models, domain constraints, business rules
-4. **Quality Standards** - Testing approaches, code standards, performance requirements, validation patterns
-5. **Infrastructure Knowledge** - Build systems, deployment constraints, environment configuration
+#### Universal Risk Types
+- **System-Breaking**: Violates fundamental constraints causing failures
+- **Integration-Breaking**: Prevents components from working together  
+- **Maintenance-Breaking**: Creates technical debt blocking future changes
+- **Quality-Breaking**: Violates established standards causing degradation
 
-### Knowledge Categorization Strategy
-Knowledge domain requirements are determined by **critical thresholds** at each specification level:
+#### Universal Knowledge Categories
+- **Constraint Knowledge**: "What boundaries cannot be crossed?"
+- **Pattern Knowledge**: "What are established ways of doing things?"
+- **Integration Knowledge**: "How do components connect/communicate?"
+- **Convention Knowledge**: "What are consistency requirements?"
 
-- **Risk-Based Criticality** - Knowledge is critical if its absence creates unacceptable risk (system breaking, integration breaking, maintenance breaking, or quality breaking)
-- **Context Sufficiency** - Each domain reaches a sufficiency threshold where additional system context becomes counterproductive
-- **Context Independence** - Beyond sufficiency thresholds, implementation relies on universal engineering principles rather than system-specific knowledge
-- **Best Practices as Critical** - Development patterns and practices are treated as critical at their natural enforcement level (e.g., architectural patterns critical at Architecture Level, coding conventions critical at Implementation Level)
+#### Risk-Knowledge Mapping
+- **Constraint Knowledge** → Prevents System-Breaking risks
+- **Pattern Knowledge** → Prevents Maintenance-Breaking risks  
+- **Integration Knowledge** → Prevents Integration-Breaking risks
+- **Convention Knowledge** → Prevents Quality-Breaking risks
 
-For each specification level, determine: "What knowledge from each domain is CRITICAL to prevent unacceptable risk?"
+#### Context Independence Progression
+- **Infrastructure Knowledge**: Context-independent after Architecture Level
+- **Domain Knowledge**: Context-independent after Behavior Level  
+- **Technology/Quality/Codebase Knowledge**: Remain critical through Implementation Level
+
+This framework enables intelligent systems to generate optimal context requirements for any change by determining which knowledge categories are critical at each specification level to prevent unacceptable risks.
