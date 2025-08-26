@@ -45,9 +45,10 @@ repository/
 │       │   ├── coordination.md    # Main agent orchestration
 │       │   └── handoff-spec.md    # Phase 1 → Phase 2 interface
 │       ├── planning/              # Phase 1 components
-│       │   ├── methodology/       # Analysis patterns, chunking decisions
-│       │   ├── instructions/      # Planning specialist behaviors
-│       │   └── templates/         # Input specs, chunk definitions
+│       │   ├── ABSTRACTION_FRAMEWORK.md  # Core specification levels & knowledge framework
+│       │   ├── methodology/       # Context-and-requirements agent implementation
+│       │   │   └── context-and-requirements/  # Agent coordination and processes
+│       │   └── templates/         # Input specs, knowledge requirements, context extraction
 │       ├── execution/             # Phase 2 components
 │       │   ├── methodology/       # Implementation coordination
 │       │   ├── instructions/      # Execution specialist behaviors
@@ -72,10 +73,10 @@ repository/
 ## Current Development Focus
 
 **Phase 1 System** - Currently under development:
-- Input analysis and validation
-- Chunking decision-making patterns
-- Chunk specification generation
-- Clean handoff format definition
+- Context-and-Requirements Agent: Validates input templates, generates knowledge requirements, and extracts available context
+- Specification transformation through 7-level progression (Requirements → Implementation)
+- Risk-knowledge mapping for systematic context identification
+- Clean handoff format definition for downstream planning
 
 **Phase 2 System** - Future development:
 - Will receive standardized chunk specifications

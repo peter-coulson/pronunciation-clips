@@ -1,4 +1,4 @@
-# Template-to-Requirements Agent Coordination
+# Context-and-Requirements Agent Coordination
 
 ## Agent Boundaries
 

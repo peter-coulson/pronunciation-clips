@@ -21,7 +21,7 @@ Creation of handover standards between planning and execution agents
 - Maintain a proper configuration file for all constants to ensure easy updates and consistency across the project
 
 ## Project Context
-@context/chunking/README.md
+@planning/README.md
 
 ## Critical Constraints
 - Stateless agent design (Task tool limitations)
