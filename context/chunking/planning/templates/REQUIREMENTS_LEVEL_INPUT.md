@@ -52,5 +52,19 @@
 - **Breaking Changes**: 
 - **Migration**: 
 
+## Minimum Context for Knowledge Requirements Generation
+
+### Technical Overview
+- **Primary Technologies**: [Languages, frameworks, databases]
+- **System Architecture**: [High-level component types, main data flows]  
+- **Deployment Environment**: [Platform, infrastructure constraints]
+
+### Integration Landscape  
+- **External Dependencies**: [APIs, services, libraries used]
+- **Communication Patterns**: [REST, events, databases, file systems]
+
+### Quality Standards
+- **Existing Standards**: [Testing approach, code quality tools, documentation requirements]
+
 ## Additional Context
 *(Optional: Context not available in the system or additional domain-specific information needed for implementation)*
