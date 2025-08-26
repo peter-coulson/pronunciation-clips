@@ -54,26 +54,58 @@ graph TD
 
 ### Phase 1: Foundation Context
 **Target Files for Modification**:
-- `[path/to/file1.py]` - [Purpose - models, config, etc.]
-- `[path/to/file2.py]` - [Purpose]
+- `[path/to/models]` - [Purpose - data structures, business logic, etc.]
+- `[path/to/controllers]` - [Purpose - request handling, coordination]
 
 **Integration Dependencies**:
-- `[path/to/integration.py]` - [What interfaces to use]
-- `[path/to/config.py]` - [Configuration patterns to follow]
+- `[path/to/integration_layer]` - [What interfaces to use]
+- `[path/to/configuration]` - [Configuration patterns to follow]
 
 **Pattern References**:
-- `[path/to/similar_implementation.py]` - [What patterns to follow]
+- `[path/to/similar_implementation]` - [What patterns to follow]
 
 ### Phase 2: Implementation Context  
 **Target Files for Enhancement**:
-- `[path/to/main_system.py]` - [What functionality to add]
-- `[path/to/pipeline.py]` - [Integration points]
+- `[path/to/main_system]` - [What functionality to add]
+- `[path/to/data_pipeline]` - [Integration points]
 
 **Quality References**:
-- `[path/to/test_patterns.py]` - [Test structures to replicate]
-- `[path/to/config_example.py]` - [Configuration validation patterns]
+- `[path/to/test_patterns]` - [Test structures to replicate]
+- `[path/to/config_examples]` - [Configuration validation patterns]
 
 [Continue for each major phase...]
+
+## Integration & E2E Test Specifications
+
+### System-Wide E2E Test Requirements
+**Complete User Workflows**:
+1. **[Primary User Journey]**: [Step-by-step scenario]
+   - **Input**: [Initial conditions and user input]
+   - **Expected**: [End-to-end behavior and outcomes]
+   - **Validation**: [Success criteria and data verification]
+
+2. **[Secondary User Journey]**: [Step-by-step scenario]
+   - **Input**: [Initial conditions and user input]  
+   - **Expected**: [End-to-end behavior and outcomes]
+   - **Validation**: [Success criteria and data verification]
+
+### Cross-Chunk Integration Tests
+**[Chunk A] → [Chunk B] Interface**:
+- **Contract**: [Specific interface being tested]
+- **Test Data**: [Input data format and examples]
+- **Expected Output**: [Exact data structure and behavior]
+- **Error Scenarios**: [Failure modes to validate]
+
+**[Chunk B] → [Chunk C] Interface**:  
+- **Contract**: [Specific interface being tested]
+- **Test Data**: [Input data format and examples]
+- **Expected Output**: [Exact data structure and behavior]
+- **Error Scenarios**: [Failure modes to validate]
+
+### Test Execution Strategy
+**Integration Test Order**: [Sequence for running cross-chunk tests]
+**E2E Test Dependencies**: [Which components must be ready]
+**Test Data Management**: [How test data is created/cleaned up]
 
 ## Critical Checkpoints
 

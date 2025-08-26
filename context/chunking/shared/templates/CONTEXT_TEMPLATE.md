@@ -19,11 +19,10 @@
 
 ## Implementation Requirements
 
-### Core [Component] Structure
-```[language]
-# Expected class/module structure
-[Code template showing the basic structure to implement]
-```
+### Core [Component] Responsibilities
+- [Primary responsibility 1]: [Behavioral expectation]
+- [Primary responsibility 2]: [Behavioral expectation]  
+- [Key abstraction]: [What this component should encapsulate]
 
 ### [Key Requirement Category 1]
 - [Specific requirement 1]
@@ -40,10 +39,21 @@
 - [Performance requirement 2]
 - [Performance requirement 3]
 
-## Testing Requirements
-- [Test category 1]: [Brief description]
-- [Test category 2]: [Brief description]
-- [Test category 3]: [Brief description]
+## Quality Validation Requirements
+- [Behavioral validation 1]: [Expected behavior to verify]
+- [Behavioral validation 2]: [Expected behavior to verify]
+- [Performance criteria]: [Measurable quality thresholds]
+
+## Required Test Gates
+### Integration Tests (Must Pass Before Proceeding)
+- **[Integration Test Name]**: [Specific pre-defined test from coordination plan]
+  - **Purpose**: [What interface/contract this validates]
+  - **Command**: [How to execute this test]
+
+### E2E Tests (Must Pass Before Proceeding)  
+- **[E2E Test Name]**: [Specific pre-defined test from coordination plan]
+  - **Purpose**: [What user workflow this validates]
+  - **Command**: [How to execute this test]
 
 ## Focus Areas
 - **[Priority 1]**: [Brief description of key focus area]

@@ -2,8 +2,8 @@
 
 ## Planning Phase Outputs (Context Packages)
 
-- `COORDINATION-PLAN.md` - Detailed execution sequence, timing estimates, checkpoints, dependency analysis
-- `to_be_decided/chunk-[N]-[name]/CONTEXT.md` - Complete implementation contexts
+- `COORDINATION-PLAN.md` - Execution sequence, timing estimates, dependency analysis
+- `to_be_decided/chunk-[N]-[name]/CONTEXT.md` - Filtered behavioral contexts (levels 4-5)
 
 ## Execution Phase Outputs (Handoff Documents)
 
@@ -28,6 +28,9 @@
 
 ### Planning Agent Guidelines
 
-**COORDINATION-PLAN**: Target Levels 2-4, avoid implementation details
-**CONTEXT**: Target Levels 4-5, avoid function signatures  
-**HANDOFF**: Require Levels 5-6, ensure tested implementation contracts
+**COORDINATION-PLAN**: Target Levels 2-4, focus on execution sequence
+**CONTEXT**: Target Levels 4-5, filtered behavioral requirements only
+**HANDOFF**: Target Levels 5-6, document actual implementation contracts
+
+### Execution Simplicity Principle
+Planning phase handles complexity through comprehensive context extraction and intelligent filtering. Execution agents receive focused contexts and maintain implementation flexibility.
