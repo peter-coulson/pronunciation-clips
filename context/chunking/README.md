@@ -1,94 +1,100 @@
 # Agent-Based Chunking System
 
-A two-phase chunking system that separates planning from execution. Phase 1 analyzes user specifications and determines optimal chunk divisions. Phase 2 implements the defined chunks. This division enables clean handoffs and focused development of each phase.
+A sequential agent system that transforms user specifications into implemented code through planning, chunking division, and execution phases. Each agent operates independently with document-based handoffs, enabling stateless execution and clear separation of concerns.
 
 ## Core Goals
 
 1. **Clear Phase Separation** - Distinct planning and execution phases with clean handoffs
 2. **Preserve Claude's Judgment** - Leverage proven architectural decision-making capabilities  
 3. **Repository Agnostic** - Works with any codebase without complex setup
-4. **Leverage Proven Patterns** - Built on experiment results (execution phase: 4.8/5 context management, 95% interface specification accuracy; planning phase was manually orchestrated)
+4. **Stateless Design** - Document-based handoffs enable independent agent execution
 
-## System Architecture
+## Agent Structure & Token Estimates
 
-### Three-Phase Design
+### Context and Requirements Agent (Independent Module)
+**Repository-agnostic agent for any specification transformation project**
 
-**Phase 1: Planning & Chunk Division**
-- Analyzes user specifications
-- Determines optimal chunk boundaries  
-- Outputs standardized chunk definitions
-- No implementation work
+- **Main Agent**: `planning/methodology/context-and-requirements/coordination.md`
+  - **Role**: Transform input templates to knowledge requirements and context extraction [~4.5K tokens]
+  - **Inputs**: REQUIREMENTS_LEVEL_INPUT.md [~800 tokens]
+  - **Outputs**: KNOWLEDGE_REQUIREMENTS_TEMPLATE.md [~1.2K tokens], CONTEXT_EXTRACTION_OUTPUT.md [~3K tokens]
+  - **Subagents**:
+    - Knowledge Requirements Generation Subagent [~2K tokens]
+    - Context Extraction Subagent [~3.5K tokens]
 
-**Phase 2: Chunk Execution**  
-- Receives validated chunk specifications
-- Implements defined chunks
-- Produces integrated results
-- Separate system (future development)
+## Proposed Agent Architecture
 
-**Phase 3: Main Agent Integration**
-- Creates unified orchestration agent
-- Combines Phase 1 and Phase 2 systems
-- Provides seamless end-to-end automation
-- Final system integration (future development)
+Based on operational complexity analysis and token efficiency considerations:
 
-### Repository Structure
+### 1. Planning Agent [~8K tokens]
+- **Scope**: Complete specification pipeline from requirements to behavioral specifications
+- **Orchestrates Subagents**:
+  - Architecture-Interface Specification Agent [~6K tokens] - `planning/methodology/specification-agents/architecture-interface-agent.md`
+  - Behavior Specification Agent [~8K tokens] - `planning/methodology/specification-agents/behavior-specification-agent.md`
+- **Inputs**: REQUIREMENTS_LEVEL_INPUT.md + KNOWLEDGE_REQUIREMENTS_TEMPLATE.md + CONTEXT_EXTRACTION_OUTPUT.md [~5K tokens]
+- **Outputs**: LEVEL_2_ARCHITECTURE_SPECIFICATION.md + LEVEL_3_INTERFACE_SPECIFICATION.md + LEVEL_4_BEHAVIOR_SPECIFICATION.md + Test specifications [~9.8K tokens]
+
+### 2. Chunking Division Agent [~4K tokens]
+- **Scope**: Transform specifications into execution-ready coordination plans
+- **Orchestrates Subagents**:
+  - Boundary Analysis Agent [~10.3K tokens context] - `chunking-division/methodology/boundary-analysis.md`
+  - Implementation Specification Integration Agent [~14.8K tokens context] - `chunking-division/methodology/implementation-specification-integration.md`
+  - Coordination Synthesis Agent [~4K tokens context] - `chunking-division/methodology/coordination-synthesis.md`
+- **Inputs**: All Level 2-4 specifications + context extraction [~12.8K tokens]
+- **Outputs**: COORDINATION_PLAN.md + CONTEXT_TEMPLATE.md per chunk [varies by project complexity]
+
+### 3. Execution Coordination Agent [~12K tokens]
+- **Scope**: Manage parallel chunk execution with operational resilience
+- **Orchestrates Subagents**:
+  - Test Generation Agent [~5.5K tokens] - `test-generation/methodology/execution.md`
+  - Test-Driven Implementation Agent [~6.5K tokens] - `execution/methodology/test-driven-implementation.md`
+- **Responsibilities**:
+  - Coordinate multiple implementation agents across chunks in parallel
+  - Handle parallel execution, dependency sequencing, resource management
+  - Manage failure cascades, rollback strategies, integration testing
+  - Provide operational monitoring and dynamic re-scheduling
+- **Future Extensions**: Intelligent retry, partial rollback, performance adaptation
+- **Inputs**: COORDINATION_PLAN.md + CONTEXT_TEMPLATE.md files + TEST_CONTEXT_TEMPLATE.md [~8K tokens]
+- **Outputs**: Implementation code + integration validation + execution status
+
+## Proposed Agent Flow
+
 ```
-repository/
-├── .claude/agents/
-│   ├── chunking-main.md           # Main agent (orchestrates both phases)
-│   ├── chunk-planner.md           # Phase 1 specialist
-│   └── chunk-executor.md          # Phase 2 specialist
-├── context/
-│   └── chunking/
-│       ├── shared/                # Shared components
-│       │   ├── workflow.md        # Overall end-to-end workflow
-│       │   ├── coordination.md    # Main agent orchestration
-│       │   └── handoff-spec.md    # Phase 1 → Phase 2 interface
-│       ├── planning/              # Phase 1 components
-│       │   ├── ABSTRACTION_FRAMEWORK.md  # Core specification levels & knowledge framework
-│       │   ├── methodology/       # Context-and-requirements agent implementation
-│       │   │   └── context-and-requirements/  # Agent coordination and processes
-│       │   └── templates/         # Input specs, knowledge requirements, context extraction
-│       ├── execution/             # Phase 2 components
-│       │   ├── methodology/       # Implementation coordination
-│       │   ├── instructions/      # Execution specialist behaviors
-│       │   ├── templates/         # Implementation handoffs
-│       │   └── sessions/          # Active implementation sessions
-│       └── experiments/           # Proven results
-└── src/                           # Implementation code
+Context-and-Requirements Agent (independent module)
+    ↓ (produces knowledge requirements + context)
+Planning Agent
+    ├─→ Architecture-Interface Specification Subagent
+    └─→ Behavior Specification Subagent  
+    ↓ (produces complete L2-L4 specifications)
+Chunking Division Agent
+    ├─→ Boundary Analysis Subagent
+    ├─→ Implementation Specification Integration Subagent
+    └─→ Coordination Synthesis Subagent
+    ↓ (produces coordination plan + context templates)
+Execution Coordination Agent
+    └─→ Multiple Test-Driven Implementation Subagents (parallel)
+    ↓ (produces implementation + validation)
 ```
 
-### Component Interaction
+**Key Dependencies:**
+- Context-and-Requirements Agent operates independently (reusable across projects)
+- Planning Agent orchestrates sequential specification development 
+- Chunking Division Agent transforms specifications into execution plans
+- Execution Coordination Agent manages parallel implementation with operational resilience
+- All agents use document-based handoffs with stateless subagent coordination
 
-**Current State (Phase 1 Development):**
-- Planning components operate independently
-- Manual handoff to future execution system
-- Shared components define interface standards
+## Token Usage Summary
 
-**Future State (Phases 2-3):**
-- Main agent orchestrates both phases
-- Standardized handoff specifications enable seamless transitions
-- Execution system validates and implements planning outputs
+**Total System Capacity**: ~24K tokens peak usage (more efficient than previous design)
+**Peak Agent Context**: Execution Coordination Agent (~12K tokens)
+**Subagent Peak**: Implementation Specification Integration (~14.8K tokens)
 
-## Current Development Focus
-
-**Phase 1 System** - Currently under development:
-- Context-and-Requirements Agent: Validates input templates, generates knowledge requirements, and extracts available context
-- Specification transformation through 7-level progression (Requirements → Implementation)
-- Risk-knowledge mapping for systematic context identification
-- Clean handoff format definition for downstream planning
-
-**Phase 2 System** - Future development:
-- Will receive standardized chunk specifications
-- Implementation coordination and execution  
-- Result integration and validation
-- Based on proven experimental patterns
-
-**Phase 3 System** - Final integration:
-- Unified main agent development
-- End-to-end automation
-- Complete system orchestration
+**Execution Flow Estimates:**
+- Context & Requirements: ~4.5K tokens
+- Planning Phase: ~8K tokens  
+- Chunking Division: ~4K tokens (orchestration only)
+- Execution Coordination: ~12K tokens (manages N parallel chunks)
 
 ## Experimental Context
 
-The proven effectiveness metrics (4.8/5 context management, 95% interface specification accuracy) apply specifically to the execution phase patterns. The original planning phase was manually orchestrated, making Phase 1 development a new automation challenge.
+The proven effectiveness metrics (4.8/5 context management, 95% interface specification accuracy) apply specifically to the execution phase patterns. The planning and chunking division phases represent new automation territory built on these proven foundations.
