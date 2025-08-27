@@ -61,6 +61,34 @@
 
 ---
 
+## Existing Test Analysis
+
+### Current Test Files
+**Test File Locations**: [EXISTING_TEST_PATHS]
+**Test Pattern Analysis**: [CURRENT_TESTING_APPROACHES]
+**Mock Strategy Analysis**: [CURRENT_MOCKING_PATTERNS]
+
+### Test Data Management
+**Fixture Location Strategy**: [FIXTURE_STORAGE_PATTERN]
+**Test Data Generation**: [TEST_DATA_CREATION_APPROACH]
+**Cleanup Strategies**: [TEST_CLEANUP_PATTERNS]
+
+---
+
+## Development Integration
+
+### Test Execution Commands
+**Primary Test Command**: [MAIN_TEST_COMMAND]
+**Specific Test Execution**: [TARGETED_TEST_COMMAND]
+**Coverage Command**: [COVERAGE_EXECUTION_COMMAND]
+
+### IDE Integration
+**Test Runner Integration**: [IDE_TEST_INTEGRATION]
+**Debug Configuration**: [TEST_DEBUG_SETUP]
+**Development Workflow**: [DEV_TEST_INTEGRATION]
+
+---
+
 ## Error Handling Conventions
 
 ### Test Failure Patterns

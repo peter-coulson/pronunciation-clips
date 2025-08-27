@@ -15,6 +15,9 @@ Extract testing knowledge from Context Extraction Output to create execution-rea
 - **Testing Framework Constraints**: Framework versions, execution environments, assertion libraries
 - **Testing Infrastructure Patterns**: Test organization, configuration management, quality standards
 - **Testing Integration Patterns**: CI/CD integration, development workflow, error handling conventions
+- **Existing Test Analysis**: Current test file patterns, established testing approaches, mock strategies
+- **Test Data Management**: Fixture storage patterns, test data generation approaches, cleanup strategies
+- **Development Integration**: Test execution commands, IDE integration patterns, debug configurations
 
 ### Step 1: Chunk-Centric Specification Extraction
 For each chunk from boundary analysis, extract relevant specifications across all levels:
