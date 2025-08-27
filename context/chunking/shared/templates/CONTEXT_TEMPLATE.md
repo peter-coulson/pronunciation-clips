@@ -59,3 +59,17 @@
 - **[Priority 1]**: [Brief description of key focus area]
 - **[Priority 2]**: [Brief description of key focus area]
 - **[Priority 3]**: [Brief description of key focus area]
+
+## Applied Context Knowledge
+
+### Constraint Knowledge Applied
+**Implementation Constraints**: [CONSTRAINT_LIST]
+
+### Integration Knowledge Applied  
+**Integration Points**: [INTEGRATION_REQUIREMENTS]
+
+### Pattern Knowledge Applied
+**Implementation Patterns**: [PATTERN_LIST]
+
+### Convention Knowledge Applied
+**Implementation Conventions**: [CONVENTION_LIST]

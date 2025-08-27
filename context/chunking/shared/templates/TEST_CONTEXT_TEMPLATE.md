@@ -74,17 +74,3 @@
 **Resource Cleanup**: [RESOURCE_CLEANUP]
 
 ---
-
-## Applied Context Knowledge
-
-### Constraint Knowledge Applied
-**Testing Constraints**: [CONSTRAINT_LIST]
-
-### Integration Knowledge Applied  
-**Test Integration Points**: [INTEGRATION_REQUIREMENTS]
-
-### Pattern Knowledge Applied
-**Testing Patterns**: [PATTERN_LIST]
-
-### Convention Knowledge Applied
-**Testing Conventions**: [CONVENTION_LIST]
