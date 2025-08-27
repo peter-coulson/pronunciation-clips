@@ -3,6 +3,7 @@
 ## Planning Phase Outputs (Context Packages)
 
 - `COORDINATION-PLAN.md` - Execution sequence, timing estimates, dependency analysis
+- `TEST_CONTEXT.md` - Testing framework constraints, infrastructure patterns, quality standards
 - `to_be_decided/chunk-[N]-[name]/CONTEXT.md` - Filtered behavioral contexts (levels 4-5)
 
 ## Execution Phase Outputs (Handoff Documents)
@@ -13,7 +14,13 @@
 
 ### Target Abstraction Levels
 
-#### CONTEXT_TEMPLATE.md: Levels 4
+#### COORDINATION_PLAN_TEMPLATE.md: Level 2
+- **Level 2**: System coordination, component dependencies, execution architecture
+
+#### TEST_CONTEXT_TEMPLATE.md: Level 2  
+- **Level 2**: Testing infrastructure, framework constraints, system patterns
+
+#### CONTEXT_TEMPLATE.md: Level 4
 - **Level 4**: Testing requirements, behavioral specifications, performance criteria
 
 #### HANDOFF_TEMPLATE.md: Levels 5-6
