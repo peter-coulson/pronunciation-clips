@@ -1,7 +1,7 @@
-# Phase 2: Implementation Specification Integration with Knowledge Filtering
+# Phase 2: Knowledge Context Division
 
 ## Objective
-Transform Phase 1 chunk boundaries into implementation-ready context templates by extracting chunk-specific specifications and applying filtered contextual knowledge in a single integrated pass.
+Transform Phase 1 chunk boundaries into implementation-ready context templates while extracting system-wide testing context through unified knowledge filtering from the comprehensive knowledge base.
 
 ## Input Requirements
 - **BOUNDARY_DEPENDENCY_ANALYSIS.md** (Primary - defines chunks)
@@ -9,6 +9,12 @@ Transform Phase 1 chunk boundaries into implementation-ready context templates b
 - **Context Extraction Output** (Knowledge base for filtering)
 
 ## Process Steps
+
+### Step 0: System-Wide Testing Context Extraction
+Extract testing knowledge from Context Extraction Output to create execution-ready testing environment:
+- **Testing Framework Constraints**: Framework versions, execution environments, assertion libraries
+- **Testing Infrastructure Patterns**: Test organization, configuration management, quality standards
+- **Testing Integration Patterns**: CI/CD integration, development workflow, error handling conventions
 
 ### Step 1: Chunk-Centric Specification Extraction
 For each chunk from boundary analysis, extract relevant specifications across all levels:
@@ -38,9 +44,11 @@ Generate implementation-ready context templates with:
 4. **Risk-Preventive**: Knowledge filtering prevents system/integration/maintenance/quality risks
 
 ## Output
-Implementation-ready **CONTEXT_TEMPLATE.md** files for each chunk containing integrated specifications and filtered knowledge, ready for Phase 4 coordination synthesis.
+- **TEST_CONTEXT.md**: System-wide testing knowledge for execution setup
+- Implementation-ready **CONTEXT_TEMPLATE.md** files for each chunk containing integrated specifications and filtered knowledge, ready for Phase 3 coordination synthesis.
 
 ## Success Criteria
+- System-wide testing context extracted for execution setup agent
 - Each chunk has complete specification coverage across relevant abstraction levels
 - Knowledge filtering prevents identified risk categories
 - Context templates enable independent chunk implementation
