@@ -31,14 +31,11 @@ Integration test method signatures with component boundaries, mock interfaces, d
 ### Phase 1: Boundary & Dependency Analysis ✓
 Determine optimal chunk divisions with execution sequencing based on functional areas, interface boundaries, and dependency optimization.
 
-### Phase 2: Implementation Specification Integration
-Extract chunk-specific requirements from Level 2-6 specification templates to define chunk scope and implementation needs.
-
-### Phase 3: System Knowledge Integration  
-Filter and extract relevant knowledge from Context Extraction Output (Levels 1-6) based on chunk-specific implementation requirements.
+### Phase 2: Implementation Specification Integration with Knowledge Filtering
+Extract chunk-specific requirements from Level 2-6 specification templates and simultaneously apply filtered contextual knowledge in a single integrated pass to produce implementation-ready context templates.
 
 ### Phase 4: Coordination Synthesis
 Generate coordination plans, test contexts, and handoff templates for seamless chunk-to-chunk execution.
 
 ## Agent Flow
-Level 4 Behavior Specification → Boundary & Dependency Analysis → Implementation Specification Integration → System Knowledge Integration → Coordination Synthesis → Execution-Ready Chunks
+Level 4 Behavior Specification → Boundary & Dependency Analysis → Implementation Specification Integration with Knowledge Filtering → Coordination Synthesis → Execution-Ready Chunks
