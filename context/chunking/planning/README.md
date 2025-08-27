@@ -12,7 +12,7 @@ Primary agent for preparing planning inputs through validation, knowledge genera
 ### Entry Points by Role
 - **Operators**: Start with `templates/REQUIREMENTS_LEVEL_INPUT.md` 
 - **Developers**: Review `methodology/context-and-requirements/coordination.md`
-- **Maintainers**: Begin with `ABSTRACTION_FRAMEWORK.md`
+- **Maintainers**: Begin with root directory `ABSTRACTION_FRAMEWORK.md`
 
 ### Agent Files
 **Methodology**: `/methodology/context-and-requirements/`

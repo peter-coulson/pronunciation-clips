@@ -23,6 +23,7 @@ We are currently **developing** the agent-based chunking system, not operating i
 
 ## Project Context
 @planning/README.md
+@ABSTRACTION_FRAMEWORK.md - Critical for understanding the planning and chunking modules
 
 ## Critical Constraints
 - Stateless agent design (Task tool limitations)

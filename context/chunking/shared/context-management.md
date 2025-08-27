@@ -29,20 +29,6 @@ Chunks cannot operate with only HANDOFF and CONTEXT specification documents. Eac
 - **Full repository** - Avoid information overload
 - **Implementation details** - Focus on interfaces and patterns
 
-## Coordination Requirements
-
-### Planning Phase Must Specify:
-- Which existing files each chunk needs access to
-- Integration points and dependencies
-- Pattern reference locations
-- Configuration context requirements
-
-### Execution Phase Must Provide:
-- Curated file selection (not entire repository)
-- Focused context relevant to chunk scope
-- Integration guidance from existing codebase
-- Pattern consistency references
-
 ## Evidence from Experiment
 
 **Average context per session**: 3-4K tokens (not 2K as originally targeted)

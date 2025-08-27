@@ -7,7 +7,6 @@
 - `to_be_decided/chunk-[N]-[name]/CONTEXT.md` - Filtered behavioral contexts (levels 4-5)
 
 ## Execution Phase Outputs (Handoff Documents)
-
 - `to_be_decided/chunk-[N]-[name]/HANDOFF.md` - Handoff to the next dependent agent
 
 ## Template Abstraction Level Analysis
