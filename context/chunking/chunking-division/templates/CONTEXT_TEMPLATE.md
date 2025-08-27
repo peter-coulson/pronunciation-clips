@@ -17,6 +17,11 @@
 [Code showing what this chunk will deliver to future chunks]
 ```
 
+## System Integration Context
+**Architecture Placement**: [Where this component fits in system architecture]
+**Integration Patterns**: [Existing system patterns this chunk must follow]
+**Existing Components**: [Key components this chunk interacts with]
+
 ## Implementation Requirements
 
 ### Core [Component] Responsibilities
