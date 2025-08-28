@@ -1,16 +1,6 @@
-# Context-and-Requirements Agent Coordination
+# Agent 1: Requirements Coordination
 
-## Agent Boundaries
-
-**Scope**: Transform any input template to knowledge requirements and context extraction
-**Template Agnostic**: Works with any new template structure without modification
-**Stateless Operation**: Single session with document-based handoffs between phases
-
-## Core Responsibilities
-
-1. **Input Template Validation** - Verify template completeness and structure
-2. **Knowledge Requirements Generation** - Apply risk-knowledge mapping framework  
-3. **Context Research** - Extract available information from context system
+## Execution Flow
 
 ## Sequential Phase Execution
 
@@ -25,7 +15,7 @@
 **Validation Logic:**
 - **Required Sections**: Technical Overview, Integration Landscape, Quality Standards
 - **Pass**: All sections complete, coherent, non-contradictory
-- **Fail**: Any section empty, incomplete, or contradictory - reject with specific gaps identified
+- **Fail**: Any section empty, incomplete, or contradictory - reject with detailed explanation of why each insufficient section fails validation requirements
 
 ### Phase 1: Knowledge Requirements Generation Subagent
 **Input**: Validated template + `knowledge-mapping.md` methodology + ABSTRACTION_FRAMEWORK.md
@@ -45,9 +35,3 @@
 **Phase 1 → Phase 2**: Fully populated knowledge requirements template
 **Phase 2 → Output**: Complete context extraction with missing items documented
 
-## Template Agnostic Principles
-
-- Validation logic focuses on minimal context completeness, not specific template structure
-- Knowledge mapping applies universal risk-knowledge framework regardless of input format
-- Context extraction methodology remains constant across all template types
-- New templates require no changes to core coordination or methodology files
