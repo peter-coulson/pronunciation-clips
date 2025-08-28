@@ -1,94 +1,131 @@
 # Agent-Based Chunking System
 
-A two-phase chunking system that separates planning from execution. Phase 1 analyzes user specifications and determines optimal chunk divisions. Phase 2 implements the defined chunks. This division enables clean handoffs and focused development of each phase.
+A sequential agent system that transforms user specifications into implemented code through 4 independent agents. Each agent operates statelessly with document-based handoffs, enabling maximum simplicity, modularity, and operational robustness.
 
 ## Core Goals
 
-1. **Clear Phase Separation** - Distinct planning and execution phases with clean handoffs
-2. **Preserve Claude's Judgment** - Leverage proven architectural decision-making capabilities  
+1. **Maximum Simplicity** - Each directory = one complete, independent agent
+2. **Perfect Modularity** - Zero dependencies between agent directories  
 3. **Repository Agnostic** - Works with any codebase without complex setup
-4. **Leverage Proven Patterns** - Built on experiment results (execution phase: 4.8/5 context management, 95% interface specification accuracy; planning phase was manually orchestrated)
+4. **Stateless Design** - Document-based handoffs enable independent agent execution
 
-## System Architecture
+## Agent Structure
 
-### Three-Phase Design
+### Agent 1: Requirements [~4K tokens]
+**Repository-agnostic requirements processing**
+- **Location**: `agent-1-requirements/`
+- **Process**: Input validation + knowledge mapping + context research  
+- **Inputs**: User requirements template
+- **Outputs**: Validated requirements + knowledge requirements + context extraction
 
-**Phase 1: Planning & Chunk Division**
-- Analyzes user specifications
-- Determines optimal chunk boundaries  
-- Outputs standardized chunk definitions
-- No implementation work
+### Agent 2: Planning [~8K tokens] 
+**System specification generation**
+- **Location**: `agent-2-planning/`
+- **Process**: Architecture + interface + behavior specification
+- **Inputs**: Complete knowledge foundation from Agent 1
+- **Outputs**: System design specifications (L2-L4 specifications)
 
-**Phase 2: Chunk Execution**  
-- Receives validated chunk specifications
-- Implements defined chunks
-- Produces integrated results
-- Separate system (future development)
+### Agent 3: Chunking [~6K tokens]
+**Execution preparation & optimization** 
+- **Location**: `agent-3-chunking/`
+- **Process**: Boundary analysis + context filtering + coordination planning
+- **Inputs**: System specifications from Agent 2
+- **Outputs**: Execution strategy (coordination plan + context templates per chunk)
 
-**Phase 3: Main Agent Integration**
-- Creates unified orchestration agent
-- Combines Phase 1 and Phase 2 systems
-- Provides seamless end-to-end automation
-- Final system integration (future development)
+### Agent 4: Implementation [~8K tokens]
+**Test-driven code generation**
+- **Location**: `agent-4-implementation/`
+- **Process**: Test generation + test-driven implementation + integration
+- **Inputs**: Execution strategy from Agent 3
+- **Outputs**: Working code + handoff documentation
 
-### Repository Structure
+## Agent Flow
+
 ```
-repository/
-├── .claude/agents/
-│   ├── chunking-main.md           # Main agent (orchestrates both phases)
-│   ├── chunk-planner.md           # Phase 1 specialist
-│   └── chunk-executor.md          # Phase 2 specialist
-├── context/
-│   └── chunking/
-│       ├── shared/                # Shared components
-│       │   ├── workflow.md        # Overall end-to-end workflow
-│       │   ├── coordination.md    # Main agent orchestration
-│       │   └── handoff-spec.md    # Phase 1 → Phase 2 interface
-│       ├── planning/              # Phase 1 components
-│       │   ├── ABSTRACTION_FRAMEWORK.md  # Core specification levels & knowledge framework
-│       │   ├── methodology/       # Context-and-requirements agent implementation
-│       │   │   └── context-and-requirements/  # Agent coordination and processes
-│       │   └── templates/         # Input specs, knowledge requirements, context extraction
-│       ├── execution/             # Phase 2 components
-│       │   ├── methodology/       # Implementation coordination
-│       │   ├── instructions/      # Execution specialist behaviors
-│       │   ├── templates/         # Implementation handoffs
-│       │   └── sessions/          # Active implementation sessions
-│       └── experiments/           # Proven results
-└── src/                           # Implementation code
+Agent 1: Requirements → Agent 2: Planning → Agent 3: Chunking → Agent 4: Implementation
 ```
 
-### Component Interaction
+**Handoff Protocol**: Standardized file names with predictable relative paths
+- Each agent knows exactly what files to expect from previous agents
+- No file discovery or coordination overhead required
+- Perfect independence maintained through the entire chain
 
-**Current State (Phase 1 Development):**
-- Planning components operate independently
-- Manual handoff to future execution system
-- Shared components define interface standards
+## Directory Structure
 
-**Future State (Phases 2-3):**
-- Main agent orchestrates both phases
-- Standardized handoff specifications enable seamless transitions
-- Execution system validates and implements planning outputs
+### Development Structure (Current)
+```
+ABSTRACTION_FRAMEWORK.md           # Core framework
+CLAUDE.md                          # Project instructions  
+README.md                          # This file
 
-## Current Development Focus
+agent-1-requirements/
+├── README.md                      # Agent purpose & usage
+├── coordination.md                # Agent execution logic
+├── methodology.md                 # Combined: validation + knowledge-mapping + context-extraction
+└── templates/
+    ├── REQUIREMENTS_INPUT.md
+    ├── KNOWLEDGE_REQUIREMENTS.md
+    └── CONTEXT_EXTRACTION_OUTPUT.md
 
-**Phase 1 System** - Currently under development:
-- Context-and-Requirements Agent: Validates input templates, generates knowledge requirements, and extracts available context
-- Specification transformation through 7-level progression (Requirements → Implementation)
-- Risk-knowledge mapping for systematic context identification
-- Clean handoff format definition for downstream planning
+agent-2-planning/
+├── README.md                      # Agent purpose & usage
+├── coordination.md                # Agent execution logic  
+├── methodology.md                 # Combined: specification-generation + boundary-analysis
+└── templates/
+    ├── ARCHITECTURE_SPECIFICATION.md
+    ├── INTERFACE_SPECIFICATION.md
+    └── BEHAVIOR_SPECIFICATION.md
 
-**Phase 2 System** - Future development:
-- Will receive standardized chunk specifications
-- Implementation coordination and execution  
-- Result integration and validation
-- Based on proven experimental patterns
+agent-3-chunking/
+├── README.md                      # Agent purpose & usage
+├── coordination.md                # Agent execution logic
+├── methodology.md                 # Combined: boundary-analysis + context-filtering + coordination-synthesis  
+└── templates/
+    ├── COORDINATION_PLAN.md
+    ├── CONTEXT_TEMPLATE.md
+    └── BOUNDARY_ANALYSIS.md
 
-**Phase 3 System** - Final integration:
-- Unified main agent development
-- End-to-end automation
-- Complete system orchestration
+agent-4-implementation/
+├── README.md                      # Agent purpose & usage
+├── coordination.md                # Agent execution logic
+├── methodology.md                 # Combined: test-generation + test-driven-implementation
+└── templates/
+    ├── TEST_CONTEXT_TEMPLATE.md
+    └── HANDOFF_TEMPLATE.md
 
-## Experimental Context
+experiment/                        # Operational learnings (preserved)
+```
 
-The proven effectiveness metrics (4.8/5 context management, 95% interface specification accuracy) apply specifically to the execution phase patterns. The original planning phase was manually orchestrated, making Phase 1 development a new automation challenge.
+### Operational Structure (Sessions)
+```
+sessions/
+└── {session-name}/
+    ├── 1-requirements/
+    │   ├── requirements.md
+    │   ├── knowledge-requirements.md
+    │   └── context-extraction.md
+    ├── 2-planning/
+    │   ├── architecture.md
+    │   ├── interface.md
+    │   └── behavior.md
+    ├── 3-chunking/
+    │   ├── coordination-plan.md
+    │   └── context-templates/
+    └── 4-implementation/
+        └── handoffs/
+```
+
+## Operational Benefits
+
+**Perfect Independence**: Each agent knows exactly what files to expect, never needs discovery  
+**Session Isolation**: Multiple projects/executions never interfere  
+**System Independence**: No dependencies on external context system  
+**Simple Cleanup**: Delete entire session directory  
+**Clear Traceability**: Complete project flow in one session directory  
+**Operational Robustness**: Supports concurrent sessions with different projects
+
+## Token Efficiency
+
+**Total System Capacity**: ~26K tokens across 4 agents (optimal distribution)
+**Per-Agent Optimization**: Each agent operates within 4-8K token sweet spot
+**No Token Waste**: Eliminated all duplicate methodology and coordination overhead
