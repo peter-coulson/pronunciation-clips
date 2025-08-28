@@ -13,16 +13,7 @@
 
 ### Phase 2: Template Population
 **Input**: Validated context  
-**Process**: Apply risk-knowledge mapping to populate KNOWLEDGE_REQUIREMENTS_TEMPLATE.md  
-**Logic**: For each level transition, map universal risk types to knowledge categories:
-- System-Breaking → Constraint Knowledge
-- Integration-Breaking → Integration Knowledge  
-- Maintenance-Breaking → Pattern Knowledge
-- Quality-Breaking → Convention Knowledge
-
-**Context Independence Rules**:
-- Infrastructure Knowledge: Not required after Architecture Level (2)
-- Domain Knowledge: Not required after Behavior Level (4)
-- Technology/Quality/Codebase Knowledge: Required through Implementation Level (7)
+**Process**: Apply risk-knowledge mapping from ABSTRACTION_FRAMEWORK.md to populate KNOWLEDGE_REQUIREMENTS_TEMPLATE.md  
+**Logic**: Use framework's Risk-Knowledge Mapping and Context Independence Progression rules
 
 **Output**: Populated template with specific knowledge requirements for this change

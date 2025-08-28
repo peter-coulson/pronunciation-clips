@@ -58,40 +58,13 @@ ABSTRACTION_FRAMEWORK.md           # Core framework
 CLAUDE.md                          # Project instructions  
 README.md                          # This file
 
-agent-1-requirements/
+agent-X-template/                  # General agent structure  
 ├── README.md                      # Agent purpose & usage
-├── coordination.md                # Agent execution logic
-├── methodology.md                 # Combined: validation + knowledge-mapping + context-extraction
-└── templates/
-    ├── REQUIREMENTS_INPUT.md
-    ├── KNOWLEDGE_REQUIREMENTS.md
-    └── CONTEXT_EXTRACTION_OUTPUT.md
-
-agent-2-planning/
-├── README.md                      # Agent purpose & usage
-├── coordination.md                # Agent execution logic  
-├── methodology.md                 # Combined: specification-generation + boundary-analysis
-└── templates/
-    ├── ARCHITECTURE_SPECIFICATION.md
-    ├── INTERFACE_SPECIFICATION.md
-    └── BEHAVIOR_SPECIFICATION.md
-
-agent-3-chunking/
-├── README.md                      # Agent purpose & usage
-├── coordination.md                # Agent execution logic
-├── methodology.md                 # Combined: boundary-analysis + context-filtering + coordination-synthesis  
-└── templates/
-    ├── COORDINATION_PLAN.md
-    ├── CONTEXT_TEMPLATE.md
-    └── BOUNDARY_ANALYSIS.md
-
-agent-4-implementation/
-├── README.md                      # Agent purpose & usage
-├── coordination.md                # Agent execution logic
-├── methodology.md                 # Combined: test-generation + test-driven-implementation
-└── templates/
-    ├── TEST_CONTEXT_TEMPLATE.md
-    └── HANDOFF_TEMPLATE.md
+├── coordination.md                # Agent execution logic & sub-agent flow
+└── sub-agent-name/               # Each sub-agent owns its complete functionality
+    ├── methodology.md            # Sub-agent's specific methodology
+    └── templates/                # Templates created by this sub-agent
+        └── [output-templates]    # All outputs from this sub-agent
 
 experiment/                        # Operational learnings (preserved)
 ```
