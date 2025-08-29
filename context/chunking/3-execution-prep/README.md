@@ -1,14 +1,14 @@
-# Agent 3: Chunking
+# Agent 3: Execution Preparation
 
 ## Purpose
 
-Transforms comprehensive system planning into execution-ready implementation packages. Takes level 1-4 specifications, testing requirements, and repository context as inputs and produces small, focused chunks of 3K token context instructions that can be independently executed by the implementation agent, plus consolidated testing standards context to enforce repository quality standards.
+Transforms comprehensive system planning into execution-ready implementation packages. Takes level 1-4 specifications, testing requirements, and repository context as inputs and produces small, focused units of 3K token context instructions that can be independently executed by the implementation agent, plus consolidated testing standards context to enforce repository quality standards.
 
 ## Core Transformation Process
 
 The agent performs two primary breakdowns:
 
-1. **Planning Decomposition**: Splits level 4 behavioral specifications into manageable, dependency-optimized chunks
+1. **Planning Decomposition**: Splits level 4 behavioral specifications into manageable, dependency-optimized units
 2. **Context Division**: Divides planning context and repository context into focused, executable packages with appropriate knowledge filtering
 
 ## Sub-Agent Structure
@@ -16,7 +16,7 @@ The agent performs two primary breakdowns:
 ### Phase 1: Boundary Analysis
 **Directory**: `boundary-analysis/`
 **Focus**: Interface-driven boundaries with functional cohesion
-- Transforms behavioral specifications into execution-optimized chunk boundaries
+- Transforms behavioral specifications into execution-optimized unit boundaries
 - Analyzes dependencies and establishes execution sequencing
 - Identifies parallel execution opportunities
 
@@ -24,7 +24,7 @@ The agent performs two primary breakdowns:
 **Directory**: `context-filtering/`
 **Focus**: Knowledge context division
 - Extracts system-wide testing context for implementation standards
-- Creates implementation-ready context templates for each chunk
+- Creates implementation-ready context templates for each unit
 - Applies filtered repository knowledge to prevent integration risks
 
 ### Phase 3: Coordination Synthesis
@@ -40,7 +40,7 @@ Receives system specifications and repository context from Agent 2 (Planning). S
 
 ## Output Summary
 
-Produces execution coordination plan and chunk-specific context templates for Agent 4 (Implementation). See individual sub-agent methodologies for detailed output specifications.
+Produces execution coordination plan and unit-specific context templates for Agent 4 (Implementation). See individual sub-agent methodologies for detailed output specifications.
 
 ## Operational Flow
 

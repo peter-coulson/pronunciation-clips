@@ -14,7 +14,7 @@ This agent determines what context is required for a proposed change and aggrega
 
 **Standard Enforcement**: Forces users to pre-specify standards, improving planning quality
 
-**Standalone Planning Tool**: Can be used independently outside chunking system to determine critical project standards before development begins
+**Standalone Planning Tool**: Can be used independently outside implementation system to determine critical project standards before development begins
 
 ## Agent Scope
 

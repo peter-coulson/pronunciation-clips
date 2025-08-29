@@ -23,35 +23,35 @@
 - **Context Est**: [Token estimate]
 - **Complexity**: [Low/Medium/High]
 
-## Preliminary Chunks
+## Preliminary Units
 
-### [CHUNK_NAME_1]
+### [UNIT_NAME_1]
 - **Scope**: [Functional cluster + interface boundary]
 - **Behaviors**: [Specific Level 4 behaviors included]
-- **Dependencies**: [Required interfaces from other chunks]
-- **Provides**: [Interfaces this chunk will implement]
+- **Dependencies**: [Required interfaces from other units]
+- **Provides**: [Interfaces this unit will implement]
 
-### [CHUNK_NAME_2]
+### [UNIT_NAME_2]
 - **Scope**: [Functional cluster + interface boundary]
 - **Behaviors**: [Specific Level 4 behaviors included]
-- **Dependencies**: [Required interfaces from other chunks]
-- **Provides**: [Interfaces this chunk will implement]
+- **Dependencies**: [Required interfaces from other units]
+- **Provides**: [Interfaces this unit will implement]
 
 ## Execution Sequence
 
 ### Sequential Dependencies
-- **[CHUNK_A]** → **[CHUNK_B]** → **[CHUNK_C]**
-- **[CHUNK_D]** → **[CHUNK_E]**
+- **[UNIT_A]** → **[UNIT_B]** → **[UNIT_C]**
+- **[UNIT_D]** → **[UNIT_E]**
 
 ### Parallel Execution Groups
-- **Group 1**: {[CHUNK_X], [CHUNK_Y]}
-- **Group 2**: {[CHUNK_Z], [CHUNK_W]}
+- **Group 1**: {[UNIT_X], [UNIT_Y]}
+- **Group 2**: {[UNIT_Z], [UNIT_W]}
 
 ### Critical Path
-**Longest Chain**: [CHUNK_SEQUENCE]
+**Longest Chain**: [UNIT_SEQUENCE]
 **Estimated Duration**: [TIME_ESTIMATE]
 
 ## Validation Results
-- **Context Limits**: [Chunks approaching 3K token limit]
+- **Context Limits**: [Units approaching 3K token limit]
 - **Dependency Efficiency**: [Bottlenecks or optimization opportunities]
 - **Parallel Opportunities**: [Maximum concurrent execution potential]

@@ -1,4 +1,4 @@
-# Agent-Based Chunking System
+# Agent-Based Implementation System
 
 A sequential agent system that transforms user specifications into implemented code through 4 independent agents. Each agent operates statelessly with document-based handoffs, enabling maximum simplicity, modularity, and operational robustness.
 
@@ -13,28 +13,28 @@ A sequential agent system that transforms user specifications into implemented c
 
 ### Agent 1: Requirements 
 **Repository-agnostic requirements processing**
-- **Location**: `agent-1-requirements/`
+- **Location**: `1-requirements/`
 - **Process**: Input validation + knowledge mapping + context research  
 - **Inputs**: User requirements template
 - **Outputs**: Validated requirements + knowledge requirements + context extraction
 
 ### Agent 2: Planning 
 **System specification generation**
-- **Location**: `agent-2-planning/`
+- **Location**: `2-planning/`
 - **Process**: Architecture + interface + behavior specification
 - **Inputs**: Complete knowledge foundation from Agent 1
 - **Outputs**: System design specifications (L2-L4 specifications)
 
-### Agent 3: Chunking 
+### Agent 3: Execution Preparation 
 **Execution preparation & optimization** 
-- **Location**: `agent-3-chunking/`
+- **Location**: `3-execution-prep/`
 - **Process**: Boundary analysis + context filtering + coordination planning
 - **Inputs**: System specifications from Agent 2
-- **Outputs**: Execution strategy (coordination plan + context templates per chunk)
+- **Outputs**: Execution strategy (coordination plan + context templates per unit)
 
 ### Agent 4: Implementation 
 **Test-driven code generation**
-- **Location**: `agent-4-implementation/`
+- **Location**: `4-implementation/`
 - **Process**: Test generation + test-driven implementation + integration
 - **Inputs**: Execution strategy from Agent 3
 - **Outputs**: Working code + handoff documentation
@@ -42,7 +42,7 @@ A sequential agent system that transforms user specifications into implemented c
 ## Agent Flow
 
 ```
-Agent 1: Requirements → Agent 2: Planning → Agent 3: Chunking → Agent 4: Implementation
+Agent 1: Requirements → Agent 2: Planning → Agent 3: Execution Preparation → Agent 4: Implementation
 ```
 
 **Handoff Protocol**: Standardized file names with predictable relative paths
@@ -58,7 +58,7 @@ ABSTRACTION_FRAMEWORK.md           # Core framework
 CLAUDE.md                          # Project instructions  
 README.md                          # This file
 
-agent-X-template/                  # General agent structure  
+X-template/                        # General agent structure  
 ├── README.md                      # Agent purpose & usage
 ├── coordination.md                # Agent execution logic & sub-agent flow
 └── sub-agent-name/               # Each sub-agent owns its complete functionality
@@ -81,7 +81,7 @@ sessions/
     │   ├── architecture.md
     │   ├── interface.md
     │   └── behavior.md
-    ├── 3-chunking/
+    ├── 3-execution-prep/
     │   ├── coordination-plan.md
     │   └── context-templates/
     └── 4-implementation/

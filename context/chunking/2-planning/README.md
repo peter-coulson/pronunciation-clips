@@ -7,7 +7,7 @@ Iteratively converts high-level business logic into lower-level implementation s
 
 ## Inputs
 - **REQUIREMENTS_LEVEL_INPUT.md** - Completed requirements template from user
-- **CONTEXT_EXTRACTION_OUTPUT.md** - Filled context extraction template from agent-1-requirements
+- **CONTEXT_EXTRACTION_OUTPUT.md** - Filled context extraction template from 1-requirements
 
 Together, these inputs detail change goals plus system standards context required for implementation at every specification level, forcing adherence to project standards.
 
@@ -26,7 +26,7 @@ Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRA
 - All output templates filled to high quality
 - No missing specifications
 - No system context assumptions made
-- Ready for agent-3-chunking consumption
+- Ready for 3-execution-prep consumption
 
 ## Agent Structure
 - **architecture-interface/**: Creates Level 2 Architecture and Level 3 Interface specifications

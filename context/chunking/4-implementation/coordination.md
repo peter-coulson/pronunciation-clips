@@ -9,7 +9,7 @@
 **Input**: Level 4 test specifications + testing context from chunking module
 **Output**: Executable E2E and integration test files, test support infrastructure
 
-### Sub-Agent 2: Chunk Implementation  
+### Sub-Agent 2: Unit Implementation  
 **Function**: Test-driven implementation using generated tests as behavioral contracts
 **Input**: Generated tests + behavioral specifications + integration contracts
 **Output**: Working implementations + handoff documentation
@@ -26,7 +26,7 @@ Test Generation → Implementation → Final Validation → Complete
 - **Critical Failure**: Sub-agent cannot resolve E2E/integration test issues OR other unresolvable problems → Return control to user
 
 ### Stage 2: Implementation Sub-Agent
-- Execute chunk-implementation/ sub-agent  
+- Execute unit-implementation/ sub-agent  
 - **Success**: Working code + HANDOFF.md created + all tests pass + sub-agent reports SUCCESS
 - **Critical Failure**: Sub-agent cannot resolve test failures OR other unresolvable problems → Return control to user
 
@@ -55,5 +55,5 @@ Last Completed Stage: [Stage 1: Test Generation | Stage 2: Implementation | Stag
 ## Integration Points
 
 - **Planning Module**: Receives immutable test specifications
-- **Chunking Module**: Receives testing context and execution strategy
-- **Dependent Chunks**: Provides stable integration contracts via handoff documentation
+- **Execution Preparation Module**: Receives testing context and execution strategy
+- **Dependent Units**: Provides stable integration contracts via handoff documentation
