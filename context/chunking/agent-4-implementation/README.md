@@ -2,7 +2,7 @@
 
 ## Agent Purpose & Usage
 
-**Primary Function**: Transforms Level 4 behavioral specifications into working code (Level 7 implementation) while ensuring all contracts are fulfilled through mandatory test validation.
+**Primary Function**: Transforms Level 4 behavioral specifications into working code (Level 7 implementation, see @ABSTRACTION_FRAMEWORK.md) while ensuring all contracts are fulfilled through mandatory test validation.
 
 **Core Responsibilities**:
 - Transform behavioral specifications into executable test implementations
@@ -19,7 +19,7 @@
 - **HANDOFF.md** (Optional): Implementation summaries and integration contracts from dependent chunks
 
 **Output Generation**:
-- **HANDOFF.md**: Level 5-6 specifications, implementation summaries, integration requirements
+- **HANDOFF.md**: Level 5-6 specifications (see @ABSTRACTION_FRAMEWORK.md), implementation summaries, integration requirements
 - **Executable test implementations**: Complete test suites for validation
 - **Working code implementations**: Test-driven implementations meeting all behavioral contracts
 

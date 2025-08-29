@@ -1,7 +1,7 @@
 # Chunk Implementation Methodology
 
 ## Sub-Agent Purpose
-Executes test-driven implementation using generated tests as immutable behavioral contracts, transforming Level 4 behavioral specifications into working code while ensuring contract fulfillment.
+Executes test-driven implementation using generated tests as immutable behavioral contracts, transforming Level 4 behavioral specifications (see @ABSTRACTION_FRAMEWORK.md) into working code while ensuring contract fulfillment.
 
 ## Input Requirements
 
@@ -59,7 +59,7 @@ Chunk contracts are only fulfilled when all unit tests, integration tests, and c
 - Tests serve as immutable behavioral contracts that implementation must satisfy
 
 ## Output Requirements
-- **HANDOFF.md**: Level 5-6 specifications, algorithm specifications, exact method contracts, integration patterns
+- **HANDOFF.md**: Level 5-6 specifications (see @ABSTRACTION_FRAMEWORK.md), algorithm specifications, exact method contracts, integration patterns
 - **Working Implementation**: All code necessary to satisfy behavioral contracts
 - **Test Validation Results**: Proof that all required tests pass
 

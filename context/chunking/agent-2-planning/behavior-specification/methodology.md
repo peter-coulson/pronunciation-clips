@@ -44,7 +44,7 @@
 5. Complete integration test template with immutable contracts
 6. Mark integration test task completed
 
-**Context Application**: Apply Pattern and Convention knowledge from @ABSTRACTION_FRAMEWORK.md to ensure behaviors and tests align with established quality and integration patterns. Follow the 4-step knowledge application strategy: 1) Identify applicable knowledge categories, 2) Apply knowledge proactively during specification development, 3) Document integration in Context Integration Notes sections, 4) Validate coverage against risk prevention requirements.
+**Context Application**: Apply Universal Knowledge Categories per @ABSTRACTION_FRAMEWORK.md to ensure behaviors and tests align with established patterns. Follow the 4-step knowledge application strategy: 1) Identify applicable knowledge categories, 2) Apply knowledge proactively during specification development, 3) Document integration in Context Integration Notes sections, 4) Validate coverage against risk prevention requirements.
 
 ## Behavioral Thinking Framework
 - **Normal Behaviors**: What should happen in typical use cases

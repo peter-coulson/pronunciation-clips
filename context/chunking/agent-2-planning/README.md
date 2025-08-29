@@ -12,7 +12,7 @@ Iteratively converts high-level business logic into lower-level implementation s
 Together, these inputs detail change goals plus system standards context required for implementation at every specification level, forcing adherence to project standards.
 
 ## Outputs
-Complete implementation plan through Level 4 specification:
+Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRAMEWORK.md for specification level definitions):
 - **Level 2**: Architecture Specification 
 - **Level 3**: Interface Specification
 - **Level 4**: Behavior Specification + E2E Test Specification + Integration Test Specification

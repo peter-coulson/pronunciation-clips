@@ -1,7 +1,7 @@
 # Test Generation Methodology
 
 ## Sub-Agent Purpose
-Transforms immutable Level 4 test specifications and testing context into executable test implementations that validate system behavior at both E2E and integration levels.
+Transforms immutable Level 4 test specifications (see @ABSTRACTION_FRAMEWORK.md) and testing context into executable test implementations that validate system behavior at both E2E and integration levels.
 
 ## Input Requirements
 

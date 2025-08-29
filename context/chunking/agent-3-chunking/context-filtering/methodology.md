@@ -29,11 +29,7 @@ For each chunk from boundary analysis, extract relevant specifications across al
 - **Testing (L4 E2E/Integration)**: Validation requirements for chunk boundaries
 
 ### Step 2: Real-Time Knowledge Filtering
-Simultaneously apply filtered knowledge from Context Extraction based on extracted specifications:
-- **Constraint Knowledge**: System boundaries that cannot be violated
-- **Pattern Knowledge**: Established implementation approaches
-- **Integration Knowledge**: Component communication requirements
-- **Convention Knowledge**: Consistency and quality standards
+Simultaneously apply filtered knowledge from Context Extraction based on extracted specifications (see @ABSTRACTION_FRAMEWORK.md for Universal Knowledge Categories definitions):
 
 ### Step 3: Context Template Population
 Generate implementation-ready context templates with:
@@ -46,7 +42,7 @@ Generate implementation-ready context templates with:
 1. **Dependency-Driven**: Specification extraction informed by Phase 1 dependencies
 2. **Knowledge-Validated**: Every specification element validated against relevant knowledge categories
 3. **Implementation-Ready**: Output templates contain both requirements and contextual guidance
-4. **Risk-Preventive**: Knowledge filtering prevents system/integration/maintenance/quality risks
+4. **Risk-Preventive**: Knowledge filtering prevents Universal Risk Types (see @ABSTRACTION_FRAMEWORK.md)
 
 ## Output
 - **TEST_CONTEXT.md**: System-wide testing knowledge for execution setup
@@ -55,6 +51,6 @@ Generate implementation-ready context templates with:
 ## Success Criteria
 - System-wide testing context extracted for execution setup agent
 - Each chunk has complete specification coverage across relevant abstraction levels
-- Knowledge filtering prevents identified risk categories
+- Knowledge filtering prevents Universal Risk Types per @ABSTRACTION_FRAMEWORK.md
 - Context templates enable independent chunk implementation
 - Template token limits maintained for execution feasibility
