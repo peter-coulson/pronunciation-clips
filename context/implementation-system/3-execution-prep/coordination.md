@@ -2,7 +2,7 @@
 
 ## Primary Agent Role
 
-The Agent 3 coordinator provides simple sequential orchestration of the three chunking phases. It maintains no state and performs no validation - serving purely as an execution pipeline that loads each sub-agent with the appropriate context and handles failure scenarios.
+The Agent 3 coordinator provides simple sequential orchestration of the three execution preparation phases. It maintains no state and performs no validation - serving purely as an execution pipeline that loads each sub-agent with the appropriate context and handles failure scenarios.
 
 ## Execution Flow
 
@@ -39,7 +39,7 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 **Rationale**: Phases have full context for validation - coordination agent cannot meaningfully recover from phase failures
 
 ### Error Propagation
-- Phase failures immediately terminate the chunking process
+- Phase failures immediately terminate the execution preparation process
 - No retry logic or error recovery attempts
 - User receives full error context for manual intervention
 

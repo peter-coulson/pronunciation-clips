@@ -6,7 +6,7 @@
 
 ### Sub-Agent 1: Test Generation
 **Function**: Transform immutable test specifications into executable test implementations
-**Input**: Level 4 test specifications + testing context from chunking module
+**Input**: Level 4 test specifications + testing context from execution preparation module
 **Output**: Executable E2E and integration test files, test support infrastructure
 
 ### Sub-Agent 2: Unit Implementation  

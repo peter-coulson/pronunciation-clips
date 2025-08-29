@@ -12,7 +12,7 @@
 
 **Sub-Agent Structure**:
 - **test-generation/**: Transforms immutable Level 4 test specifications into executable test implementations
-- **chunk-implementation/**: Executes test-driven implementation using generated tests as behavioral contracts
+- **unit-implementation/**: Executes test-driven implementation using generated tests as behavioral contracts
 
 **Input Processing**:
 - **CONTEXT.md** (Required): Level 4 behavioral specifications, interface contracts, implementation requirements, required test gates

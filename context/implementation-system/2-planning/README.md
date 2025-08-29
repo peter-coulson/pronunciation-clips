@@ -30,4 +30,4 @@ Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRA
 
 ## Agent Structure
 - **architecture-interface/**: Creates Level 2 Architecture and Level 3 Interface specifications
-- **behaviour-specification/**: Creates Level 4 Behavior and test specifications
+- **behavior-specification/**: Creates Level 4 Behavior and test specifications
