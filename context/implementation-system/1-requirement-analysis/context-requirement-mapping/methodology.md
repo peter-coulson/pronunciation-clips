@@ -13,7 +13,7 @@
 
 ### Phase 2: Template Population
 **Input**: Validated context  
-**Process**: Apply risk-knowledge mapping framework to populate KNOWLEDGE_REQUIREMENTS_TEMPLATE.md  
+**Process**: Apply risk-knowledge mapping framework to populate REQUIREMENTS_INPUT_TEMPLATE.md  
 **Logic**: See @ABSTRACTION_FRAMEWORK.md for Risk-Knowledge Mapping and Context Independence Progression definitions
 
 **Output**: Populated template with specific knowledge requirements for this change

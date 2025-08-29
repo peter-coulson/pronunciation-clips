@@ -46,7 +46,7 @@ Generate implementation-ready context templates with:
 
 ## Output
 - **TEST_CONTEXT.md**: System-wide testing knowledge for execution setup
-- Implementation-ready **CONTEXT_TEMPLATE.md** files for each segment containing integrated specifications and filtered knowledge, ready for Phase 3 execution orchestration.
+- Implementation-ready **CONTEXT_SCOPE_TEMPLATE.md** files for each segment containing integrated specifications and filtered knowledge, ready for Phase 3 execution orchestration.
 
 ## Success Criteria
 - System-wide testing context extracted for execution setup stage

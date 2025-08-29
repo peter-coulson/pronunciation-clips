@@ -2,7 +2,7 @@
 
 ## Single-Phase Approach
 **Input**: Knowledge Requirements + Context System  
-**Output**: Filled CONTEXT_EXTRACTION_OUTPUT.md template  
+**Output**: Filled CONTEXT_EXTRACTION_TEMPLATE.md template  
 **Sub-Process Role**: Specialized research sub-process focused purely on information gathering
 
 ## Extraction Process

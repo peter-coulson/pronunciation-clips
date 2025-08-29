@@ -7,7 +7,7 @@ Iteratively converts high-level business logic into lower-level implementation s
 
 ## Inputs
 - **REQUIREMENTS_LEVEL_INPUT.md** - Completed requirements template from user
-- **CONTEXT_EXTRACTION_OUTPUT.md** - Filled context extraction template from 1-requirement-analysis
+- **CONTEXT_EXTRACTION_TEMPLATE.md** - Filled context extraction template from 1-requirement-analysis
 
 Together, these inputs detail change goals plus system standards context required for implementation at every specification level, forcing adherence to project standards.
 

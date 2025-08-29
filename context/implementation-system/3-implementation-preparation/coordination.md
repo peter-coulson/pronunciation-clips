@@ -25,7 +25,7 @@ Phase 1: Implementation Segmentation → Phase 2: Context Scoping → Phase 3: E
 
 ### Phase 2: Context Scoping  
 **Process**: Generate implementation-ready context templates for each segment with testing standards
-**Output**: `TEST_CONTEXT.md` + segment-specific `CONTEXT_TEMPLATE.md` files
+**Output**: `TEST_CONTEXT.md` + segment-specific `CONTEXT_SCOPE_TEMPLATE.md` files
 
 ### Phase 3: Execution Orchestration
 **Process**: Integrate boundary analysis and context filtering into unified execution coordination plan

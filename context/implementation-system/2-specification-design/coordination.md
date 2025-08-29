@@ -8,7 +8,7 @@ Sequential execution of two independent phases that transform requirements into 
 ### Phase 1: Architecture-Interface Design
 **Inputs**: 
 - REQUIREMENTS_LEVEL_INPUT.md
-- CONTEXT_EXTRACTION_OUTPUT.md
+- CONTEXT_EXTRACTION_TEMPLATE.md
 
 **Process**: Transform requirements into system architecture and interface specifications
 **Outputs**: 
@@ -20,7 +20,7 @@ Sequential execution of two independent phases that transform requirements into 
 ### Phase 2: Behavior-Specification Design
 **Inputs**:
 - REQUIREMENTS_LEVEL_INPUT.md (original)
-- CONTEXT_EXTRACTION_OUTPUT.md (original)
+- CONTEXT_EXTRACTION_TEMPLATE.md (original)
 - Level 2 Architecture Specification (from Phase 1)
 - Level 3 Interface Specification (from Phase 1)
 

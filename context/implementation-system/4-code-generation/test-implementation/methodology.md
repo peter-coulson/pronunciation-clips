@@ -6,11 +6,11 @@ Transforms immutable Level 4 test specifications (see @ABSTRACTION_FRAMEWORK.md)
 ## Input Requirements
 
 ### Level 4 Test Specifications (Immutable)
-- **LEVEL_4_E2E_TEST_SPECIFICATION.md**: Method signatures, validation targets, test fixtures, success assertions, performance thresholds, error test signatures, test data schemas
-- **LEVEL_4_INTEGRATION_TEST_SPECIFICATION.md**: Integration test methods, mock signatures, data flow tests, error integration signatures, contract validation signatures, state consistency tests
+- **E2E_TEST_SPECIFICATION_TEMPLATE.md**: Method signatures, validation targets, test fixtures, success assertions, performance thresholds, error test signatures, test data schemas
+- **INTEGRATION_TEST_SPECIFICATION_TEMPLATE.md**: Integration test methods, mock signatures, data flow tests, error integration signatures, contract validation signatures, state consistency tests
 
 ### Testing Context
-- **TEST_CONTEXT_TEMPLATE.md**: Testing framework constraints, infrastructure patterns, quality standards, existing test analysis, development integration patterns
+- **TEST_CONTEXT_SCOPE_TEMPLATE.md**: Testing framework constraints, infrastructure patterns, quality standards, existing test analysis, development integration patterns
 
 ## Execution Pipeline
 

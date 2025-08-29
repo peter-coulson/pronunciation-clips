@@ -19,11 +19,11 @@
 
 ### Phase 1: Knowledge Requirements Generation
 **Process**: Apply risk-knowledge mapping framework to determine context requirements
-**Output**: Completed KNOWLEDGE_REQUIREMENTS_TEMPLATE.md
+**Output**: Completed REQUIREMENTS_INPUT_TEMPLATE.md
 
 ### Phase 2: Context Extraction
 **Process**: Research and extract available information from context system
-**Output**: Completed CONTEXT_EXTRACTION_OUTPUT.md with gaps identified
+**Output**: Completed CONTEXT_EXTRACTION_TEMPLATE.md with gaps identified
 
 ## Handoff Requirements
 

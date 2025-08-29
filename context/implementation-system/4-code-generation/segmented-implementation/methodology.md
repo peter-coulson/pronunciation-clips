@@ -45,7 +45,7 @@ Executes test-driven implementation using generated tests as immutable behaviora
 - Validate integration patterns work with dependency interfaces
 
 ### Phase 6: Handoff Generation
-- Document implemented interfaces using HANDOFF_TEMPLATE.md
+- Document implemented interfaces using IMPLEMENTATION_HANDOFF_TEMPLATE.md
 - Provide integration patterns and requirements for dependent segments
 - Include test validation results and performance benchmarks
 
