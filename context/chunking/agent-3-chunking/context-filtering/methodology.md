@@ -8,6 +8,8 @@ Transform Phase 1 chunk boundaries into implementation-ready context templates w
 - **Level 2-6 Specification Templates** (Implementation requirements)
 - **Context Extraction Output** (Knowledge base for filtering)
 
+*Specification levels defined in @ABSTRACTION_FRAMEWORK.md*
+
 ## Process Steps
 
 ### Step 0: System-Wide Testing Context Extraction

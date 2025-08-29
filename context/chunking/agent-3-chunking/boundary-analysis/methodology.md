@@ -5,9 +5,11 @@ Transform Level 4 Behavior Specification into execution-ready chunk boundaries w
 
 ## Input Requirements
 - **Level 4 Behavior Specification** (Primary)
-- **Level 3 Interface Specification** (Boundary reference)
+- **Level 3 Interface Specification** (Boundary reference)  
 - **Level 2 Architecture Specification** (System context)
 - **Context Extraction Output** (Complexity assessment)
+
+*Specification levels defined in @ABSTRACTION_FRAMEWORK.md*
 
 ## Process Steps
 
@@ -36,7 +38,7 @@ Validate chunk definitions for interface completeness, context limits, dependenc
 ## Output
 **BOUNDARY_DEPENDENCY_ANALYSIS.md** containing optimized chunk boundaries, execution sequence, and parallel execution groups ready for implementation specification extraction.
 
-## Success Criteria
+## Success Criteria  
 - All Level 4 behaviors assigned to execution-optimized chunks
 - Execution sequence with parallel opportunities identified
 - Critical path and completion estimates established
