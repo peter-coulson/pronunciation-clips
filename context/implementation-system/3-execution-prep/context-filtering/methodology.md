@@ -49,7 +49,7 @@ Generate implementation-ready context templates with:
 - Implementation-ready **CONTEXT_TEMPLATE.md** files for each chunk containing integrated specifications and filtered knowledge, ready for Phase 3 coordination synthesis.
 
 ## Success Criteria
-- System-wide testing context extracted for execution setup agent
+- System-wide testing context extracted for execution setup stage
 - Each chunk has complete specification coverage across relevant abstraction levels
 - Knowledge filtering prevents Universal Risk Types per @ABSTRACTION_FRAMEWORK.md
 - Context templates enable independent chunk implementation

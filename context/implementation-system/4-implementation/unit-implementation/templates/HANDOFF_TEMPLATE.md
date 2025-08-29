@@ -1,4 +1,4 @@
-# HANDOFF-[N]: [Current Chunk] to [Next Chunk] Handoff
+# HANDOFF-[N]: [Current Segment] to [Next Segment] Handoff
 
 ## Overview
 [Brief description of what the current session completed and what the next session needs to accomplish. Keep this to 2-3 sentences.]

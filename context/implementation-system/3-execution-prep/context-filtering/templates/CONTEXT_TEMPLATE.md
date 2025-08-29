@@ -1,26 +1,26 @@
-# [CHUNK NAME] CONTEXT - [Brief Description]
+# [SEGMENT NAME] CONTEXT - [Brief Description]
 
-## Chunk Scope: [Clear Scope Statement]
+## Segment Scope: [Clear Scope Statement]
 **Files**: [Specific files to be modified/created with size estimates]
 **Token Budget**: [Estimated context size, aim for <3K]
-**Dependencies**: [List of previous chunks this depends on]
+**Dependencies**: [List of previous segments this depends on]
 
-## Required Interfaces (from Previous Chunks)
+## Required Interfaces (from Previous Segments)
 ```[language]
-# Stable interfaces from previous chunks - IMPLEMENTED AND TESTED
-[Code showing interfaces this chunk can rely on]
+# Stable interfaces from previous segments - IMPLEMENTED AND TESTED
+[Code showing interfaces this segment can rely on]
 ```
 
-## Output Contracts (for Future Chunks)
+## Output Contracts (for Future Segments)
 ```[language]
-# Interfaces this chunk will provide - CONTRACT
-[Code showing what this chunk will deliver to future chunks]
+# Interfaces this segment will provide - CONTRACT
+[Code showing what this segment will deliver to future segments]
 ```
 
 ## System Integration Context
 **Architecture Placement**: [Where this component fits in system architecture]
-**Integration Patterns**: [Existing system patterns this chunk must follow]
-**Existing Components**: [Key components this chunk interacts with]
+**Integration Patterns**: [Existing system patterns this segment must follow]
+**Existing Components**: [Key components this segment interacts with]
 
 ## Implementation Requirements
 

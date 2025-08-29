@@ -1,13 +1,13 @@
-# Agent 1: Requirements Coordination
+# Stage 1: Requirements Coordination
 
 ## Execution Flow
 
 ## Sequential Phase Execution
 
-**Main Agent**: Handles input validation and coordination
-**Context Isolation**: Use Task tool to spawn separate subagents for knowledge generation and context extraction phases.
+**Main Stage**: Handles input validation and coordination
+**Context Isolation**: Use Task tool to spawn separate sub-processes for knowledge generation and context extraction phases.
 
-### Main Agent: Input Validation
+### Main Stage: Input Validation
 **Input**: Original template
 **Process**: Template-agnostic validation of minimal context sections
 **Output**: Validated input or rejection with specific gaps
@@ -27,7 +27,7 @@
 
 ## Handoff Requirements
 
-**Main Agent → Phase 1**: Validated template or rejection with specific gaps
+**Main Stage → Phase 1**: Validated template or rejection with specific gaps
 **Phase 1 → Phase 2**: Fully populated knowledge requirements template
 **Phase 2 → Output**: Complete context extraction with missing items documented
 

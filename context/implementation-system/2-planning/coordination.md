@@ -1,4 +1,4 @@
-# Agent 2: Planning Coordination
+# Stage 2: Planning Coordination
 
 ## Execution Logic
 Sequential execution of two independent phases that transform requirements into implementation specifications through Level 4.
@@ -15,7 +15,7 @@ Sequential execution of two independent phases that transform requirements into 
 - Level 2 Architecture Specification
 - Level 3 Interface Specification
 
-**Failure Handling**: If Phase 1 fails, halt entire Agent 2 execution and raise issue to user.
+**Failure Handling**: If Phase 1 fails, halt entire Stage 2 execution and raise issue to user.
 
 ### Phase 2: Behavior-Specification Planning
 **Inputs**:

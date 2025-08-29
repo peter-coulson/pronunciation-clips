@@ -3,7 +3,7 @@
 ## Single-Phase Approach
 **Input**: Knowledge Requirements + Context System  
 **Output**: Filled CONTEXT_EXTRACTION_OUTPUT.md template  
-**Agent Role**: Specialized research agent focused purely on information gathering
+**Sub-Process Role**: Specialized research sub-process focused purely on information gathering
 
 ## Extraction Process
 
@@ -19,7 +19,7 @@ Extract all available information from context system to populate template secti
 - Identify contradictory information discovered
 - Generate structured list of missing information in summary section
 
-### Agent Responsibilities
+### Sub-Process Responsibilities
 - **Pure research**: Find and document available information
 - **Gap identification**: List what could not be located
 - **Source tracking**: Document where information was found
@@ -31,6 +31,6 @@ Extract all available information from context system to populate template secti
 - **Metadata**: Sources and contradictions for transparency
 
 ## Downstream Usage
-- **Planning agents**: Consume filled template as project context
-- **Validation agents**: Assess missing items against requirements for criticality
+- **Planning stages**: Consume filled template as project context
+- **Validation stages**: Assess missing items against requirements for criticality
 - **Human operators**: Scan missing summary to improve context system

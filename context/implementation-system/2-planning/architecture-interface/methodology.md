@@ -1,4 +1,4 @@
-# Architecture-Interface Sub-Agent Methodology
+# Architecture-Interface Sub-Process Methodology
 
 ## Sequential Execution Process
 

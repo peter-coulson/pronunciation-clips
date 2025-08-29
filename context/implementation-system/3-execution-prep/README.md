@@ -1,17 +1,17 @@
-# Agent 3: Execution Preparation
+# Stage 3: Execution Preparation
 
 ## Purpose
 
-Transforms comprehensive system planning into execution-ready implementation packages. Takes level 1-4 specifications, testing requirements, and repository context as inputs and produces small, focused units of 3K token context instructions that can be independently executed by the implementation agent, plus consolidated testing standards context to enforce repository quality standards.
+Transforms comprehensive system planning into execution-ready implementation packages. Takes level 1-4 specifications, testing requirements, and repository context as inputs and produces small, focused units of 3K token context instructions that can be independently executed by the implementation stage, plus consolidated testing standards context to enforce repository quality standards.
 
 ## Core Transformation Process
 
-The agent performs two primary breakdowns:
+The stage performs two primary breakdowns:
 
-1. **Planning Decomposition**: Splits level 4 behavioral specifications into manageable, dependency-optimized units
+1. **Planning Decomposition**: Splits level 4 behavioral specifications into manageable, dependency-optimized units using implementation segmentation
 2. **Context Division**: Divides planning context and repository context into focused, executable packages with appropriate knowledge filtering
 
-## Sub-Agent Structure
+## Sub-Process Structure
 
 ### Phase 1: Boundary Analysis
 **Directory**: `boundary-analysis/`
@@ -36,12 +36,12 @@ The agent performs two primary breakdowns:
 
 ## Input Summary
 
-Receives system specifications and repository context from Agent 2 (Planning). See individual sub-agent methodologies for detailed input requirements.
+Receives system specifications and repository context from Stage 2 (Planning). See individual sub-process methodologies for detailed input requirements.
 
 ## Output Summary
 
-Produces execution coordination plan and unit-specific context templates for Agent 4 (Implementation). See individual sub-agent methodologies for detailed output specifications.
+Produces execution coordination plan and unit-specific context templates for Stage 4 (Implementation). See individual sub-process methodologies for detailed output specifications.
 
 ## Operational Flow
 
-Sequential execution through three phases with document-based handoffs. See `coordination.md` for execution logic and sub-agent orchestration details.
+Sequential execution through three phases with document-based handoffs. See `coordination.md` for execution logic and sub-process orchestration details.

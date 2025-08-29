@@ -1,13 +1,13 @@
-# Chunk Implementation Methodology
+# Implementation Segmentation Methodology
 
-## Sub-Agent Purpose
+## Sub-Process Purpose
 Executes test-driven implementation using generated tests as immutable behavioral contracts, transforming Level 4 behavioral specifications (see @ABSTRACTION_FRAMEWORK.md) into working code while ensuring contract fulfillment.
 
 ## Input Requirements
 
 ### Behavioral Specifications
 - **CONTEXT.md** (Required): Level 4 behavioral specifications, interface contracts, implementation requirements, required test gates
-- **HANDOFF.md** (Optional): Implementation summaries and integration contracts from dependent chunks
+- **HANDOFF.md** (Optional): Implementation summaries and integration contracts from dependent segments
 
 ### Generated Test Infrastructure
 - **Executable E2E Test Files**: Immutable end-to-end validation contracts
@@ -25,14 +25,14 @@ Executes test-driven implementation using generated tests as immutable behaviora
 - Extract specific testing requirements from CONTEXT.md Quality Validation Requirements
 - Apply testing patterns and conventions from Applied Context Knowledge sections
 - Write unit tests covering all behavioral validations and performance criteria
-- Create tests for all output contracts this chunk must provide
+- Create tests for all output contracts this segment must provide
 - Verify tests fail initially (red phase)
 - Confirm integration/E2E test infrastructure is functional
 
 ### Phase 3: Contract Implementation
 - Implement public interfaces specified in CONTEXT.md output contracts
 - Create minimal implementations that satisfy interface requirements
-- Focus on stable API contracts for dependent chunks
+- Focus on stable API contracts for dependent segments
 
 ### Phase 4: Core Implementation
 - Implement behavioral requirements to satisfy test criteria
@@ -46,16 +46,16 @@ Executes test-driven implementation using generated tests as immutable behaviora
 
 ### Phase 6: Handoff Generation
 - Document implemented interfaces using HANDOFF_TEMPLATE.md
-- Provide integration patterns and requirements for dependent chunks
+- Provide integration patterns and requirements for dependent segments
 - Include test validation results and performance benchmarks
 
 ## Testing Strategy
 
 ### Contract Fulfillment
-Chunk contracts are only fulfilled when all unit tests, integration tests, and chunk-level E2E tests pass for the chunk.
+Segment contracts are only fulfilled when all unit tests, integration tests, and segment-level E2E tests pass for the segment.
 
 ### E2E Test Immutability
-- E2E tests are created before chunk implementation begins and cannot be modified by implementation agents
+- E2E tests are created before segment implementation begins and cannot be modified by implementation stages
 - Tests serve as immutable behavioral contracts that implementation must satisfy
 
 ## Output Requirements
@@ -66,11 +66,11 @@ Chunk contracts are only fulfilled when all unit tests, integration tests, and c
 ## Critical Constraints
 - **Test Immutability**: Cannot modify E2E or integration test specifications
 - **Contract Compliance**: All behavioral requirements must be satisfied through test validation
-- **Integration Focus**: Must provide stable interfaces for dependent chunks
+- **Integration Focus**: Must provide stable interfaces for dependent segments
 - **Quality Gates**: All performance and quality criteria must be met
-- **Critical Failure Protocol**: Any problem this sub-agent cannot resolve independently (e.g., E2E/integration test errors without permission to fix, unresolvable implementation issues) constitutes critical failure → return control to coordination agent → escalate to user
+- **Critical Failure Protocol**: Any problem this sub-process cannot resolve independently (e.g., E2E/integration test errors without permission to fix, unresolvable implementation issues) constitutes critical failure → return control to coordination stage → escalate to user
 
 ## Success Criteria
-- All unit tests, integration tests, and chunk-level E2E tests pass
+- All unit tests, integration tests, and segment-level E2E tests pass
 - Contract fulfillment achieved through test validation
-- Handoff document provides complete integration specifications for dependent chunks
+- Handoff document provides complete integration specifications for dependent segments

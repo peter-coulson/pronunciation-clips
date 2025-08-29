@@ -1,7 +1,7 @@
-# Agent 2: Planning
+# Stage 2: Planning
 
-## Agent Purpose
-Iteratively converts high-level business logic into lower-level implementation specifications, stopping at Level 4. This approach prevents over-specification that would limit future agents' freedom for trial-and-error using Test-Driven Development (TDD), particularly beneficial for medium to large-scale changes.
+## Stage Purpose
+Iteratively converts high-level business logic into lower-level implementation specifications, stopping at Level 4. This approach prevents over-specification that would limit future stages' freedom for trial-and-error using Test-Driven Development (TDD), particularly beneficial for medium to large-scale changes.
 
 **Exception**: End-to-end and integration tests are specified to Level 6 as they are implemented before any code and remain immutable. Since there's no trial-and-error benefit for these tests, full change context specification provides maximum value.
 
@@ -28,6 +28,6 @@ Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRA
 - No system context assumptions made
 - Ready for 3-execution-prep consumption
 
-## Agent Structure
+## Stage Structure
 - **architecture-interface/**: Creates Level 2 Architecture and Level 3 Interface specifications
 - **behavior-specification/**: Creates Level 4 Behavior and test specifications

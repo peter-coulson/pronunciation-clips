@@ -1,4 +1,4 @@
-# Behavior Specification Sub-Agent Methodology
+# Behavior Specification Sub-Process Methodology
 
 ## Sequential Execution Process
 

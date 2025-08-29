@@ -35,7 +35,7 @@ Ensure coordination completeness:
 - Context distribution covers all chunks
 
 ## Output
-**COORDINATION_PLAN.md** - Complete execution orchestration ready for handoff to execution agents.
+**COORDINATION_PLAN.md** - Complete execution orchestration ready for handoff to execution stages.
 
 ## Success Criteria
 - All Phase 1-2 outputs integrated into single coordination document

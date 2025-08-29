@@ -1,6 +1,6 @@
-# Agent 4: Implementation
+# Stage 4: Implementation
 
-## Agent Purpose & Usage
+## Stage Purpose & Usage
 
 **Primary Function**: Transforms Level 4 behavioral specifications into working code (Level 7 implementation, see @ABSTRACTION_FRAMEWORK.md) while ensuring all contracts are fulfilled through mandatory test validation.
 
@@ -10,7 +10,7 @@
 - Generate stable handoff contracts for dependent chunks
 - Validate implementation through comprehensive testing gates
 
-**Sub-Agent Structure**:
+**Sub-Process Structure**:
 - **test-generation/**: Transforms immutable Level 4 test specifications into executable test implementations
 - **unit-implementation/**: Executes test-driven implementation using generated tests as behavioral contracts
 

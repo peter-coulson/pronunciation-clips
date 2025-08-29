@@ -1,6 +1,6 @@
 # Test Generation Methodology
 
-## Sub-Agent Purpose
+## Sub-Process Purpose
 Transforms immutable Level 4 test specifications (see @ABSTRACTION_FRAMEWORK.md) and testing context into executable test implementations that validate system behavior at both E2E and integration levels.
 
 ## Input Requirements
@@ -50,7 +50,7 @@ Transforms immutable Level 4 test specifications (see @ABSTRACTION_FRAMEWORK.md)
 - **Stateless Operation**: Each execution operates independently without persistent state
 - **Context Compliance**: All outputs must respect infrastructure constraints and patterns
 - **Quality Standards**: Generated tests must meet all specified coverage and performance requirements
-- **Critical Failure Protocol**: Any problem this sub-agent cannot resolve independently constitutes critical failure → return control to coordination agent → escalate to user
+- **Critical Failure Protocol**: Any problem this sub-process cannot resolve independently constitutes critical failure → return control to coordination stage → escalate to user
 
 ## Success Criteria
 - **Executable Tests**: All generated tests run successfully in target environment

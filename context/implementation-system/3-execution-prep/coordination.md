@@ -1,8 +1,8 @@
-# Agent 3 Coordination: Execution Logic & Sub-Agent Flow
+# Stage 3 Coordination: Execution Logic & Sub-Process Flow
 
-## Primary Agent Role
+## Primary Stage Role
 
-The Agent 3 coordinator provides simple sequential orchestration of the three execution preparation phases. It maintains no state and performs no validation - serving purely as an execution pipeline that loads each sub-agent with the appropriate context and handles failure scenarios.
+The Stage 3 coordinator provides simple sequential orchestration of the three execution preparation phases. It maintains no state and performs no validation - serving purely as an execution pipeline that loads each sub-process with the appropriate context and handles failure scenarios.
 
 ## Execution Flow
 
@@ -15,17 +15,17 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 1. Execute Phase 1 with required inputs
 2. On successful completion, execute Phase 2 with Phase 1 outputs + required inputs  
 3. On successful completion, execute Phase 3 with Phase 1-2 outputs + required inputs
-4. On successful completion, handoff final coordination plan to Agent 4
+4. On successful completion, handoff final coordination plan to Stage 4
 
 ## Phase Orchestration
 
 ### Phase 1: Boundary Analysis
-**Process**: Analyze system interfaces and behavioral dependencies to establish chunk boundaries
+**Process**: Analyze system interfaces and behavioral dependencies to establish implementation segment boundaries
 **Output**: `BOUNDARY_ANALYSIS_TEMPLATE.md`
 
 ### Phase 2: Context Filtering  
-**Process**: Generate implementation-ready context templates for each chunk with testing standards
-**Output**: `TEST_CONTEXT.md` + chunk-specific `CONTEXT_TEMPLATE.md` files
+**Process**: Generate implementation-ready context templates for each segment with testing standards
+**Output**: `TEST_CONTEXT.md` + segment-specific `CONTEXT_TEMPLATE.md` files
 
 ### Phase 3: Coordination Synthesis
 **Process**: Integrate boundary analysis and context filtering into unified execution coordination plan
@@ -36,7 +36,7 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 ### Failure Response
 **Policy**: Abort entire process on any phase failure
 **Action**: Return control to user with failure details for debugging
-**Rationale**: Phases have full context for validation - coordination agent cannot meaningfully recover from phase failures
+**Rationale**: Phases have full context for validation - coordination stage cannot meaningfully recover from phase failures
 
 ### Error Propagation
 - Phase failures immediately terminate the execution preparation process
@@ -56,10 +56,10 @@ Each phase receives required inputs:
 
 ## Handoff Protocol
 
-### To Agent 4 (Implementation)
+### To Stage 4 (Implementation)
 **Deliverable**: Complete coordination plan from Phase 3
 **Format**: Complete coordination plan with execution sequence and context templates
-**Validation**: None (delegated to receiving agent)
+**Validation**: None (delegated to receiving stage)
 
 ## Operational Principles
 
