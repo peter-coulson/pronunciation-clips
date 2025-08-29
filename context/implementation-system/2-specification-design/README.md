@@ -6,7 +6,7 @@ Iteratively converts high-level business logic into lower-level implementation s
 **Exception**: End-to-end and integration tests are specified to Level 6 as they are implemented before any code and remain immutable. Since there's no trial-and-error benefit for these tests, full change specification provides maximum value.
 
 ## Inputs
-- **REQUIREMENTS_LEVEL_INPUT.md** - Completed requirements template from user
+- **USER_REQUIREMENTS_TEMPLATE.md** - Completed requirements template from user
 - **KNOWLEDGE_PACKAGE_TEMPLATE.md** - Filled knowledge extraction template from 1-requirement-analysis
 
 Together, these inputs detail change goals plus system standards knowledge required for implementation at every specification level, forcing adherence to project standards.

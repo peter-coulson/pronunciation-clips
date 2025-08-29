@@ -7,7 +7,7 @@ Sequential execution of two independent phases that transform requirements into 
 
 ### Phase 1: Architecture-Interface Design
 **Inputs**: 
-- REQUIREMENTS_LEVEL_INPUT.md
+- USER_REQUIREMENTS_TEMPLATE.md
 - KNOWLEDGE_PACKAGE_TEMPLATE.md
 
 **Process**: Transform requirements into system architecture and interface specifications
@@ -19,7 +19,7 @@ Sequential execution of two independent phases that transform requirements into 
 
 ### Phase 2: Behavior-Specification Design
 **Inputs**:
-- REQUIREMENTS_LEVEL_INPUT.md (original)
+- USER_REQUIREMENTS_TEMPLATE.md (original)
 - KNOWLEDGE_PACKAGE_TEMPLATE.md (original)
 - Level 2 Architecture Specification (from Phase 1)
 - Level 3 Interface Specification (from Phase 1)

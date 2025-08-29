@@ -15,7 +15,7 @@ A sequential processing system that transforms user specifications into implemen
 **Repository-agnostic requirements processing**
 - **Location**: `1-requirement-analysis/`
 - **Process**: Input validation + knowledge mapping + knowledge extraction  
-- **Inputs**: User requirements template
+- **Inputs**: USER_REQUIREMENTS_TEMPLATE.md
 - **Outputs**: Validated requirements + knowledge requirements + knowledge extraction
 
 ### Stage 2: Planning 
@@ -74,7 +74,7 @@ proof-of-concept/                  # Operational learnings (preserved)
 sessions/
 └── {session-name}/
     ├── 1-requirement-analysis/
-    │   ├── requirements-input.md
+    │   ├── user-requirements.md
     │   ├── knowledge-requirements.md
     │   └── knowledge-extraction.md
     ├── 2-specification-design/

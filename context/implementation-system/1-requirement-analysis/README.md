@@ -25,12 +25,12 @@ This stage determines what knowledge is required for a proposed change and aggre
 
 **Boundaries**: 
 - Does NOT generate concrete specifications (that's Stage 2's role)
-- Currently configured for single template (REQUIREMENTS_LEVEL_INPUT.md) - expansion to multiple templates should be straightforward with configuration layer
+- Currently configured for single template (USER_REQUIREMENTS_TEMPLATE.md) - expansion to multiple templates should be straightforward with configuration layer
 - Knowledge repository agnostic - functions with any well-structured knowledge repository
 
 ## Usage
 
-**Primary Input**: REQUIREMENTS_LEVEL_INPUT.md (currently configured template)
+**Primary Input**: USER_REQUIREMENTS_TEMPLATE.md (currently configured template)
 **Critical Requirement**: Minimal System Information sections must be complete (Technical Overview, Integration Landscape, Quality Standards)
 
 **Template Quality**: High-quality template filling is essential for stage and wider system functioning
