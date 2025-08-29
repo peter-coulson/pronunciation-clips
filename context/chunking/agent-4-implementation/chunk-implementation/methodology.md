@@ -68,6 +68,7 @@ Chunk contracts are only fulfilled when all unit tests, integration tests, and c
 - **Contract Compliance**: All behavioral requirements must be satisfied through test validation
 - **Integration Focus**: Must provide stable interfaces for dependent chunks
 - **Quality Gates**: All performance and quality criteria must be met
+- **Critical Failure Protocol**: Any problem this sub-agent cannot resolve independently (e.g., E2E/integration test errors without permission to fix, unresolvable implementation issues) constitutes critical failure → return control to coordination agent → escalate to user
 
 ## Success Criteria
 - All unit tests, integration tests, and chunk-level E2E tests pass

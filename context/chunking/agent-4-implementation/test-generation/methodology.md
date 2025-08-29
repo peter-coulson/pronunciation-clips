@@ -50,6 +50,7 @@ Transforms immutable Level 4 test specifications and testing context into execut
 - **Stateless Operation**: Each execution operates independently without persistent state
 - **Context Compliance**: All outputs must respect infrastructure constraints and patterns
 - **Quality Standards**: Generated tests must meet all specified coverage and performance requirements
+- **Critical Failure Protocol**: Any problem this sub-agent cannot resolve independently constitutes critical failure → return control to coordination agent → escalate to user
 
 ## Success Criteria
 - **Executable Tests**: All generated tests run successfully in target environment
