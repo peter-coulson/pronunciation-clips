@@ -4,7 +4,7 @@
 Transform Phase 1-2 outputs into execution-ready coordination plan using template population synthesis.
 
 ## Input Requirements
-- **BOUNDARY_DEPENDENCY_ANALYSIS.md** (Phase 1) - chunk boundaries, execution sequence, parallel groups
+- **BOUNDARY_ANALYSIS_TEMPLATE.md** (Phase 1) - chunk boundaries, execution sequence, parallel groups
 - **chunk-[N]-[name]/CONTEXT.md** files (Phase 2) - filtered behavioral contexts
 - **Context Extraction Output** (original) - feature name, completion criteria
 

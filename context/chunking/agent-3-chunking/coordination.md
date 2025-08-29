@@ -17,21 +17,18 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 3. On successful completion, execute Phase 3 with Phase 1-2 outputs + required inputs
 4. On successful completion, handoff final coordination plan to Agent 4
 
-## Sub-Agent Orchestration
+## Phase Orchestration
 
 ### Phase 1: Boundary Analysis
-**Sub-Agent**: `boundary-analysis/`
-**Context Loading**: Load sub-agent with inputs as specified in `boundary-analysis/methodology.md` Input Requirements section
-**Output**: `BOUNDARY_DEPENDENCY_ANALYSIS.md`
+**Process**: Analyze system interfaces and behavioral dependencies to establish chunk boundaries
+**Output**: `BOUNDARY_ANALYSIS_TEMPLATE.md`
 
 ### Phase 2: Context Filtering  
-**Sub-Agent**: `context-filtering/`
-**Context Loading**: Load sub-agent with inputs as specified in `context-filtering/methodology.md` Input Requirements section
+**Process**: Generate implementation-ready context templates for each chunk with testing standards
 **Output**: `TEST_CONTEXT.md` + chunk-specific `CONTEXT_TEMPLATE.md` files
 
 ### Phase 3: Coordination Synthesis
-**Sub-Agent**: `coordination-synthesis/` 
-**Context Loading**: Load sub-agent with inputs as specified in `coordination-synthesis/methodology.md` Input Requirements section
+**Process**: Integrate boundary analysis and context filtering into unified execution coordination plan
 **Output**: `COORDINATION_PLAN.md`
 
 ## Error Handling
@@ -39,7 +36,7 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 ### Failure Response
 **Policy**: Abort entire process on any phase failure
 **Action**: Return control to user with failure details for debugging
-**Rationale**: Sub-agents have full context for validation - coordination agent cannot meaningfully recover from phase failures
+**Rationale**: Phases have full context for validation - coordination agent cannot meaningfully recover from phase failures
 
 ### Error Propagation
 - Phase failures immediately terminate the chunking process
@@ -49,10 +46,10 @@ Phase 1: Boundary Analysis → Phase 2: Context Filtering → Phase 3: Coordinat
 ## Context Management
 
 ### Context Accumulation
-The coordinator maintains access to original inputs throughout execution and accumulates phase outputs to provide subsequent phases with complete required context as specified in each sub-agent's methodology.
+The coordinator maintains access to original inputs throughout execution and accumulates phase outputs to provide subsequent phases with complete required context.
 
 ### Context Passing Protocol
-Each sub-agent receives exactly the inputs specified in its methodology's "Input Requirements" section:
+Each phase receives required inputs:
 - Original planning inputs (maintained throughout pipeline)  
 - Previous phase outputs (accumulated as pipeline progresses)
 - No additional context filtering or validation by coordinator
@@ -61,12 +58,12 @@ Each sub-agent receives exactly the inputs specified in its methodology's "Input
 
 ### To Agent 4 (Implementation)
 **Deliverable**: Complete coordination plan from Phase 3
-**Format**: As specified in `coordination-synthesis/templates/COORDINATION_PLAN_TEMPLATE.md`
+**Format**: Complete coordination plan with execution sequence and context templates
 **Validation**: None (delegated to receiving agent)
 
 ## Operational Principles
 
 1. **Simplicity**: No logic beyond sequential execution
-2. **Delegation**: All validation and quality control handled by sub-agents  
+2. **Delegation**: All validation and quality control handled by phases  
 3. **Transparency**: Failures immediately surface to user with full context
 4. **Statelessness**: No state maintained between executions

@@ -4,7 +4,7 @@
 Transform Phase 1 chunk boundaries into implementation-ready context templates while extracting system-wide testing context through unified knowledge filtering from the comprehensive knowledge base.
 
 ## Input Requirements
-- **BOUNDARY_DEPENDENCY_ANALYSIS.md** (Primary - defines chunks)
+- **BOUNDARY_ANALYSIS_TEMPLATE.md** (Primary - defines chunks)
 - **Level 2-6 Specification Templates** (Implementation requirements)
 - **Context Extraction Output** (Knowledge base for filtering)
 

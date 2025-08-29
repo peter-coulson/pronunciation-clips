@@ -17,17 +17,13 @@
 - **Pass**: All sections complete, coherent, non-contradictory
 - **Fail**: Any section empty, incomplete, or contradictory - reject with detailed explanation of why each insufficient section fails validation requirements
 
-### Phase 1: Knowledge Requirements Generation Subagent
-**Input**: Validated template + `knowledge-mapping.md` methodology + ABSTRACTION_FRAMEWORK.md
-**Process**: Apply risk-knowledge mapping to populate template
+### Phase 1: Knowledge Requirements Generation
+**Process**: Apply risk-knowledge mapping framework to determine context requirements
 **Output**: Completed KNOWLEDGE_REQUIREMENTS_TEMPLATE.md
-**Subagent Task**: "Generate knowledge requirements from validated template using knowledge-mapping.md methodology"
 
-### Phase 2: Context Extraction Subagent
-**Input**: Knowledge requirements + `context-extraction.md` methodology + Context system access
-**Process**: Research and extract available information
+### Phase 2: Context Extraction
+**Process**: Research and extract available information from context system
 **Output**: Completed CONTEXT_EXTRACTION_OUTPUT.md with gaps identified
-**Subagent Task**: "Extract context information using context-extraction.md methodology to populate template"
 
 ## Handoff Requirements
 
