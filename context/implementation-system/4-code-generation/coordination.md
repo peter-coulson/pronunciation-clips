@@ -42,6 +42,7 @@ Test Generation → Implementation → Final Validation → Complete
 - **Contract Fulfillment**: All tests must pass before completion
 - **Stateless Operation**: Each sub-process operates independently
 - **Context Compliance**: All outputs respect infrastructure constraints
+- **Handoff-Free Operation**: No document handoff between sub-processes - segmented-implementation locates generated tests via Level 6 specification paths and executes tests specified in context scope templates
 - **Critical Failure Definition**: Any problem sub-processes cannot resolve independently
 
 ## Progress Tracking

@@ -9,15 +9,16 @@ Executes test-driven implementation using generated tests as immutable behaviora
 - **CONTEXT.md** (Required): Level 4 behavioral specifications, interface contracts, implementation requirements, required test gates
 - **HANDOFF.md** (Optional): Implementation summaries and integration contracts from dependent segments
 
-### Generated Test Infrastructure
-- **Executable E2E Test Files**: Immutable end-to-end validation contracts
-- **Executable Integration Test Files**: Component boundary validation tests
+### Generated Test Infrastructure (Located via Level 6 Specifications)
+- **Executable E2E Test Files**: Immutable end-to-end validation contracts (paths derivable from E2E_TEST_SPECIFICATION_TEMPLATE.md)
+- **Executable Integration Test Files**: Component boundary validation tests (paths derivable from INTEGRATION_TEST_SPECIFICATION_TEMPLATE.md)
 - **Test Support Files**: Required fixtures, mocks, and utilities
 
 ## Test-Driven Implementation Process
 
 ### Phase 1: Input Analysis
-- Parse CONTEXT.md for behavioral requirements and test gates
+- Parse CONTEXT.md for behavioral requirements and **Required Test Gates** (lines 53-61)
+- Locate executable tests using paths derived from Level 6 test specifications
 - Extract interface contracts from HANDOFF.md (if present)
 - Identify implementation scope and dependencies
 
