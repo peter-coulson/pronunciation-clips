@@ -1,9 +1,16 @@
-# Test Generation Execution Methodology
+# Test Generation Methodology
 
-## Input Processing (Read-Only)
-1. **LEVEL_4_E2E_TEST_SPECIFICATION.md** - Parse test contracts and assertions
-2. **LEVEL_4_INTEGRATION_TEST_SPECIFICATION.md** - Parse integration scenarios and mocks
-3. **TEST_CONTEXT_TEMPLATE.md** - Parse infrastructure patterns and constraints
+## Sub-Agent Purpose
+Transforms immutable Level 4 test specifications and testing context into executable test implementations that validate system behavior at both E2E and integration levels.
+
+## Input Requirements
+
+### Level 4 Test Specifications (Immutable)
+- **LEVEL_4_E2E_TEST_SPECIFICATION.md**: Method signatures, validation targets, test fixtures, success assertions, performance thresholds, error test signatures, test data schemas
+- **LEVEL_4_INTEGRATION_TEST_SPECIFICATION.md**: Integration test methods, mock signatures, data flow tests, error integration signatures, contract validation signatures, state consistency tests
+
+### Testing Context
+- **TEST_CONTEXT_TEMPLATE.md**: Testing framework constraints, infrastructure patterns, quality standards, existing test analysis, development integration patterns
 
 ## Execution Pipeline
 
@@ -33,12 +40,19 @@
 - Validate executable syntax and structure
 
 ## Output Generation
-- **Executable E2E Test Files** - Direct specification implementation
-- **Executable Integration Test Files** - Component boundary validation
-- **Test Support Files** - Fixtures, mocks, helpers as needed
-- **Configuration Files** - Test-specific configuration alignment
+- **Executable E2E Test Files**: Direct specification implementation
+- **Executable Integration Test Files**: Component boundary validation
+- **Test Support Files**: Fixtures, mocks, helpers as needed
+- **Configuration Files**: Test-specific configuration alignment
 
-## Constraints
-- **Immutability**: No modification of input specification files
-- **Stateless**: Each execution independent of previous runs
-- **Context Compliance**: All outputs respect infrastructure constraints
+## Critical Constraints
+- **Specification Immutability**: Cannot modify input test specifications under any circumstances
+- **Stateless Operation**: Each execution operates independently without persistent state
+- **Context Compliance**: All outputs must respect infrastructure constraints and patterns
+- **Quality Standards**: Generated tests must meet all specified coverage and performance requirements
+
+## Success Criteria
+- **Executable Tests**: All generated tests run successfully in target environment
+- **Pattern Consistency**: Tests follow established project testing patterns and conventions
+- **Specification Compliance**: All test assertions validate exact behaviors specified in Level 4 contracts
+- **Infrastructure Integration**: Tests integrate seamlessly with existing CI/CD and development workflows
