@@ -1,7 +1,4 @@
-# Behavior Specification Agent
-
-## Core Responsibility
-Transform completed architecture and interface specifications into Level 4 Behavior specification and immutable test specifications using sequential execution.
+# Behavior Specification Sub-Agent Methodology
 
 ## Sequential Execution Process
 
@@ -62,8 +59,3 @@ Transform completed architecture and interface specifications into Level 4 Behav
 - Error handling is clearly defined
 - Integration behaviors are specified
 - Context knowledge properly applied
-
-## Input Requirements
-- Completed Level 2 Architecture Specification
-- Completed Level 3 Interface Specification  
-- Context Extraction Output

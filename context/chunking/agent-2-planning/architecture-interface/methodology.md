@@ -1,7 +1,4 @@
-# Architecture-Interface Specification Agent
-
-## Core Responsibility
-Transform requirements and context into Level 2 Architecture and Level 3 Interface specifications through sequential execution.
+# Architecture-Interface Sub-Agent Methodology
 
 ## Sequential Execution Process
 
@@ -41,6 +38,3 @@ Transform requirements and context into Level 2 Architecture and Level 3 Interfa
 - Level 2: Architecture makes logical sense and components are well-defined
 - Level 3: Interfaces are directly implementable from Level 2 architecture
 - Both levels: Context knowledge properly integrated throughout
-
-## Handoff Requirement
-Complete Level 2 and Level 3 specifications ready for behavioral analysis.
