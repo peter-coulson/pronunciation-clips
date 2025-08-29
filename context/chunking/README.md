@@ -11,28 +11,28 @@ A sequential agent system that transforms user specifications into implemented c
 
 ## Agent Structure
 
-### Agent 1: Requirements [~4K tokens]
+### Agent 1: Requirements 
 **Repository-agnostic requirements processing**
 - **Location**: `agent-1-requirements/`
 - **Process**: Input validation + knowledge mapping + context research  
 - **Inputs**: User requirements template
 - **Outputs**: Validated requirements + knowledge requirements + context extraction
 
-### Agent 2: Planning [~8K tokens] 
+### Agent 2: Planning 
 **System specification generation**
 - **Location**: `agent-2-planning/`
 - **Process**: Architecture + interface + behavior specification
 - **Inputs**: Complete knowledge foundation from Agent 1
 - **Outputs**: System design specifications (L2-L4 specifications)
 
-### Agent 3: Chunking [~6K tokens]
+### Agent 3: Chunking 
 **Execution preparation & optimization** 
 - **Location**: `agent-3-chunking/`
 - **Process**: Boundary analysis + context filtering + coordination planning
 - **Inputs**: System specifications from Agent 2
 - **Outputs**: Execution strategy (coordination plan + context templates per chunk)
 
-### Agent 4: Implementation [~8K tokens]
+### Agent 4: Implementation 
 **Test-driven code generation**
 - **Location**: `agent-4-implementation/`
 - **Process**: Test generation + test-driven implementation + integration
@@ -96,9 +96,3 @@ sessions/
 **Simple Cleanup**: Delete entire session directory  
 **Clear Traceability**: Complete project flow in one session directory  
 **Operational Robustness**: Supports concurrent sessions with different projects
-
-## Token Efficiency
-
-**Total System Capacity**: ~26K tokens across 4 agents (optimal distribution)
-**Per-Agent Optimization**: Each agent operates within 4-8K token sweet spot
-**No Token Waste**: Eliminated all duplicate methodology and coordination overhead
