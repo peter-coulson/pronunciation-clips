@@ -2,15 +2,15 @@
 
 ## Purpose
 
-**Context Requirements Determination and Aggregation**
+**Knowledge Requirements Determination and Aggregation**
 
-This stage determines what context is required for a proposed change and aggregates all required context from the context system, detailing where any specifications are missing.
+This stage determines what knowledge is required for a proposed change and aggregates all required knowledge from the knowledge repository, detailing where any specifications are missing.
 
 ## Key Benefits
 
-**Prevalidation**: Ensures context completeness before future stages begin work, enabling strict standard enforcement and no-assumptions policy
+**Prevalidation**: Ensures knowledge completeness before future stages begin work, enabling strict standard enforcement and no-assumptions policy
 
-**Context Packaging**: Outputs well-referenced context package so future stages don't need to search repository context
+**Knowledge Packaging**: Outputs well-referenced knowledge package so future stages don't need to search repository knowledge
 
 **Standard Enforcement**: Forces users to pre-specify standards, improving planning quality
 
@@ -20,18 +20,18 @@ This stage determines what context is required for a proposed change and aggrega
 
 **Responsibilities**:
 - Define which specifications are required for proposed changes
-- Aggregate context from context system using knowledge requirements framework
-- Document missing specifications and context gaps
+- Aggregate knowledge from knowledge repository using knowledge requirements framework
+- Document missing specifications and knowledge gaps
 
 **Boundaries**: 
 - Does NOT generate concrete specifications (that's Stage 2's role)
 - Currently configured for single template (REQUIREMENTS_LEVEL_INPUT.md) - expansion to multiple templates should be straightforward with configuration layer
-- Context system agnostic - functions with any well-structured context system
+- Knowledge repository agnostic - functions with any well-structured knowledge repository
 
 ## Usage
 
 **Primary Input**: REQUIREMENTS_LEVEL_INPUT.md (currently configured template)
-**Critical Requirement**: Minimal Context sections must be complete (Technical Overview, Integration Landscape, Quality Standards)
+**Critical Requirement**: Minimal System Information sections must be complete (Technical Overview, Integration Landscape, Quality Standards)
 
 **Template Quality**: High-quality template filling is essential for stage and wider system functioning
 
@@ -41,8 +41,8 @@ This stage determines what context is required for a proposed change and aggrega
 
 - All sub-process processes execute correctly
 - All output templates filled completely 
-- Missing context clearly documented with specific gaps identified
-- Context system sources properly referenced
+- Missing knowledge clearly documented with specific gaps identified
+- Knowledge repository sources properly referenced
 
 ## Future Expansion
 

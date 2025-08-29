@@ -8,7 +8,7 @@ The Stage 3 coordinator provides simple sequential orchestration of the three ex
 
 ### Sequential Pipeline
 ```
-Phase 1: Implementation Segmentation → Phase 2: Context Scoping → Phase 3: Execution Orchestration
+Phase 1: Implementation Segmentation → Phase 2: Scope Definition → Phase 3: Execution Orchestration
 ```
 
 **Execution Logic**:
@@ -23,12 +23,12 @@ Phase 1: Implementation Segmentation → Phase 2: Context Scoping → Phase 3: E
 **Process**: Analyze system interfaces and behavioral dependencies to establish implementation segment boundaries
 **Output**: `SEGMENTATION_ANALYSIS_TEMPLATE.md`
 
-### Phase 2: Context Scoping  
-**Process**: Generate implementation-ready context templates for each segment with testing standards
-**Output**: `TEST_CONTEXT.md` + segment-specific `CONTEXT_SCOPE_TEMPLATE.md` files
+### Phase 2: Scope Definition  
+**Process**: Generate implementation-ready knowledge packages for each segment with testing standards
+**Output**: `TEST_CONTEXT.md` + segment-specific `SCOPE_TEMPLATE.md` files
 
 ### Phase 3: Execution Orchestration
-**Process**: Integrate boundary analysis and context filtering into unified execution coordination plan
+**Process**: Integrate boundary analysis and scope filtering into unified execution coordination plan
 **Output**: `COORDINATION_PLAN.md`
 
 ## Error Handling
@@ -58,7 +58,7 @@ Each phase receives required inputs:
 
 ### To Stage 4 (Implementation)
 **Deliverable**: Complete coordination plan from Phase 3
-**Format**: Complete coordination plan with execution sequence and context templates
+**Format**: Complete coordination plan with execution sequence and knowledge packages
 **Validation**: None (delegated to receiving stage)
 
 ## Operational Principles

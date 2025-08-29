@@ -1,19 +1,19 @@
-# Context Extraction Methodology
+# Knowledge Extraction Methodology
 
 ## Single-Phase Approach
-**Input**: Knowledge Requirements + Context System  
-**Output**: Filled CONTEXT_EXTRACTION_TEMPLATE.md template  
+**Input**: Knowledge Requirements + Knowledge Repository  
+**Output**: Filled KNOWLEDGE_PACKAGE_TEMPLATE.md template  
 **Sub-Process Role**: Specialized research sub-process focused purely on information gathering
 
 ## Extraction Process
 
 ### Primary Task
-Extract all available information from context system to populate template sections organized by:
+Extract all available information from knowledge repository to populate template sections organized by:
 - Specification levels (Requirements through Implementation)  
 - Knowledge categories (Constraint, Integration, Pattern, Convention)
 
 ### Research Workflow
-- Search context system using semantic understanding
+- Search knowledge repository using semantic understanding
 - Fill template sections with concrete information found
 - Document information sources used
 - Identify contradictory information discovered
@@ -26,11 +26,11 @@ Extract all available information from context system to populate template secti
 - **No assessment**: Avoid making criticality or importance judgments
 
 ### Output Structure
-- **Filled template**: All available context organized by framework
+- **Filled template**: All available knowledge organized by framework
 - **Missing summary**: Structured list of gaps for downstream assessment
 - **Metadata**: Sources and contradictions for transparency
 
 ## Downstream Usage
-- **Planning stages**: Consume filled template as project context
+- **Planning stages**: Consume filled template as project knowledge
 - **Validation stages**: Assess missing items against requirements for criticality
-- **Human operators**: Scan missing summary to improve context system
+- **Human operators**: Scan missing summary to improve knowledge repository

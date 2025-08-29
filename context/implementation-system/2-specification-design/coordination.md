@@ -8,7 +8,7 @@ Sequential execution of two independent phases that transform requirements into 
 ### Phase 1: Architecture-Interface Design
 **Inputs**: 
 - REQUIREMENTS_LEVEL_INPUT.md
-- CONTEXT_EXTRACTION_TEMPLATE.md
+- KNOWLEDGE_PACKAGE_TEMPLATE.md
 
 **Process**: Transform requirements into system architecture and interface specifications
 **Outputs**: 
@@ -20,7 +20,7 @@ Sequential execution of two independent phases that transform requirements into 
 ### Phase 2: Behavior-Specification Design
 **Inputs**:
 - REQUIREMENTS_LEVEL_INPUT.md (original)
-- CONTEXT_EXTRACTION_TEMPLATE.md (original)
+- KNOWLEDGE_PACKAGE_TEMPLATE.md (original)
 - Level 2 Architecture Specification (from Phase 1)
 - Level 3 Interface Specification (from Phase 1)
 
@@ -30,7 +30,7 @@ Sequential execution of two independent phases that transform requirements into 
 - Level 4 E2E Test Specification  
 - Level 4 Integration Test Specification
 
-## Context Handoffs
+## Template Handoffs
 **Template Location**: Each phase outputs standardized templates
 **Handoff Method**: Phase 2 reads completed templates from Phase 1 outputs
 

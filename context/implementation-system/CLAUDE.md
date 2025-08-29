@@ -20,7 +20,7 @@ We are currently **developing** the 4-stage implementation system. Not operation
 @ABSTRACTION_FRAMEWORK.md defines the core specification transformation logic:
 - **Specification Levels**: 7-level progression from requirements to implementation
 - **Knowledge Requirements Framework**: Maps universal risk types to knowledge categories
-- **Context Independence**: Determines when knowledge becomes context-independent
+- **Knowledge Independence**: Determines when knowledge becomes context-independent
 This framework drives the planning module's bi-directional specification transformation.
 
 ## Project Structure  

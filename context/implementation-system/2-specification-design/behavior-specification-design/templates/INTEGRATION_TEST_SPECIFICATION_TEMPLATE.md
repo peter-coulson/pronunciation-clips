@@ -1,6 +1,6 @@
 # Level 4 Integration Test Specification Template
 
-**Feature Name**: [FROM CONTEXT EXTRACTION]
+**Feature Name**: [FROM KNOWLEDGE EXTRACTION]
 **Target Specification Level**: Integration Testing Behavior (Level 4)
 **Detail Level**: Signature (Level 6) - Required for test immutability
 

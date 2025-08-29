@@ -1,6 +1,6 @@
 # Level 3 Interface Specification Template
 
-**Feature Name**: [FROM CONTEXT EXTRACTION]
+**Feature Name**: [FROM KNOWLEDGE EXTRACTION]
 **Target Specification Level**: Interface (Level 3)
 
 ---

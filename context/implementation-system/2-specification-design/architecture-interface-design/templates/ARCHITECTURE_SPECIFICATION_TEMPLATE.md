@@ -1,6 +1,6 @@
 # Level 2 Architecture Specification Template
 
-**Feature Name**: [FROM CONTEXT EXTRACTION]
+**Feature Name**: [FROM KNOWLEDGE EXTRACTION]
 **Target Specification Level**: Architecture (Level 2)
 
 ---

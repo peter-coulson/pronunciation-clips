@@ -5,11 +5,11 @@
 ## Sequential Phase Execution
 
 **Main Stage**: Handles input validation and coordination
-**Context Isolation**: Use Task tool to spawn separate sub-processes for knowledge generation and context extraction phases.
+**Process Isolation**: Use Task tool to spawn separate sub-processes for knowledge generation and knowledge extraction phases.
 
 ### Main Stage: Input Validation
 **Input**: Original template
-**Process**: Template-agnostic validation of minimal context sections
+**Process**: Template-agnostic validation of minimal system information sections
 **Output**: Validated input or rejection with specific gaps
 
 **Validation Logic:**
@@ -18,16 +18,16 @@
 - **Fail**: Any section empty, incomplete, or contradictory - reject with detailed explanation of why each insufficient section fails validation requirements
 
 ### Phase 1: Knowledge Requirements Generation
-**Process**: Apply risk-knowledge mapping framework to determine context requirements
+**Process**: Apply risk-knowledge mapping framework to determine knowledge requirements
 **Output**: Completed REQUIREMENTS_INPUT_TEMPLATE.md
 
-### Phase 2: Context Extraction
-**Process**: Research and extract available information from context system
-**Output**: Completed CONTEXT_EXTRACTION_TEMPLATE.md with gaps identified
+### Phase 2: Knowledge Extraction
+**Process**: Research and extract available information from knowledge repository
+**Output**: Completed KNOWLEDGE_PACKAGE_TEMPLATE.md with gaps identified
 
 ## Handoff Requirements
 
 **Main Stage → Phase 1**: Validated template or rejection with specific gaps
 **Phase 1 → Phase 2**: Fully populated knowledge requirements template
-**Phase 2 → Output**: Complete context extraction with missing items documented
+**Phase 2 → Output**: Complete knowledge extraction with missing items documented
 

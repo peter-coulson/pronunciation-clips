@@ -52,7 +52,7 @@
 - **Breaking Changes**: 
 - **Migration**: 
 
-## Minimum Context for Knowledge Requirements Generation
+## Minimum System Information for Knowledge Requirements Generation
 
 ### Technical Overview
 - **Primary Technologies**: [Languages, frameworks, databases]
@@ -66,5 +66,5 @@
 ### Quality Standards
 - **Existing Standards**: [Testing approach, code quality tools, documentation requirements]
 
-## Additional Context
-*(Optional: Context not available in the system or additional domain-specific information needed for implementation)*
+## Additional Information
+*(Optional: Information not available in the knowledge repository or additional domain-specific information needed for implementation)*

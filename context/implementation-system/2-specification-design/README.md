@@ -3,13 +3,13 @@
 ## Stage Purpose
 Iteratively converts high-level business logic into lower-level implementation specifications, stopping at Level 4. This approach prevents over-specification that would limit future stages' freedom for trial-and-error using Test-Driven Development (TDD), particularly beneficial for medium to large-scale changes.
 
-**Exception**: End-to-end and integration tests are specified to Level 6 as they are implemented before any code and remain immutable. Since there's no trial-and-error benefit for these tests, full change context specification provides maximum value.
+**Exception**: End-to-end and integration tests are specified to Level 6 as they are implemented before any code and remain immutable. Since there's no trial-and-error benefit for these tests, full change specification provides maximum value.
 
 ## Inputs
 - **REQUIREMENTS_LEVEL_INPUT.md** - Completed requirements template from user
-- **CONTEXT_EXTRACTION_TEMPLATE.md** - Filled context extraction template from 1-requirement-analysis
+- **KNOWLEDGE_PACKAGE_TEMPLATE.md** - Filled knowledge extraction template from 1-requirement-analysis
 
-Together, these inputs detail change goals plus system standards context required for implementation at every specification level, forcing adherence to project standards.
+Together, these inputs detail change goals plus system standards knowledge required for implementation at every specification level, forcing adherence to project standards.
 
 ## Outputs
 Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRAMEWORK.md for specification level definitions):
@@ -20,12 +20,12 @@ Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRA
 ## Usage Prerequisites
 - High-quality completion of input templates
 - No missing specifications in input files
-- Context extraction must cover all required system knowledge
+- Knowledge extraction must cover all required system knowledge
 
 ## Expected Outcomes
 - All output templates filled to high quality
 - No missing specifications
-- No system context assumptions made
+- No system knowledge assumptions made
 - Ready for 3-implementation-preparation consumption
 
 ## Stage Structure

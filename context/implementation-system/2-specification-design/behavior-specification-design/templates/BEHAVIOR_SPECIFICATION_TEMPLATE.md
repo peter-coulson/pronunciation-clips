@@ -1,6 +1,6 @@
 # Level 4 Behavior Specification Template
 
-**Feature Name**: [FROM CONTEXT EXTRACTION]
+**Feature Name**: [FROM KNOWLEDGE EXTRACTION]
 **Target Specification Level**: Behavior (Level 4)
 
 ---

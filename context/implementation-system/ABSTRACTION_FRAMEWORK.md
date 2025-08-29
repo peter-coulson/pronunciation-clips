@@ -1,5 +1,16 @@
 # Implementation Specification Framework
 
+## Terminology Clarification
+
+**IMPORTANT**: This system uses precise terminology to avoid confusion with broader project concepts:
+
+- **Knowledge Repository**: External storage of project information (e.g., Claude's project context folders, documentation systems)
+- **Knowledge**: Information and data extracted from repositories 
+- **Scope**: Boundaries and filtering of information for specific purposes
+- **Context**: Execution environment only (e.g., testing context, runtime context)
+
+*This distinguishes internal system processing from external "project context" storage systems.*
+
 ## Core Dimensions
 
 ### Specification Levels (How Detailed Should My New Implementation Be?)
@@ -14,7 +25,7 @@ Sequential refinement from business intent to executable code - defines the TARG
 7. **Implementation Level** - Actual syntax, variable names, implementation details
 
 ### Knowledge Requirements Framework
-This framework generates context requirements for any change by mapping universal risk patterns to specific project contexts. Requirements are determined dynamically based on specification level and risk prevention needs.
+This framework generates knowledge requirements for any change by mapping universal risk patterns to specific project knowledge. Requirements are determined dynamically based on specification level and risk prevention needs.
 
 #### Universal Risk Types
 - **System-Breaking**: Violates fundamental constraints causing failures
@@ -34,9 +45,9 @@ This framework generates context requirements for any change by mapping universa
 - **Integration Knowledge** → Prevents Integration-Breaking risks
 - **Convention Knowledge** → Prevents Quality-Breaking risks
 
-#### Context Independence Progression
-- **Infrastructure Knowledge**: Context-independent after Architecture Level
-- **Domain Knowledge**: Context-independent after Behavior Level  
+#### Knowledge Independence Progression
+- **Infrastructure Knowledge**: Knowledge-independent after Architecture Level
+- **Domain Knowledge**: Knowledge-independent after Behavior Level  
 - **Technology/Quality/Codebase Knowledge**: Remain critical through Implementation Level
 
-This framework enables intelligent systems to generate optimal context requirements for any change by determining which knowledge categories are critical at each specification level to prevent unacceptable risks.
+This framework enables intelligent systems to generate optimal knowledge requirements for any change by determining which knowledge categories are critical at each specification level to prevent unacceptable risks.

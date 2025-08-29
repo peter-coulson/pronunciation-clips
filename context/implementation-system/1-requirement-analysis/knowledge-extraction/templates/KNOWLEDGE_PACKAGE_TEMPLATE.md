@@ -1,4 +1,4 @@
-# Context Extraction Output Template
+# Knowledge Package Template
 
 ## Knowledge Categories by Specification Level
 

@@ -1,6 +1,6 @@
 # Coordination Plan Template
 
-**Feature Name**: [FROM CONTEXT EXTRACTION]
+**Feature Name**: [FROM KNOWLEDGE EXTRACTION]
 **Target Specification Level**: Coordination (Implementation Management)
 
 ---

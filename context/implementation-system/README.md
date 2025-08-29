@@ -14,9 +14,9 @@ A sequential processing system that transforms user specifications into implemen
 ### Stage 1: Requirements 
 **Repository-agnostic requirements processing**
 - **Location**: `1-requirement-analysis/`
-- **Process**: Input validation + knowledge mapping + context research  
+- **Process**: Input validation + knowledge mapping + knowledge extraction  
 - **Inputs**: User requirements template
-- **Outputs**: Validated requirements + knowledge requirements + context extraction
+- **Outputs**: Validated requirements + knowledge requirements + knowledge extraction
 
 ### Stage 2: Planning 
 **System specification generation**
@@ -28,9 +28,9 @@ A sequential processing system that transforms user specifications into implemen
 ### Stage 3: Execution Preparation 
 **Execution preparation & optimization** 
 - **Location**: `3-implementation-preparation/`
-- **Process**: Implementation segmentation + context filtering + coordination planning
+- **Process**: Implementation segmentation + scope filtering + coordination planning
 - **Inputs**: System specifications from Stage 2
-- **Outputs**: Execution strategy (coordination plan + context templates per unit)
+- **Outputs**: Execution strategy (coordination plan + knowledge packages per unit)
 
 ### Stage 4: Implementation 
 **Test-driven code generation**
@@ -76,14 +76,14 @@ sessions/
     ├── 1-requirement-analysis/
     │   ├── requirements-input.md
     │   ├── knowledge-requirements.md
-    │   └── context-extraction.md
+    │   └── knowledge-extraction.md
     ├── 2-specification-design/
     │   ├── architecture-specification.md
     │   ├── interface-specification.md
     │   └── behavior-specification.md
     ├── 3-implementation-preparation/
     │   ├── coordination-plan.md
-    │   └── context-templates/
+    │   └── knowledge-packages/
     └── 4-code-generation/
         └── handoffs/
 ```
@@ -102,7 +102,7 @@ sessions/
 
 **Perfect Independence**: Each stage knows exactly what files to expect, never needs discovery  
 **Session Isolation**: Multiple projects/executions never interfere  
-**System Independence**: No dependencies on external context system  
+**System Independence**: No dependencies on external knowledge repository  
 **Simple Cleanup**: Delete entire session directory  
 **Clear Traceability**: Complete project flow in one session directory  
 **Operational Robustness**: Supports concurrent sessions with different projects

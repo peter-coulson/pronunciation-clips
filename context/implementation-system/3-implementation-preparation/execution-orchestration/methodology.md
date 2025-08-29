@@ -6,7 +6,7 @@ Transform Phase 1-2 outputs into execution-ready coordination plan using templat
 ## Input Requirements
 - **SEGMENTATION_ANALYSIS_TEMPLATE.md** (Phase 1) - segment boundaries, execution sequence, parallel groups
 - **segment-[N]-[name]/CONTEXT.md** files (Phase 2) - filtered behavioral contexts
-- **Context Extraction Output** (original) - feature name, completion criteria
+- **Knowledge Extraction Output** (original) - feature name, completion criteria
 
 ## Method: Template Population Synthesis
 
