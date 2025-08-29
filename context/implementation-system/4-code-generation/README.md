@@ -11,8 +11,8 @@
 - Validate implementation through comprehensive testing gates
 
 **Sub-Process Structure**:
-- **test-generation/**: Transforms immutable Level 4 test specifications into executable test implementations
-- **unit-implementation/**: Executes test-driven implementation using generated tests as behavioral contracts
+- **test-implementation/**: Transforms immutable Level 4 test specifications into executable test implementations
+- **segmented-implementation/**: Executes test-driven implementation using generated tests as behavioral contracts
 
 **Input Processing**:
 - **CONTEXT.md** (Required): Level 4 behavioral specifications, interface contracts, implementation requirements, required test gates

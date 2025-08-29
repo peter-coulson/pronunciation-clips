@@ -13,28 +13,28 @@ A sequential processing system that transforms user specifications into implemen
 
 ### Stage 1: Requirements 
 **Repository-agnostic requirements processing**
-- **Location**: `1-requirements/`
+- **Location**: `1-requirement-analysis/`
 - **Process**: Input validation + knowledge mapping + context research  
 - **Inputs**: User requirements template
 - **Outputs**: Validated requirements + knowledge requirements + context extraction
 
 ### Stage 2: Planning 
 **System specification generation**
-- **Location**: `2-planning/`
+- **Location**: `2-specification-design/`
 - **Process**: Architecture + interface + behavior specification
 - **Inputs**: Complete knowledge foundation from Stage 1
 - **Outputs**: System design specifications (L2-L4 specifications)
 
 ### Stage 3: Execution Preparation 
 **Execution preparation & optimization** 
-- **Location**: `3-execution-prep/`
+- **Location**: `3-implementation-preparation/`
 - **Process**: Implementation segmentation + context filtering + coordination planning
 - **Inputs**: System specifications from Stage 2
 - **Outputs**: Execution strategy (coordination plan + context templates per unit)
 
 ### Stage 4: Implementation 
 **Test-driven code generation**
-- **Location**: `4-implementation/`
+- **Location**: `4-code-generation/`
 - **Process**: Test generation + test-driven implementation + integration
 - **Inputs**: Execution strategy from Stage 3
 - **Outputs**: Working code + handoff documentation
@@ -73,18 +73,18 @@ proof-of-concept/                  # Operational learnings (preserved)
 ```
 sessions/
 └── {session-name}/
-    ├── 1-requirements/
+    ├── 1-requirement-analysis/
     │   ├── requirements.md
     │   ├── knowledge-requirements.md
-    │   └── context-extraction.md
-    ├── 2-planning/
+    │   └── context-aggregation.md
+    ├── 2-specification-design/
     │   ├── architecture.md
     │   ├── interface.md
     │   └── behavior.md
-    ├── 3-execution-prep/
+    ├── 3-implementation-preparation/
     │   ├── coordination-plan.md
     │   └── context-templates/
-    └── 4-implementation/
+    └── 4-code-generation/
         └── handoffs/
 ```
 

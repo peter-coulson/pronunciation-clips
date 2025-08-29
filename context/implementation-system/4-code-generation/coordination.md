@@ -4,12 +4,12 @@
 
 **Sequential Processing Model**: Two specialized sub-processes operating in sequence with document-based handoffs.
 
-### Sub-Process 1: Test Generation
+### Sub-Process 1: Test Implementation
 **Function**: Transform immutable test specifications into executable test implementations
 **Input**: Level 4 test specifications + testing context from execution preparation module
 **Output**: Executable E2E and integration test files, test support infrastructure
 
-### Sub-Process 2: Unit Implementation  
+### Sub-Process 2: Segmented Implementation  
 **Function**: Test-driven implementation using generated tests as behavioral contracts
 **Input**: Generated tests + behavioral specifications + integration contracts
 **Output**: Working implementations + handoff documentation
@@ -20,13 +20,13 @@
 Test Generation → Implementation → Final Validation → Complete
 ```
 
-### Stage 1: Test Generation Sub-Process
-- Execute test-generation/ sub-process
+### Stage 1: Test Implementation Sub-Process
+- Execute test-implementation/ sub-process
 - **Success**: Executable test files created + sub-process reports SUCCESS
 - **Critical Failure**: Sub-process cannot resolve E2E/integration test issues OR other unresolvable problems → Return control to user
 
 ### Stage 2: Implementation Sub-Process
-- Execute unit-implementation/ sub-process  
+- Execute segmented-implementation/ sub-process  
 - **Success**: Working code + HANDOFF.md created + all tests pass + sub-process reports SUCCESS
 - **Critical Failure**: Sub-process cannot resolve test failures OR other unresolvable problems → Return control to user
 

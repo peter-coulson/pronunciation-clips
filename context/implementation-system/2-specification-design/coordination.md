@@ -5,7 +5,7 @@ Sequential execution of two independent phases that transform requirements into 
 
 ## Planning Flow
 
-### Phase 1: Architecture-Interface Planning
+### Phase 1: Architecture-Interface Design
 **Inputs**: 
 - REQUIREMENTS_LEVEL_INPUT.md
 - CONTEXT_EXTRACTION_OUTPUT.md
@@ -17,7 +17,7 @@ Sequential execution of two independent phases that transform requirements into 
 
 **Failure Handling**: If Phase 1 fails, halt entire Stage 2 execution and raise issue to user.
 
-### Phase 2: Behavior-Specification Planning
+### Phase 2: Behavior-Specification Design
 **Inputs**:
 - REQUIREMENTS_LEVEL_INPUT.md (original)
 - CONTEXT_EXTRACTION_OUTPUT.md (original)
@@ -35,9 +35,9 @@ Sequential execution of two independent phases that transform requirements into 
 **Handoff Method**: Phase 2 reads completed templates from Phase 1 outputs
 
 ## Coordination Responsibilities
-1. Execute architecture-interface planning first
+1. Execute architecture-interface design first
 2. Verify Phase 1 completion before proceeding
-3. Execute behavior-specification planning second
+3. Execute behavior-specification design second
 4. Provide template locations to phases
 5. Handle execution failures by stopping and reporting to user
 

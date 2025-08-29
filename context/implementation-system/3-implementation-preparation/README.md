@@ -13,24 +13,24 @@ The stage performs two primary breakdowns:
 
 ## Sub-Process Structure
 
-### Phase 1: Boundary Analysis
-**Directory**: `boundary-analysis/`
+### Phase 1: Implementation Segmentation
+**Directory**: `implementation-segmentation/`
 **Focus**: Interface-driven boundaries with functional cohesion
 - Transforms behavioral specifications into execution-optimized unit boundaries
 - Analyzes dependencies and establishes execution sequencing
 - Identifies parallel execution opportunities
 
-### Phase 2: Context Filtering  
-**Directory**: `context-filtering/`
+### Phase 2: Context Scoping  
+**Directory**: `context-scoping/`
 **Focus**: Knowledge context division
 - Extracts system-wide testing context for implementation standards
 - Creates implementation-ready context templates for each unit
 - Applies filtered repository knowledge to prevent integration risks
 
-### Phase 3: Coordination Synthesis
-**Directory**: `coordination-synthesis/`
+### Phase 3: Execution Orchestration
+**Directory**: `execution-orchestration/`
 **Focus**: Template population synthesis
-- Integrates boundary analysis and context filtering outputs
+- Integrates implementation segmentation and context scoping outputs
 - Produces final coordination plan for implementation execution
 - Establishes handoff specifications and completion criteria
 

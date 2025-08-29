@@ -1,10 +1,10 @@
 # Phase 2: Knowledge Context Division
 
 ## Objective
-Transform Phase 1 chunk boundaries into implementation-ready context templates while extracting system-wide testing context through unified knowledge filtering from the comprehensive knowledge base.
+Transform Phase 1 segment boundaries into implementation-ready context templates while extracting system-wide testing context through unified knowledge filtering from the comprehensive knowledge base.
 
 ## Input Requirements
-- **BOUNDARY_ANALYSIS_TEMPLATE.md** (Primary - defines chunks)
+- **SEGMENTATION_ANALYSIS_TEMPLATE.md** (Primary - defines segments)
 - **Level 2-6 Specification Templates** (Implementation requirements)
 - **Context Extraction Output** (Knowledge base for filtering)
 
@@ -21,19 +21,19 @@ Extract testing knowledge from Context Extraction Output to create execution-rea
 - **Test Data Management**: Fixture storage patterns, test data generation approaches, cleanup strategies
 - **Development Integration**: Test execution commands, IDE integration patterns, debug configurations
 
-### Step 1: Chunk-Centric Specification Extraction
-For each chunk from boundary analysis, extract relevant specifications across all levels:
-- **Architecture (L2)**: Component relationships affecting this chunk
-- **Interface (L3)**: Contract definitions this chunk implements/consumes  
-- **Behavior (L4)**: Functional requirements within chunk scope
-- **Testing (L4 E2E/Integration)**: Validation requirements for chunk boundaries
+### Step 1: Segment-Centric Specification Extraction
+For each segment from implementation segmentation, extract relevant specifications across all levels:
+- **Architecture (L2)**: Component relationships affecting this segment
+- **Interface (L3)**: Contract definitions this segment implements/consumes  
+- **Behavior (L4)**: Functional requirements within segment scope
+- **Testing (L4 E2E/Integration)**: Validation requirements for segment boundaries
 
 ### Step 2: Real-Time Knowledge Filtering
 Simultaneously apply filtered knowledge from Context Extraction based on extracted specifications (see @ABSTRACTION_FRAMEWORK.md for Universal Knowledge Categories definitions):
 
 ### Step 3: Context Template Population
 Generate implementation-ready context templates with:
-- Chunk-specific specifications organized by abstraction level
+- Segment-specific specifications organized by abstraction level
 - Filtered contextual knowledge mapped to specification elements
 - Implementation guidance based on pattern/convention knowledge
 - Risk prevention notes from constraint/integration knowledge
@@ -46,11 +46,11 @@ Generate implementation-ready context templates with:
 
 ## Output
 - **TEST_CONTEXT.md**: System-wide testing knowledge for execution setup
-- Implementation-ready **CONTEXT_TEMPLATE.md** files for each chunk containing integrated specifications and filtered knowledge, ready for Phase 3 coordination synthesis.
+- Implementation-ready **CONTEXT_TEMPLATE.md** files for each segment containing integrated specifications and filtered knowledge, ready for Phase 3 execution orchestration.
 
 ## Success Criteria
 - System-wide testing context extracted for execution setup stage
-- Each chunk has complete specification coverage across relevant abstraction levels
+- Each segment has complete specification coverage across relevant abstraction levels
 - Knowledge filtering prevents Universal Risk Types per @ABSTRACTION_FRAMEWORK.md
-- Context templates enable independent chunk implementation
+- Context templates enable independent segment implementation
 - Template token limits maintained for execution feasibility

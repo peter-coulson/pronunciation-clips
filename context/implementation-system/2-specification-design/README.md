@@ -7,7 +7,7 @@ Iteratively converts high-level business logic into lower-level implementation s
 
 ## Inputs
 - **REQUIREMENTS_LEVEL_INPUT.md** - Completed requirements template from user
-- **CONTEXT_EXTRACTION_OUTPUT.md** - Filled context extraction template from 1-requirements
+- **CONTEXT_EXTRACTION_OUTPUT.md** - Filled context extraction template from 1-requirement-analysis
 
 Together, these inputs detail change goals plus system standards context required for implementation at every specification level, forcing adherence to project standards.
 
@@ -26,8 +26,8 @@ Complete implementation plan through Level 4 specification (see @ABSTRACTION_FRA
 - All output templates filled to high quality
 - No missing specifications
 - No system context assumptions made
-- Ready for 3-execution-prep consumption
+- Ready for 3-implementation-preparation consumption
 
 ## Stage Structure
-- **architecture-interface/**: Creates Level 2 Architecture and Level 3 Interface specifications
-- **behavior-specification/**: Creates Level 4 Behavior and test specifications
+- **architecture-interface-design/**: Creates Level 2 Architecture and Level 3 Interface specifications
+- **behavior-specification-design/**: Creates Level 4 Behavior and test specifications
