@@ -74,19 +74,29 @@ proof-of-concept/                  # Operational learnings (preserved)
 sessions/
 └── {session-name}/
     ├── 1-requirement-analysis/
-    │   ├── requirements.md
+    │   ├── requirements-input.md
     │   ├── knowledge-requirements.md
-    │   └── context-aggregation.md
+    │   └── context-extraction.md
     ├── 2-specification-design/
-    │   ├── architecture.md
-    │   ├── interface.md
-    │   └── behavior.md
+    │   ├── architecture-specification.md
+    │   ├── interface-specification.md
+    │   └── behavior-specification.md
     ├── 3-implementation-preparation/
     │   ├── coordination-plan.md
     │   └── context-templates/
     └── 4-code-generation/
         └── handoffs/
 ```
+
+## Template Naming Standards
+
+**Template Convention:** `{ROLE}_{TYPE}_TEMPLATE.md`
+- Templates are stored in `sub-process-name/templates/` directories
+- All templates use UPPERCASE with underscores and `_TEMPLATE.md` suffix
+
+**Filled Template Convention:** `{role}-{type}.md`
+- Filled templates use lowercase with hyphens
+- Direct correspondence to template names for easy traceability
 
 ## Operational Benefits
 
