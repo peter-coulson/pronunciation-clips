@@ -11,6 +11,7 @@ settings:
       "Read(context/implementation-system/TERMINOLOGY.md)",
       "Read(context/implementation-system/3-implementation-preparation/implementation-segmentation/methodology.md)",
       # Input templates
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)",
       "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)",
       "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)",
       "Read(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)",
