@@ -1,6 +1,6 @@
 # Knowledge Requirements Template
 
-**Feature Name**: [FROM REQUIREMENTS]
+**Feature Name**: [FROM USER INPUT]
 **System Context**: [FROM MINIMAL CONTEXT SECTION]
 
 ## Level 1 → Level 2 Transition (Requirements → Architecture)

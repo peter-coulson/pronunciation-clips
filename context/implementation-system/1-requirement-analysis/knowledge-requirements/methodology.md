@@ -3,7 +3,7 @@
 ## Process
 
 ### Phase 1: System Information Validation
-**Input**: USER_REQUIREMENTS_TEMPLATE.md  
+**Input**: sessions/[session-name]/input/user-requirements.md  
 **Validation**: Verify minimal system information section completeness
 - Technical Overview: Technologies, architecture, deployment environment
 - Integration Landscape: Dependencies, communication patterns  

@@ -74,8 +74,9 @@ proof-of-concept/                  # Operational learnings (preserved)
 ```
 sessions/
 └── {session-name}/
+    ├── input/
+    │   └── user-requirements.md          # Initial user input (filled USER_REQUIREMENTS_TEMPLATE.md)
     ├── 1-requirement-analysis/
-    │   ├── user-requirements.md
     │   ├── knowledge-requirements.md
     │   └── knowledge-extraction.md
     ├── 2-specification-design/
@@ -98,6 +99,18 @@ sessions/
 **Filled Template Convention:** `{role}-{type}.md`
 - Filled templates use lowercase with hyphens
 - Direct correspondence to template names for easy traceability
+
+## Session Management
+
+### Environment Variables
+Subagents receive session identification via environment variable:
+- **SESSION_NAME**: Session directory name (filesystem-safe, kebab-case)
+
+### Input Structure
+Users provide initial input by filling `USER_REQUIREMENTS_TEMPLATE.md` and placing it at:
+```
+sessions/[session-name]/input/user-requirements.md
+```
 
 ## Operational Benefits
 

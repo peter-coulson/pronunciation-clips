@@ -1,7 +1,7 @@
 # Requirements Level Input Template
 
 ## Feature Overview
-**Feature Name**: 
+**Feature Name**: [Human-readable display name - can contain spaces and special characters] 
 
 **Problem Statement**: 
 

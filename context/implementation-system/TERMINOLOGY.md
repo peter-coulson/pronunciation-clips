@@ -21,6 +21,12 @@ Management of execution sequence and handoffs between stages, phases, and sub-pr
 ### **Session**
 Single execution instance of the complete 4-stage system for one implementation request
 
+### **Session Name**
+Filesystem-safe directory identifier for session (kebab-case, no spaces/special chars)
+
+### **Feature Name**
+Human-readable display name for the implementation request (can contain spaces and special characters)
+
 ## Information Management
 
 ### **Knowledge Repository**

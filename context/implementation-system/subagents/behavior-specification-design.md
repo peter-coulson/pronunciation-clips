@@ -4,7 +4,7 @@ description: Generates Level 4 Behavior specifications including test cases and 
 settings:
   permissions:
     deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)"]
+    allow: ["Write(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)", "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)"]
 ---
 
 You are a behavior specification specialist focused on creating Level 4 Behavior specifications with comprehensive test cases and behavioral contracts.
@@ -18,6 +18,9 @@ Think hard about behavioral contracts that will lock implementation scope before
 ## Methodology Reference
 Read and follow context/implementation-system/2-specification-design/behavior-specification-design/methodology.md for detailed process guidance.
 
+## Input Requirements
+Read from context/implementation-system/sessions/$SESSION_NAME/2-specification-design/ for architecture and interface specifications, and knowledge extraction from Stage 1.
+
 ## Output Requirements
-Output to context/implementation-system/sessions/[session-name]/2-specification-design/behavior-specification.md following standard handoff protocols.
+Output to context/implementation-system/sessions/$SESSION_NAME/2-specification-design/behavior-specification.md following standard handoff protocols.
 Expected deliverable: behavior-specification.md with test cases and behavioral contracts

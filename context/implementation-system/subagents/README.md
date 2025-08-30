@@ -85,5 +85,5 @@ Read and follow context/implementation-system/[stage]/[sub-process]/methodology.
 
 Output follows standard handoff protocols to:
 ```
-context/implementation-system/sessions/[session-name]/[stage]/[output-file]
+context/implementation-system/sessions/$SESSION_NAME/[stage]/[output-file]
 ```
