@@ -26,6 +26,9 @@ This framework drives the planning module's bi-directional specification transfo
 ## Project Structure  
 @README.md - Complete system documentation and directory structure
 
+## Terminology
+@TERMINOLOGY.md - Defines core system concepts, process structure, and information management terms.
+
 ## Critical Constraints
 - Isolated stage processing (Task tool limitations)
 - Document-based handoffs only
