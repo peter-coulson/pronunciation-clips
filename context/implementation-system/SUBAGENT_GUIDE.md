@@ -22,7 +22,7 @@
 - **No further subagent spawning** capability
 
 ### File Structure (MVP)
-**Location**: `.claude/agents/` (project-level)
+**Standard Location**: Implementation system at `context/implementation-system/`, subagents deployed to `.claude/agents/`
 
 **Format**:
 ```yaml
@@ -91,7 +91,8 @@ Use ultrathink for complex dependency analysis.
 
 ### Methodology Integration (MVP)
 ```
-Read and follow @methodology.md for detailed process guidance.
+Read and follow context/implementation-system/[stage]/[sub-process]/methodology.md for detailed process guidance.
+Output to context/implementation-system/sessions/[session-name]/ following standard handoff protocols.
 Think hard about [specific complexity area].
 ```
 

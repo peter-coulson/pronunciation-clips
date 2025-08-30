@@ -6,7 +6,7 @@ A sequential processing system that transforms user specifications into implemen
 
 1. **Maximum Simplicity** - Each directory = one complete, independent stage
 2. **Perfect Modularity** - Zero dependencies between stage directories  
-3. **Repository Agnostic** - Works with any codebase without complex setup
+3. **Repository Agnostic** - Works with any codebase at standardized location `context/implementation-system/`
 4. **Stateless Design** - Document-based handoffs enable independent stage execution
 
 ## Stage Structure
@@ -58,6 +58,7 @@ ABSTRACTION_FRAMEWORK.md           # Core framework
 CLAUDE.md                          # Project instructions  
 README.md                          # This file
 
+subagents/                         # Claude Code subagent definitions (deploy to .claude/)
 X-template/                        # General stage structure  
 ├── README.md                      # Stage purpose & usage
 ├── coordination.md                # Stage execution logic & sub-process flow
@@ -102,7 +103,7 @@ sessions/
 
 **Perfect Independence**: Each stage knows exactly what files to expect, never needs discovery  
 **Session Isolation**: Multiple projects/executions never interfere  
-**System Independence**: No dependencies on external knowledge repository  
+**System Independence**: Standardized at `context/implementation-system/` for consistent subagent path references  
 **Simple Cleanup**: Delete entire session directory  
 **Clear Traceability**: Complete project flow in one session directory  
 **Operational Robustness**: Supports concurrent sessions with different projects
