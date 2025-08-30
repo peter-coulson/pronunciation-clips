@@ -29,6 +29,10 @@
 ---
 name: subagent-name
 description: When this subagent should be invoked
+settings:
+  permissions:
+    deny: ["Edit(**)", "Write(**)"]  # Block all editing by default
+    allow: ["Edit(./specific/allowed/path/**)", "Write(./specific/allowed/path/**)"]
 ---
 System prompt content goes here
 ```
@@ -82,6 +86,32 @@ Think hard about [specific complexity area].
 **MVP Focus**: Basic custom subagents that reference existing methodology files with appropriate thinking budgets.
 
 **Expansion Risk**: Avoid feature creep - stick to simple system prompts + methodology references.
+
+## File-Level Permission Examples
+
+**Template Editor Subagent:**
+```yaml
+settings:
+  permissions:
+    deny: ["Edit(**)", "Write(**)"]
+    allow: [path_to_output_templates]
+```
+
+**Test Creation Subagent:**
+```yaml
+settings:
+  permissions:
+    deny: ["Edit(**)", "Write(**)"] 
+    allow: ["Edit(./tests/**)", "Write(./tests/**)"]
+```
+
+**Implementation Subagent:**
+```yaml
+settings:
+  permissions:
+    deny: ["Edit(./tests/e2e/**)", "Write(./tests/e2e/**)", "Edit(./tests/intergration/**)", "Write(./tests/intergration/**)"]  # Block E2E tests only
+    # Inherits full access to src/, other test folders
+```
 
 ## Template and Reference
 
