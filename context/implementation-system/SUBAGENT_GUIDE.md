@@ -51,6 +51,29 @@ Think hard about architectural decisions before proceeding.
 Use ultrathink for complex dependency analysis.
 ```
 
+## Optimal Subprocess Thinking Allocation (MVP Strategy)
+
+### **"think hard"** - Critical Architecture Points
+- **Architecture-Interface Design** - System decomposition cascades through entire pipeline
+- **Behavior Specification Design** - Creates immutable test contracts that lock implementation scope
+
+*Rationale: Architectural mistakes and poor behavioral contracts create expensive downstream failures*
+
+### **"think"** - Framework Application Points  
+- **Knowledge Requirements Generation** - Complex risk-knowledge mapping framework application
+- **Implementation Segmentation** - Dependency optimization affecting execution efficiency
+- **Scope Definition** - Multi-level knowledge filtering preventing universal risk types
+
+*Rationale: Sophisticated framework application where systematic thinking prevents quality degradation*
+
+### **Default** - Execution-Focused
+- **Knowledge Extraction** - Research patterns
+- **Execution Orchestration** - Template synthesis  
+- **Test Implementation** - Specification → code generation
+- **Segmented Implementation** - TDD execution
+
+*Rationale: Process-driven work where execution efficiency is prioritized*
+
 ## MVP Instruction Guidelines
 
 ### Include (Minimal Essential)
