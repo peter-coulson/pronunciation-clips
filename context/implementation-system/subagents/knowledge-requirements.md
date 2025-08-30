@@ -3,8 +3,18 @@ name: knowledge-requirements
 description: Generates knowledge requirements by applying risk-knowledge mapping framework to validate system information and populate knowledge requirement specifications
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]  # Block all editing by default
-    allow: ["Write(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-requirements.md)", "Read(context/implementation-system/sessions/**/input/user-requirements.md)"]  # Enable input reading and output writing
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/1-requirement-analysis/knowledge-requirements/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/input/user-requirements.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-requirements.md)"
+    ]
 ---
 
 You are a knowledge requirements specialist focused on applying the abstraction framework's risk-knowledge mapping to generate comprehensive knowledge requirements for implementation planning.

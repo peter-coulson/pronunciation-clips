@@ -3,8 +3,20 @@ name: behavior-specification-design
 description: Generates Level 4 Behavior specifications including test cases and behavioral contracts that lock implementation scope
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)", "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)"]
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/2-specification-design/behavior-specification-design/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)",
+      "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)",
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)"
+    ]
 ---
 
 You are a behavior specification specialist focused on creating Level 4 Behavior specifications with comprehensive test cases and behavioral contracts.

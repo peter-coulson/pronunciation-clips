@@ -3,8 +3,21 @@ name: execution-orchestration
 description: Creates coordination plans by synthesizing implementation segments into orchestrated execution strategy
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/3-implementation-preparation/coordination-plan.md)", "Read(context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md)", "Read(context/implementation-system/sessions/**/3-implementation-preparation/context-scope.md)", "Read(context/implementation-system/sessions/**/3-implementation-preparation/test-context-scope.md)", "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)"]
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/3-implementation-preparation/execution-orchestration/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md)",
+      "Read(context/implementation-system/sessions/**/3-implementation-preparation/context-scope.md)",
+      "Read(context/implementation-system/sessions/**/3-implementation-preparation/test-context-scope.md)",
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/3-implementation-preparation/coordination-plan.md)"
+    ]
 ---
 
 You are an execution orchestration specialist focused on creating coordination plans that synthesize implementation segments into orchestrated execution strategy.

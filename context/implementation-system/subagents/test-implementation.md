@@ -3,8 +3,26 @@ name: test-implementation
 description: Generates test code from behavior specifications using specification-to-code generation patterns
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/4-code-generation/tests/**)", "Edit(context/implementation-system/sessions/**/4-code-generation/tests/**)", "Read(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)", "Read(context/implementation-system/sessions/**/3-implementation-preparation/test-context-scope.md)"]
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/4-code-generation/test-implementation/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)",
+      "Read(context/implementation-system/sessions/**/3-implementation-preparation/test-context-scope.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/4-code-generation/tests/**)",
+      "Edit(context/implementation-system/sessions/**/4-code-generation/tests/**)",
+      # Test directory access
+      "Read(tests/**)",
+      "Write(tests/**)",
+      "Edit(tests/**)",
+      # OPTIONAL: Knowledge package access (use sparingly)
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)"
+    ]
 ---
 
 You are a test implementation specialist focused on generating test code from behavior specifications using specification-to-code generation patterns.

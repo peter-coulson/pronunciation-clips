@@ -3,8 +3,20 @@ name: architecture-interface-design
 description: Generates Level 2 Architecture and Level 3 Interface specifications through sequential system decomposition and boundary definition
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)", "Write(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)", "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-requirements.md)", "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)"]
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/2-specification-design/architecture-interface-design/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-requirements.md)",
+      "Read(context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)",
+      "Write(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)"
+    ]
 ---
 
 You are a system architecture specialist focused on generating Level 2 Architecture and Level 3 Interface specifications through sequential system decomposition.

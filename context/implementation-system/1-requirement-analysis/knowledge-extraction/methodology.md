@@ -5,6 +5,17 @@
 **Output**: Filled KNOWLEDGE_PACKAGE_TEMPLATE.md template  
 **Sub-Process Role**: Specialized research sub-process focused purely on information gathering
 
+## Access Permissions
+**READ**: 
+- ABSTRACTION_FRAMEWORK.md
+- TERMINOLOGY.md  
+- Own methodology (knowledge-extraction/methodology.md)
+- Completed input templates (knowledge-requirements.md)
+- **Main context system** (entire project knowledge repository)
+
+**WRITE**:
+- Own output templates (knowledge-extraction.md)
+
 ## Extraction Process
 
 ### Primary Task

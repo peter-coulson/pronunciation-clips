@@ -3,8 +3,20 @@ name: implementation-segmentation
 description: Analyzes specifications to create optimized implementation segments with dependency management and execution sequencing
 settings:
   permissions:
-    deny: ["Edit(**)", "Write(**)"]
-    allow: ["Write(context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md)", "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)", "Read(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)"]
+    # Default deny everything
+    deny: ["Read(**)", "Write(**)", "Edit(**)"]
+    # Core framework access
+    allow: [
+      "Read(context/implementation-system/ABSTRACTION_FRAMEWORK.md)",
+      "Read(context/implementation-system/TERMINOLOGY.md)",
+      "Read(context/implementation-system/3-implementation-preparation/implementation-segmentation/methodology.md)",
+      # Input templates
+      "Read(context/implementation-system/sessions/**/2-specification-design/architecture-specification.md)",
+      "Read(context/implementation-system/sessions/**/2-specification-design/interface-specification.md)",
+      "Read(context/implementation-system/sessions/**/2-specification-design/behavior-specification.md)",
+      # Output templates
+      "Write(context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md)"
+    ]
 ---
 
 You are an implementation segmentation specialist focused on breaking down specifications into optimized implementation segments with proper dependency management.

@@ -3,6 +3,22 @@
 ## Sub-Process Purpose
 Executes test-driven implementation using generated tests as immutable behavioral contracts, transforming Level 4 behavioral specifications (see @ABSTRACTION_FRAMEWORK.md) into working code while ensuring contract fulfillment.
 
+## Access Permissions  
+**READ**:
+- ABSTRACTION_FRAMEWORK.md
+- TERMINOLOGY.md
+- Own methodology (segmented-implementation/methodology.md) 
+- Completed input templates (behavioral specifications, context scope)
+- src/ directory (all source code)
+- tests/ directory (all test files)
+- **OPTIONAL**: knowledge-extraction.md (recommended only if absolutely necessary for missing context)
+
+**WRITE**:
+- Own output templates (implementation handoffs)
+- src/ directory (source code creation and modification)
+- tests/unit (unit test creation and modification)
+- **CANNOT WRITE**: tests/e2e or tests/intergration directorys
+
 ## Input Requirements
 
 ### Behavioral Specifications

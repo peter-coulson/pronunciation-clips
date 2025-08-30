@@ -55,12 +55,11 @@ subagent_type: "subagent-name"
 
 ## Permission Strategy
 
-**Default Security**: Block all file modifications (`deny: ["Edit(**)", "Write(**)"]`)
+**Handoff-Only Read Access (Stages 1-3)**: Agents read only their methodology files, framework docs, and previous stage handoffs. This maintains perfect modularity and forces proper information flow through documented handoffs.
 
-**Selective Access**: Enable specific paths based on sub-process needs:
-- Template creation: Allow template directories only
-- Test generation: Allow test directories only  
-- Implementation: Block critical system files only
+**Controlled Implementation Access (Stage 4)**: Test agents write only to test directories, implementation agents write only to implementation directories. E2E/integration tests remain immutable.
+
+**Knowledge-Extraction Exception**: Unrestricted repository access for comprehensive research.
 
 ## Current Subagents
 

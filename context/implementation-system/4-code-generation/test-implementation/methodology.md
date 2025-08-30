@@ -5,6 +5,19 @@ For consistent terminology usage, see @TERMINOLOGY.md.
 ## Sub-Process Purpose
 Transforms immutable Level 4 test specifications (see @ABSTRACTION_FRAMEWORK.md) and testing context into executable test implementations that validate system behavior at both E2E and integration levels.
 
+## Access Permissions
+**READ**: 
+- ABSTRACTION_FRAMEWORK.md
+- TERMINOLOGY.md  
+- Own methodology (test-implementation/methodology.md)
+- Completed input templates (behavior specifications, test context scope)
+- tests/ directory (all test files)
+- **OPTIONAL**: knowledge-extraction.md (if absolutely necessary for testing patterns)
+
+**WRITE**:
+- Own output templates 
+- tests/ directory (test file creation and modification)
+
 ## Input Requirements
 
 ### Level 4 Test Specifications (Immutable)
