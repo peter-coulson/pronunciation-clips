@@ -33,7 +33,7 @@ class TestCLIPipelineIntegration:
         # Setup successful pipeline result
         mock_database = WordDatabase(
             metadata={"version": "1.0", "created_at": "2023-01-01T00:00:00"},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=[]
         )
         mock_process.return_value = mock_database
@@ -288,7 +288,7 @@ class TestCLIProgressDisplayIntegration:
                 entity_id="word_001", entity_type="word", text="hola",
                 start_time=0.0, end_time=0.5, duration=0.5,
                 confidence=0.9, probability=0.9, syllables=["ho", "la"],
-                syllable_count=2, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=2, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )
@@ -296,7 +296,7 @@ class TestCLIProgressDisplayIntegration:
         
         mock_database = WordDatabase(
             metadata={"version": "1.0", "created_at": "2023-01-01T00:00:00"},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         mock_process.return_value = mock_database
@@ -328,7 +328,7 @@ class TestCLIProgressDisplayIntegration:
                 entity_id=f"word_{i+1:03d}", entity_type="word", text=f"palabra{i+1}",
                 start_time=float(i), end_time=float(i+0.5), duration=0.5,
                 confidence=0.9, probability=0.9, syllables=[f"pa{i+1}"],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )
@@ -336,7 +336,7 @@ class TestCLIProgressDisplayIntegration:
         
         mock_database = WordDatabase(
             metadata={"version": "1.0", "created_at": "2023-01-01T00:00:00"},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         mock_process.return_value = mock_database
@@ -517,7 +517,7 @@ class TestCLIWorkflowIntegration:
                 entity_id="word_001", entity_type="word", text="hola",
                 start_time=0.0, end_time=0.5, duration=0.5,
                 confidence=0.9, probability=0.9, syllables=["ho", "la"],
-                syllable_count=2, quality_score=0.85, speaker_id="speaker_0",
+                syllable_count=2, quality_score=0.85, speaker_id=0,
                 recording_id="test_recording", recording_path="spanish_audio.wav",
                 processed=False, created_at="2023-01-01T00:00:00"
             ),
@@ -525,7 +525,7 @@ class TestCLIWorkflowIntegration:
                 entity_id="word_002", entity_type="word", text="mundo",
                 start_time=0.6, end_time=1.1, duration=0.5,
                 confidence=0.87, probability=0.87, syllables=["mun", "do"],
-                syllable_count=2, quality_score=0.82, speaker_id="speaker_0",
+                syllable_count=2, quality_score=0.82, speaker_id=0,
                 recording_id="test_recording", recording_path="spanish_audio.wav",
                 processed=False, created_at="2023-01-01T00:00:00"
             )
@@ -540,7 +540,7 @@ class TestCLIWorkflowIntegration:
                 "entity_count": 2
             },
             speaker_map={
-                "speaker_0": SpeakerInfo(
+                0: SpeakerInfo(
                     name="Default Speaker",
                     gender="Unknown",
                     region="Colombia"

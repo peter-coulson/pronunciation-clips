@@ -193,7 +193,7 @@ class TestFullAudioProcessingPipelineIntegration:
                 entity_id="word_001", entity_type="word", text="hola",
                 start_time=0.0, end_time=0.5, duration=0.5,
                 confidence=0.9, probability=0.9, syllables=["ho", "la"],
-                syllable_count=2, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=2, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             ),
@@ -201,7 +201,7 @@ class TestFullAudioProcessingPipelineIntegration:
                 entity_id="word_002", entity_type="word", text="mundo",
                 start_time=0.5, end_time=1.0, duration=0.5,
                 confidence=0.8, probability=0.8, syllables=["mun", "do"],
-                syllable_count=2, quality_score=0.7, speaker_id="speaker_0",
+                syllable_count=2, quality_score=0.7, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )

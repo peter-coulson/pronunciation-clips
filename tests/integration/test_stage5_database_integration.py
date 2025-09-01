@@ -66,7 +66,7 @@ class TestEntityToDatabaseIntegration:
             entity_id="word_001", entity_type="word", text="test",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.9, probability=0.9, syllables=["test"],
-            syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+            syllable_count=1, quality_score=0.8, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -90,9 +90,9 @@ class TestEntityToDatabaseIntegration:
     
     def test_speaker_mapping_integration(self):
         """Test speaker mapping integration with database creation."""
-        # Create entities with different speakers
+        # Create entities with different speakers (using integer speaker_ids)
         entities = []
-        for i, speaker_id in enumerate(["speaker_alice", "speaker_bob"]):
+        for i, speaker_id in enumerate([0, 1]):
             entity = Entity(
                 entity_id=f"word_{i+1:03d}", entity_type="word", text=f"word{i+1}",
                 start_time=float(i), end_time=float(i+0.5), duration=0.5,
@@ -103,10 +103,10 @@ class TestEntityToDatabaseIntegration:
             )
             entities.append(entity)
         
-        # Create speaker mapping
+        # Create speaker mapping (using integer keys to match entity speaker_ids)
         speaker_map = {
-            "speaker_alice": SpeakerInfo(name="Alice", gender="F", region="Colombia"),
-            "speaker_bob": SpeakerInfo(name="Bob", gender="M", region="Spain")
+            0: SpeakerInfo(name="Alice", gender="F", region="Colombia"),
+            1: SpeakerInfo(name="Bob", gender="M", region="Spain")
         }
         
         database = create_default_database(
@@ -116,8 +116,8 @@ class TestEntityToDatabaseIntegration:
         
         # Verify speaker integration
         assert len(database.speaker_map) == 2
-        assert database.speaker_map["speaker_alice"].name == "Alice"
-        assert database.speaker_map["speaker_bob"].name == "Bob"
+        assert database.speaker_map[0].name == "Alice"
+        assert database.speaker_map[1].name == "Bob"
         assert database.entities[0].speaker_id in database.speaker_map
         assert database.entities[1].speaker_id in database.speaker_map
 
@@ -225,7 +225,7 @@ class TestConfigurationIntegration:
             entity_id="word_001", entity_type="word", text="niño",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.9, probability=0.9, syllables=["ni", "ño"],
-            syllable_count=2, quality_score=0.8, speaker_id="speaker_0",
+            syllable_count=2, quality_score=0.8, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -282,7 +282,7 @@ class TestValidationIntegration:
                 entity_id=f"word_{i+1:03d}", entity_type="word", text=f"palabra{i+1}",
                 start_time=float(i), end_time=float(i+0.5), duration=0.5,
                 confidence=0.9, probability=0.9, syllables=[f"pa{i+1}"],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at=datetime.now().isoformat()
             )
@@ -359,14 +359,14 @@ class TestConvenienceFunctionIntegration:
         db1 = create_default_database()
         assert len(db1.entities) == 0
         assert len(db1.speaker_map) == 1
-        assert "speaker_0" in db1.speaker_map
+        assert 0 in db1.speaker_map
         
         # Test with entities
         entity = Entity(
             entity_id="test_001", entity_type="word", text="test",
             start_time=0.0, end_time=0.5, duration=0.5,
             confidence=0.9, probability=0.9, syllables=["test"],
-            syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+            syllable_count=1, quality_score=0.8, speaker_id=0,
             recording_id="test", recording_path="test.wav", processed=False,
             created_at=datetime.now().isoformat()
         )
@@ -448,7 +448,7 @@ class TestLargeDataIntegration:
                 entity_id=f"word_{i+1:04d}", entity_type="word", text=f"palabra{i+1}",
                 start_time=float(i), end_time=float(i+0.5), duration=0.5,
                 confidence=0.9, probability=0.9, syllables=[f"pa{i+1}"],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at=datetime.now().isoformat()
             )
@@ -488,7 +488,7 @@ class TestLargeDataIntegration:
                 entity_id=f"word_{i+1:03d}", entity_type="word", text=word,
                 start_time=float(i), end_time=float(i+0.5), duration=0.5,
                 confidence=0.9, probability=0.9, syllables=[word],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at=datetime.now().isoformat()
             )

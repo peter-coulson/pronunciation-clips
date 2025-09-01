@@ -77,7 +77,7 @@ logging:
                     syllable_count=2,  # Within syllable_range from config
                     phonetic="ˈoʊlə",
                     quality_score=0.8,
-                    speaker_id="speaker_0",
+                    speaker_id=0,  # Changed to integer for diarization compatibility
                     recording_id="test",
                     recording_path="test.wav",
                     processed=False,
@@ -116,7 +116,7 @@ logging:
             syllables=["test"],
             syllable_count=1,  # Outside syllable_range
             quality_score=0.5,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -187,7 +187,7 @@ class TestModelDatabaseIntegration:
                 syllables=[f"word{i+1}"],
                 syllable_count=1,
                 quality_score=0.8,
-                speaker_id="speaker_0",
+                speaker_id=0,
                 recording_id="test",
                 recording_path="test.wav",
                 processed=False,
@@ -210,7 +210,7 @@ class TestModelDatabaseIntegration:
         assert len(words) == 3
         
         # Test filtering by speaker
-        speaker_entities = database.get_entities_by_speaker("speaker_0")
+        speaker_entities = database.get_entities_by_speaker(0)  # Changed to integer
         assert len(speaker_entities) == 3
         
         # Test filtering by confidence
@@ -243,7 +243,7 @@ class TestModelDatabaseIntegration:
                 "created_at": datetime.now().isoformat(),
                 "audio_metadata": audio_metadata.model_dump()
             },
-            speaker_map={"speaker_0": speaker_info},
+            speaker_map={0: speaker_info},
             entities=[]
         )
         
@@ -260,7 +260,7 @@ class TestModelDatabaseIntegration:
             syllables=["ho", "la"],
             syllable_count=2,
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -271,7 +271,7 @@ class TestModelDatabaseIntegration:
         
         # Verify integration
         assert database.metadata["audio_metadata"]["duration"] == 120.0
-        assert database.speaker_map["speaker_0"].name == "Test Speaker"
+        assert database.speaker_map[0].name == "Test Speaker"
         assert database.entities[0].speaker_id in database.speaker_map
         assert len(database.entities) == 1
 
@@ -321,7 +321,7 @@ audio:
                 syllables=["test"],
                 syllable_count=1,
                 quality_score=0.8,
-                speaker_id="speaker_0",
+                speaker_id=0,
                 recording_id="test",
                 recording_path="test.wav",
                 processed=False,
@@ -360,7 +360,7 @@ class TestLoggingModelIntegration:
             syllables=["test"],
             syllable_count=1,
             quality_score=0.8,
-            speaker_id="speaker_0",
+            speaker_id=0,
             recording_id="test",
             recording_path="test.wav",
             processed=False,
@@ -389,7 +389,7 @@ class TestLoggingModelIntegration:
                         syllables=["test"],
                         syllable_count=1,
                         quality_score=0.8,
-                        speaker_id="speaker_0",
+                        speaker_id=0,  # Changed to integer for diarization compatibility
                         recording_id="test",
                         recording_path="test.wav",
                         processed=False,
@@ -455,7 +455,7 @@ class TestFullFoundationIntegration:
                             "created_at": datetime.now().isoformat(),
                             "audio_metadata": audio_metadata.model_dump()
                         },
-                        speaker_map={"speaker_0": speaker_info},
+                        speaker_map={0: speaker_info},
                         entities=[]
                     )
                     
@@ -473,7 +473,7 @@ class TestFullFoundationIntegration:
                             syllables=[f"word{i+1}"],
                             syllable_count=1,  # Meets syllable_range
                             quality_score=0.8,
-                            speaker_id="speaker_0",
+                            speaker_id=0,  # Changed to integer for diarization compatibility
                             recording_id="test",
                             recording_path="test.wav",
                             processed=False,

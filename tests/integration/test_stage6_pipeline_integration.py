@@ -62,7 +62,7 @@ class TestFullPipelineIntegration:
                 duration=word.end_time - word.start_time,
                 confidence=word.confidence, probability=word.confidence,
                 syllables=[word.text], syllable_count=1, quality_score=0.8,
-                speaker_id="speaker_0", recording_id="test_recording",
+                speaker_id=0, recording_id="test_recording",
                 recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )
@@ -164,7 +164,7 @@ class TestColombianSpanishIntegration:
                 start_time=float(i * 0.5), end_time=float((i+1) * 0.5),  # Consecutive words
                 duration=0.5, confidence=0.9, probability=0.9,
                 syllables=[f"pa{i+1}"], syllable_count=1, quality_score=0.8,
-                speaker_id="speaker_0", recording_id="test",
+                speaker_id=0, recording_id="test",
                 recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )
@@ -173,7 +173,7 @@ class TestColombianSpanishIntegration:
         # Create database with entities
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": "2023-01-01T00:00:00"},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         
@@ -201,7 +201,7 @@ class TestColombianSpanishIntegration:
                 entity_id="word_001", entity_type="word", text="overlap1",
                 start_time=0.0, end_time=0.6, duration=0.6,  # ends at 0.6
                 confidence=0.9, probability=0.9, syllables=["overlap1"],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             ),
@@ -209,7 +209,7 @@ class TestColombianSpanishIntegration:
                 entity_id="word_002", entity_type="word", text="overlap2",
                 start_time=0.5, end_time=1.0, duration=0.5,  # starts at 0.5 (overlap!)
                 confidence=0.9, probability=0.9, syllables=["overlap2"],
-                syllable_count=1, quality_score=0.8, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.8, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )
@@ -217,7 +217,7 @@ class TestColombianSpanishIntegration:
         
         database = WordDatabase(
             metadata={"version": "1.0", "created_at": "2023-01-01T00:00:00"},
-            speaker_map={"speaker_0": SpeakerInfo(name="Test Speaker")},
+            speaker_map={0: SpeakerInfo(name="Test Speaker")},
             entities=entities
         )
         
@@ -327,7 +327,7 @@ class TestPerformanceIntegration:
                     start_time=word.start_time, end_time=word.end_time,
                     duration=0.5, confidence=0.9, probability=0.9,
                     syllables=[word.text], syllable_count=1, quality_score=0.8,
-                    speaker_id="speaker_0", recording_id="large_test",
+                    speaker_id=0, recording_id="large_test",
                     recording_path="large.wav", processed=False,
                     created_at="2023-01-01T00:00:00"
                 )
@@ -536,7 +536,7 @@ class TestEdgeCaseIntegration:
                 entity_id="test_001", entity_type="word", text="low",
                 start_time=0.0, end_time=0.1, duration=0.1,
                 confidence=0.1, probability=0.1, syllables=["low"],
-                syllable_count=1, quality_score=0.1, speaker_id="speaker_0",
+                syllable_count=1, quality_score=0.1, speaker_id=0,
                 recording_id="test", recording_path="test.wav", processed=False,
                 created_at="2023-01-01T00:00:00"
             )

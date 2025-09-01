@@ -11,7 +11,13 @@ whisper:
   temperature: 0.0
 
 speakers:
-  enable_diarization: false
+  enable_diarization: true  # Enabled by default - all tests must work with diarization
+  diarization:
+    model: "pyannote/speaker-diarization"
+    min_speakers: 1
+    max_speakers: 10
+    segmentation_threshold: 0.5
+    clustering_threshold: 0.7
   default_speaker:
     name: "Test Speaker"
     id: "speaker_0"
