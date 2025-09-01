@@ -10,6 +10,11 @@ from src.shared.exceptions import (
     EntityError, DatabaseError, SpeakerError
 )
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
+
 
 class TestPipelineError:
     """Test base exception class."""

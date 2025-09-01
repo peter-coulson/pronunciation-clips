@@ -14,6 +14,10 @@ from src.shared.config import WhisperConfig
 from src.shared.models import AudioMetadata
 from src.shared.exceptions import TranscriptionError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestWord:
     """Test Word dataclass."""

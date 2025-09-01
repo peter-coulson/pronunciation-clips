@@ -11,7 +11,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_cli_basic_commands_e2e():
     """
     Test: CLI command → Audio processing → Success message
@@ -40,6 +46,7 @@ def test_cli_basic_commands_e2e():
         assert result.exit_code is not None  # CLI ran without import errors
 
 
+@pytest.mark.quick
 def test_cli_configuration_handling_e2e():
     """
     Test CLI configuration loading and custom config support
@@ -81,6 +88,7 @@ logging:
         assert result.exit_code is not None
 
 
+@pytest.mark.quick
 def test_cli_error_display_e2e():
     """
     Test CLI error handling and user-friendly messages

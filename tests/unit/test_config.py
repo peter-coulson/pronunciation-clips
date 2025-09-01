@@ -15,6 +15,10 @@ from src.shared.config import (
 )
 from src.shared.exceptions import ConfigError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestAudioConfig:
     """Test AudioConfig validation and defaults."""

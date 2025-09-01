@@ -14,6 +14,10 @@ from src.shared.models import Entity
 from src.shared.config import QualityConfig
 from src.shared.exceptions import EntityError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestEntityCreator:
     """Test EntityCreator class."""

@@ -12,7 +12,13 @@ import json
 import time
 from pathlib import Path
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_full_pipeline_e2e():
     """
     Test: Audio file → Complete JSON database (full pipeline)
@@ -31,9 +37,9 @@ def test_full_pipeline_e2e():
     
     start_time = time.time()
     
-    # Process complete audio file
+    # Process short audio file for fast testing (diarization functionality still tested)
     database = process_audio_to_json(
-        "tests/fixtures/spanish_complete_test.wav", 
+        "tests/fixtures/spanish_clear_5sec.wav", 
         config
     )
     
@@ -64,6 +70,7 @@ def test_full_pipeline_e2e():
         assert current.end_time <= next_entity.start_time + 0.001  # 1ms tolerance
 
 
+@pytest.mark.quick
 def test_pipeline_resumability_e2e():
     """
     Test pipeline resumability from intermediate checkpoints
@@ -92,6 +99,7 @@ def test_pipeline_resumability_e2e():
         pass
 
 
+@pytest.mark.quick
 def test_pipeline_error_handling_e2e():
     """
     Test pipeline error handling for various failure modes

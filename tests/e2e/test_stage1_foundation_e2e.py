@@ -11,7 +11,13 @@ Test complete foundation stack working together:
 import pytest
 from pathlib import Path
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_foundation_e2e():
     """
     Test: Load config → Create models → Initialize logging → Serialize to JSON

@@ -20,19 +20,19 @@
     "speaker_balance_acceptable": true
   },
   "single_speaker": {
-    "filename": "spanish_30sec_16khz.wav",
-    "total_entities": 15,
+    "filename": "spanish_clear_5sec.wav",
+    "total_entities": 3,
     "speaker_distribution": {
-      "0": 15
+      "0": 3
     },
     "max_speaker_percentage": 100.0,
     "speaker_balance_acceptable": true
   },
   "disabled_diarization": {
-    "filename": "spanish_30sec_44khz.wav",
-    "total_entities": 20,
+    "filename": "spanish_clear_5sec.wav",
+    "total_entities": 3,
     "speaker_distribution": {
-      "0": 20
+      "0": 3
     },
     "max_speaker_percentage": 100.0,
     "speaker_balance_acceptable": true

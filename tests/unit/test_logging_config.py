@@ -12,6 +12,10 @@ from io import StringIO
 from src.shared.logging_config import LoggerMixin, init_logger
 from src.shared.config import Config, LoggingConfig
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestLoggerMixin:
     """Test LoggerMixin functionality."""

@@ -9,7 +9,13 @@ Test complete entity creation workflow:
 """
 import pytest
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_entity_creation_e2e():
     """
     Test: Whisper words → Entity objects → Quality filtering → Speaker assignment

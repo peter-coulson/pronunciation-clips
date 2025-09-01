@@ -9,7 +9,13 @@ Test complete transcription workflow:
 """
 import pytest
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_transcription_e2e():
     """
     Test: Audio data → Whisper transcription → Word timestamps

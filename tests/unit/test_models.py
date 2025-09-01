@@ -10,6 +10,10 @@ from datetime import datetime
 from src.shared.models import Entity, AudioMetadata, SpeakerInfo, WordDatabase, SpeakerSegment, DiarizationResult
 from src.shared.exceptions import PipelineError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestEntity:
     """Test Entity model validation and methods."""

@@ -12,6 +12,10 @@ from click.testing import CliRunner
 from src.cli.main import cli
 from src.shared.config import Config
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestCLIBasicCommands:
     """Test basic CLI command functionality."""

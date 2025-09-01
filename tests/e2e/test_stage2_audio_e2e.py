@@ -9,7 +9,13 @@ Test complete audio processing workflow:
 """
 import pytest
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_audio_processing_e2e():
     """
     Test: Load audio file → Extract metadata → Validate format → Resample if needed

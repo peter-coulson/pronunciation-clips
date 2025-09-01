@@ -20,6 +20,10 @@ from src.shared.config import DiarizationConfig
 from src.shared.models import DiarizationResult, SpeakerSegment
 from src.shared.exceptions import PipelineError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestDiarizationProcessor:
     """Test the DiarizationProcessor class."""

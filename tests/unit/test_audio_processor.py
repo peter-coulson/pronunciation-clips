@@ -16,6 +16,10 @@ from src.shared.config import Config, AudioConfig
 from src.shared.models import AudioMetadata
 from src.shared.exceptions import AudioError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestProcessedAudio:
     """Test ProcessedAudio container class."""

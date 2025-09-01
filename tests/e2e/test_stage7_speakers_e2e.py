@@ -8,7 +8,13 @@ Test complete speaker identification workflow:
 """
 import pytest
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_speaker_integration_e2e():
     """
     Test: Entity list → Speaker mapping → Speaker assignment
@@ -65,6 +71,7 @@ def test_speaker_integration_e2e():
     assert speaker_map[2]["name"] == "Carlos"
 
 
+@pytest.mark.quick
 def test_default_speaker_handling_e2e():
     """
     Test default speaker assignment when no speaker mapping provided

@@ -10,7 +10,13 @@ import pytest
 from pathlib import Path
 import json
 
+pytestmark = [
+    pytest.mark.e2e,
+    pytest.mark.quick
+]
 
+
+@pytest.mark.quick
 def test_database_writing_e2e():
     """
     Test: WordDatabase → Atomic JSON write → Backup creation → Validation

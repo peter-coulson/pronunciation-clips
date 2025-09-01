@@ -17,6 +17,10 @@ from src.shared.config import Config
 from src.shared.models import WordDatabase, Entity, SpeakerInfo, AudioMetadata
 from src.shared.exceptions import PipelineError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestAudioToJsonPipeline:
     """Test AudioToJsonPipeline class."""

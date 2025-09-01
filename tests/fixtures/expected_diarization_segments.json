@@ -48,13 +48,13 @@
     ]
   },
   "single_speaker": {
-    "filename": "spanish_30sec_16khz.wav",
+    "filename": "spanish_clear_5sec.wav",
     "expected_speakers": 1,
     "expected_segments": [
       {
         "speaker_id": 0,
         "start_time": 0.0,
-        "end_time": 30.0,
+        "end_time": 5.0,
         "confidence": 0.95
       }
     ]

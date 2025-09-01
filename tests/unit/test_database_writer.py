@@ -17,6 +17,10 @@ from src.shared.models import WordDatabase, Entity, SpeakerInfo
 from src.shared.config import Config, OutputConfig
 from src.shared.exceptions import DatabaseError
 
+pytestmark = [
+    pytest.mark.unit,
+    pytest.mark.quick
+]
 
 class TestDatabaseWriter:
     """Test DatabaseWriter class."""
