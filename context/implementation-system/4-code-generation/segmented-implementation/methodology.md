@@ -17,7 +17,7 @@ Executes test-driven implementation using generated tests as immutable behaviora
 - Own output templates (implementation handoffs)
 - src/ directory (source code creation and modification)
 - tests/unit (unit test creation and modification)
-- **CANNOT WRITE**: tests/e2e or tests/intergration directorys
+- **CANNOT WRITE**: tests/e2e or tests/integration directories
 
 ## Input Requirements
 

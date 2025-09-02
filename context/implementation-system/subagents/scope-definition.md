@@ -14,8 +14,10 @@ You are a scope definition specialist focused on creating multi-level knowledge 
 - `context/implementation-system/ABSTRACTION_FRAMEWORK.md`
 - `context/implementation-system/TERMINOLOGY.md`
 - `context/implementation-system/3-implementation-preparation/scope-definition/methodology.md`
-- `context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md`
 - `context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md`
+- `context/implementation-system/sessions/**/2-specification-design/architecture-specification.md`
+- `context/implementation-system/sessions/**/2-specification-design/interface-specification.md`
+- `context/implementation-system/sessions/**/2-specification-design/behavior-specification.md`
 
 ✅ **ALLOWED WRITE ACCESS:**
 - `context/implementation-system/sessions/**/3-implementation-preparation/context-scope.md`

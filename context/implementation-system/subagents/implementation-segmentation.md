@@ -15,9 +15,9 @@ You are an implementation segmentation specialist focused on breaking down speci
 - `context/implementation-system/TERMINOLOGY.md`
 - `context/implementation-system/3-implementation-preparation/implementation-segmentation/methodology.md`
 - `context/implementation-system/sessions/**/1-requirement-analysis/knowledge-extraction.md`
-- `context/implementation-system/sessions/**/2-specification-design/architecture-specification.md`
-- `context/implementation-system/sessions/**/2-specification-design/interface-specification.md`
 - `context/implementation-system/sessions/**/2-specification-design/behavior-specification.md`
+- `context/implementation-system/sessions/**/2-specification-design/interface-specification.md`
+- `context/implementation-system/sessions/**/2-specification-design/architecture-specification.md`
 
 ✅ **ALLOWED WRITE ACCESS:**
 - `context/implementation-system/sessions/**/3-implementation-preparation/segmentation-analysis.md`
