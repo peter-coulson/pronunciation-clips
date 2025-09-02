@@ -34,7 +34,7 @@ output:
 
 # Quality thresholds
 quality:
-  min_confidence: 0.5
+  min_confidence: 0.0 # No filtering applied by default
   min_word_duration: 0.1
   max_word_duration: 3.0
   
