@@ -5,7 +5,7 @@
 - **Unit Tests**: 11 files testing individual components (includes diarization)
 - **Integration Tests**: 7 files testing stage interactions  
 - **E2E Tests**: 9 files testing complete workflows (includes diarization)
-- **Shared Infrastructure**: conftest.py with fixtures + test data
+- **Shared Infrastructure**: `tests/conftest.py` with fixtures + test data
 - **Test Categorization**: Quick (<15s) and Extensive (≥15s) test markers
 
 ## Test Infrastructure
@@ -26,7 +26,7 @@
 - **Test Configuration**: `test_config.yaml` with testing-optimized settings
 - **Expected Outputs**: Directory for validation data
 
-### Shared Fixtures (`conftest.py`)
+### Shared Fixtures (`tests/conftest.py`)
 - **temp_dir**: Isolated temporary directories
 - **test_config_path**: Standard test configuration
 - **test_audio_fixtures**: All audio file paths mapped
@@ -82,8 +82,8 @@
 
 **Extensive Tests (CI/Release)**: `≥15s execution`
 - **Full Coverage**: `./pytest_venv.sh tests/ -v` (~25s total)
-- **Diarization Full**: `ENABLE_EXTENSIVE_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py -v`
-- **Performance Tests**: Long-duration audio validation
+- **Diarization Full**: `./pytest_venv.sh tests/e2e/test_diarization_e2e.py --extensive -v`
+- **Performance Tests**: `./pytest_venv.sh tests/ --extensive -v` - Long-duration audio validation
 - **Error Handling**: Complex failure scenarios
 
 ### Test Command Matrix
@@ -93,7 +93,7 @@
 ./pytest_venv.sh tests/ -m quick -v
 
 # Diarization development (~9s) 
-ENABLE_DIARIZATION_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v
+./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v
 
 # Specific component testing
 ./pytest_venv.sh tests/unit/test_config.py -v
@@ -106,16 +106,22 @@ ENABLE_DIARIZATION_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py
 ./pytest_venv.sh tests/ -v
 
 # Complete diarization coverage (~20s)
-ENABLE_DIARIZATION_TESTS=true ENABLE_EXTENSIVE_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py -v
+./pytest_venv.sh tests/e2e/test_diarization_e2e.py --extensive -v
 
 # Performance validation
-./pytest_venv.sh tests/ -m extensive -v
+./pytest_venv.sh tests/ --extensive -v
+
+# Disable diarization if needed
+./pytest_venv.sh tests/ --disable-diarization -v
 ```
 
-### Environment Variables
-- **`ENABLE_DIARIZATION_TESTS`**: Controls diarization test execution (default: `true`)
-- **`ENABLE_EXTENSIVE_TESTS`**: Controls extensive test execution (default: `false`)
-- **`HUGGINGFACE_HUB_TOKEN`**: Required for diarization model access
+### Test Control
+- **Diarization Tests**: Enabled by default if `config.yaml` has `speakers.enable_diarization: true`
+- **Override Flags**: 
+  - `--disable-diarization`: Skip diarization tests even if config enables it
+  - `--extensive`: Run extensive tests with longer audio files
+- **Environment Variables**: 
+  - **`HUGGINGFACE_HUB_TOKEN`**: Required for diarization model access (production secret)
 
 ### Test Environment
 - **Virtual Environment**: `./venv/` with isolated dependencies

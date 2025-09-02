@@ -11,7 +11,9 @@
 ## Quick Commands
 - **Quick Tests**: `./pytest_venv.sh tests/ -m quick -v` (~12s)
 - **Full Tests**: `./pytest_venv.sh tests/ -v` (~25s)  
-- **Diarization Tests**: `ENABLE_DIARIZATION_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v` (~9s)
+- **Extensive Tests**: `./pytest_venv.sh tests/ --extensive -v` (~25s)
+- **Disable Diarization**: `./pytest_venv.sh tests/ --disable-diarization -v` 
+- **Diarization Tests**: `./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v` (~9s)
 - **Transcription Tests**: `./pytest_venv.sh tests/e2e/test_stage3_transcription_e2e.py -v` (~4s)
 - **Stage Check**: Git status + test results validation
 - **Clean Home**: Remove temp scripts after checkpoints

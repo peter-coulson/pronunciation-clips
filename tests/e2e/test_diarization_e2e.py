@@ -21,20 +21,7 @@ from src.shared.config import Config, load_config
 from src.shared.models import Entity
 from src.audio_to_json.pipeline import AudioToJsonPipeline
 
-# Test level configuration
-DIARIZATION_TESTS_ENABLED = os.getenv("ENABLE_DIARIZATION_TESTS", "true").lower() == "true"
-EXTENSIVE_TESTS_ENABLED = os.getenv("ENABLE_EXTENSIVE_TESTS", "false").lower() == "true"
-
-# Test markers
-skip_diarization = pytest.mark.skipif(
-    not DIARIZATION_TESTS_ENABLED,
-    reason="Diarization tests disabled. Set ENABLE_DIARIZATION_TESTS=true to enable. See DIARIZATION_SETUP.md for HuggingFace setup."
-)
-
-skip_extensive = pytest.mark.skipif(
-    not EXTENSIVE_TESTS_ENABLED,
-    reason="Extensive tests disabled. Set ENABLE_EXTENSIVE_TESTS=true to enable full coverage testing."
-)
+# Test markers are now handled by conftest.py based on config and flags
 
 # Pytest markers for test categorization
 pytestmark = [
@@ -112,7 +99,6 @@ class TestDiarizationE2E:
         finally:
             os.unlink(temp_config_path)
 
-    @skip_diarization
     @pytest.mark.quick
     def test_basic_diarization_quick_e2e(self, fixtures_path: Path):
         """
@@ -143,7 +129,6 @@ class TestDiarizationE2E:
             assert isinstance(segment.speaker_id, int), "Valid speaker ID"
             assert segment.confidence > 0.0, "Valid confidence"
     
-    @skip_diarization
     @pytest.mark.quick
     def test_speaker_transitions_medium_e2e(self, fixtures_path: Path):
         """
@@ -180,8 +165,6 @@ class TestDiarizationE2E:
         assert total_start <= 0.1, "Coverage should start near beginning (within 100ms)"
         assert total_end >= 12.0, "Coverage should extend through most of 15s audio"
     
-    @skip_diarization
-    @skip_extensive
     @pytest.mark.extensive
     def test_complete_conversation_full_e2e(self, fixtures_path: Path, expected_segments: Dict[str, Any]):
         """
@@ -228,7 +211,6 @@ class TestDiarizationE2E:
         assert total_start == 0.0, "Coverage should start at beginning"
         assert total_end >= 25.0, "Coverage should extend through most of 30s audio"
 
-    @skip_diarization
     @pytest.mark.quick
     def test_entity_assignment_integration_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
@@ -277,7 +259,6 @@ class TestDiarizationE2E:
         # Verify reasonable entity count (flexible based on actual audio content)
         assert total_entities >= 2, "Should have reasonable entity count for 5-second audio"
 
-    @skip_diarization
     @pytest.mark.quick
     def test_speaker_labeling_post_processing_e2e(self, fixtures_path: Path):
         """
@@ -316,7 +297,6 @@ class TestDiarizationE2E:
         assert all(isinstance(e.speaker_id, int) for e in database.entities), "All speaker IDs should be integers"
         assert all(e.speaker_id >= 0 for e in database.entities), "All speaker IDs should be non-negative"
 
-    @skip_diarization
     @pytest.mark.quick
     def test_single_speaker_fallback_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
@@ -358,7 +338,6 @@ class TestDiarizationE2E:
         total_entities = len(entities)
         assert total_entities >= expected["total_entities"] * 0.8, "Should have reasonable entity count"
 
-    @skip_diarization
     @pytest.mark.quick
     def test_diarization_disabled_compatibility_e2e(self, fixtures_path: Path, expected_distribution: Dict[str, Any]):
         """
@@ -411,8 +390,6 @@ class TestDiarizationErrorHandling:
         return Path(__file__).parent.parent / "fixtures"
     
     
-    @skip_diarization
-    @skip_extensive
     @pytest.mark.extensive
     def test_configuration_error_handling(self, fixtures_path: Path):
         """Test error handling for invalid diarization configuration."""
@@ -527,7 +504,6 @@ class TestDiarizationPerformance:
             os.unlink(temp_config_path)
     
     
-    @skip_diarization
     @pytest.mark.quick
     def test_no_performance_regression_when_disabled(self, fixtures_path: Path):
         """Test no performance regression when diarization is disabled."""

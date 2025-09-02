@@ -1,14 +1,39 @@
 """
-Shared pytest fixtures for all test modules
+Pytest configuration and shared fixtures for pronunciation clips testing.
+
+Provides command-line flags for test control, diarization configuration,
+and shared fixtures for all test modules.
 """
 import pytest
 import tempfile
 import shutil
+import yaml
 from pathlib import Path
 
 
+def pytest_addoption(parser):
+    """Add custom command-line options for test control."""
+    parser.addoption(
+        "--disable-diarization",
+        action="store_true",
+        default=False,
+        help="Disable diarization tests (overrides config setting)"
+    )
+    parser.addoption(
+        "--extensive",
+        action="store_true", 
+        default=False,
+        help="Run extensive tests with longer audio files"
+    )
+
+
 def pytest_configure(config):
-    """Load .env file at test startup if it exists."""
+    """Configure pytest markers and load environment."""
+    # Register markers
+    config.addinivalue_line("markers", "diarization: Diarization-related tests")
+    config.addinivalue_line("markers", "extensive: Extensive tests with longer audio")
+    
+    # Load .env file at test startup if it exists
     try:
         from dotenv import load_dotenv
         env_file = Path(__file__).parent.parent / ".env"
@@ -18,6 +43,41 @@ def pytest_configure(config):
     except ImportError:
         # dotenv not available, skip
         pass
+
+
+def pytest_collection_modifyitems(config, items):
+    """Modify test collection based on command-line flags and configuration."""
+    disable_diarization = config.getoption("--disable-diarization")
+    extensive = config.getoption("--extensive")
+    
+    # Check if diarization is enabled in config
+    diarization_enabled_in_config = _is_diarization_enabled_in_config()
+    
+    skip_diarization = pytest.mark.skip(reason="Diarization tests disabled (use --extensive or enable in config.yaml)")
+    skip_extensive = pytest.mark.skip(reason="Extensive tests disabled (use --extensive flag)")
+    
+    for item in items:
+        # Skip diarization tests if disabled via flag OR not enabled in config
+        if "diarization" in item.keywords:
+            if disable_diarization or not diarization_enabled_in_config:
+                item.add_marker(skip_diarization)
+        
+        # Skip extensive tests unless explicitly requested
+        if "extensive" in item.keywords and not extensive:
+            item.add_marker(skip_extensive)
+
+
+def _is_diarization_enabled_in_config() -> bool:
+    """Check if diarization is enabled in config.yaml."""
+    try:
+        config_path = Path(__file__).parent.parent / "config.yaml"
+        if config_path.exists():
+            with open(config_path) as f:
+                config = yaml.safe_load(f)
+                return config.get("speakers", {}).get("enable_diarization", False)
+    except Exception:
+        pass
+    return False
 
 
 @pytest.fixture
@@ -69,3 +129,17 @@ def expected_entity_fields():
         "quality_score", "speaker_id", "recording_id", "recording_path",
         "processed", "clip_path", "selection_reason", "created_at"
     ]
+
+
+@pytest.fixture
+def extensive_tests_enabled(request):
+    """Fixture to check if extensive tests are enabled."""
+    return request.config.getoption("--extensive")
+
+
+@pytest.fixture  
+def diarization_enabled(request):
+    """Fixture to check if diarization tests are enabled."""
+    disabled_by_flag = request.config.getoption("--disable-diarization")
+    enabled_in_config = _is_diarization_enabled_in_config()
+    return not disabled_by_flag and enabled_in_config
