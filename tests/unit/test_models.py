@@ -538,7 +538,7 @@ class TestDiarizationResult:
             SpeakerSegment(speaker_id=1, start_time=5.0, end_time=10.0, confidence=0.85)
         ]
         
-        with pytest.raises(ValueError, match="Segments must not overlap"):
+        with pytest.raises(ValueError, match="Segments must not have significant overlap"):
             DiarizationResult(
                 speakers=[0, 1],
                 segments=overlapping_segments,

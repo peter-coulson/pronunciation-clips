@@ -25,6 +25,34 @@ except ImportError:
     PYANNOTE_AVAILABLE = False
 
 
+class PipelineCache:
+    """Singleton cache for PyAnnote pipeline to avoid reloading."""
+    _instance = None
+    _pipeline = None
+    _model_name = None
+    
+    @classmethod
+    def get_pipeline(cls, model_name: str, hf_token: str = None) -> Pipeline:
+        """Get cached pipeline or load new one if needed."""
+        if cls._pipeline is None or cls._model_name != model_name:
+            cls._pipeline = Pipeline.from_pretrained(
+                model_name,
+                use_auth_token=hf_token
+            )
+            cls._model_name = model_name
+            
+            # Enable MPS acceleration if available
+            if PYANNOTE_AVAILABLE and torch and torch.backends.mps.is_available():
+                try:
+                    device = torch.device("mps")
+                    cls._pipeline = cls._pipeline.to(device)
+                except Exception:
+                    # Fallback to CPU if MPS fails
+                    pass
+                    
+        return cls._pipeline
+
+
 class DiarizationProcessor(LoggerMixin):
     """Handles ML-based speaker diarization using PyAnnote."""
     
@@ -116,22 +144,20 @@ class DiarizationProcessor(LoggerMixin):
             return self._create_single_speaker_fallback(audio_duration, processing_time)
         
     def _load_pipeline(self) -> None:
-        """Load PyAnnote diarization pipeline."""
+        """Load PyAnnote diarization pipeline with caching and MPS acceleration."""
         if not PYANNOTE_AVAILABLE:
             raise PipelineError(
                 "PyAnnote not available. Install with: pip install pyannote.audio torch"
             )
         
         try:
-            self.logger.info("Loading diarization pipeline", model=self.config.model)
+            self.logger.info("Loading diarization pipeline", 
+                           model=self.config.model,
+                           mps_available=torch and torch.backends.mps.is_available() if torch else False)
             
-            # Load the pipeline
-            # Get HuggingFace token from environment variable
+            # Use cached pipeline
             hf_token = os.getenv('HF_TOKEN')
-            self.pipeline = Pipeline.from_pretrained(
-                self.config.model,
-                use_auth_token=hf_token
-            )
+            self.pipeline = PipelineCache.get_pipeline(self.config.model, hf_token)
             
             # Configure parameters
             if hasattr(self.pipeline, 'instantiate'):
@@ -150,7 +176,8 @@ class DiarizationProcessor(LoggerMixin):
                     self.logger.warning("Could not configure pipeline parameters", error=str(e))
                     pass
             
-            self.logger.info("Diarization pipeline loaded successfully")
+            device_info = "MPS" if torch and torch.backends.mps.is_available() else "CPU"
+            self.logger.info("Diarization pipeline loaded successfully", device=device_info)
             
         except Exception as e:
             raise PipelineError(f"Failed to load diarization pipeline: {e}")
@@ -186,6 +213,9 @@ class DiarizationProcessor(LoggerMixin):
             
             # Merge very close segments from same speaker
             segments = self._merge_close_segments(segments)
+            
+            # Resolve overlaps between different speakers
+            segments = self._resolve_overlaps(segments)
             
             return segments
             
@@ -239,6 +269,48 @@ class DiarizationProcessor(LoggerMixin):
         
         return merged
     
+    def _resolve_overlaps(self, segments: List[SpeakerSegment]) -> List[SpeakerSegment]:
+        """Resolve overlaps between segments from different speakers."""
+        if len(segments) < 2:
+            return segments
+        
+        resolved = []
+        for i, current in enumerate(segments):
+            if i == 0:
+                resolved.append(current)
+                continue
+            
+            last = resolved[-1]
+            
+            # Check for overlap
+            if last.end_time > current.start_time:
+                # There's an overlap - split at midpoint
+                overlap_start = current.start_time
+                overlap_end = min(last.end_time, current.end_time)
+                midpoint = overlap_start + (overlap_end - overlap_start) / 2
+                
+                # Adjust the previous segment to end at midpoint
+                resolved[-1] = SpeakerSegment(
+                    speaker_id=last.speaker_id,
+                    start_time=last.start_time,
+                    end_time=midpoint,
+                    confidence=last.confidence
+                )
+                
+                # Adjust current segment to start at midpoint
+                # Only add if there's meaningful remaining duration (> 50ms)
+                if current.end_time - midpoint > 0.05:
+                    resolved.append(SpeakerSegment(
+                        speaker_id=current.speaker_id,
+                        start_time=midpoint,
+                        end_time=current.end_time,
+                        confidence=current.confidence
+                    ))
+            else:
+                resolved.append(current)
+        
+        return resolved
+    
     def _validate_result(self, result: DiarizationResult, expected_duration: float) -> bool:
         """Validate diarization result meets quality standards."""
         try:
@@ -250,8 +322,8 @@ class DiarizationProcessor(LoggerMixin):
             total_coverage = sum(seg.end_time - seg.start_time for seg in result.segments)
             coverage_ratio = total_coverage / expected_duration if expected_duration > 0 else 0
             
-            # At least 70% coverage required
-            if coverage_ratio < 0.7:
+            # At least 50% coverage required (lowered for interviews with natural pauses)
+            if coverage_ratio < 0.5:
                 self.logger.warning("Low coverage ratio", ratio=coverage_ratio)
                 return False
             
@@ -288,6 +360,44 @@ class DiarizationProcessor(LoggerMixin):
             audio_duration=valid_duration,
             processing_time=processing_time
         )
+    
+    def process_batch(self, audio_files: List[Tuple[str, float]]) -> List[DiarizationResult]:
+        """
+        Process multiple audio files in batch for better efficiency.
+        
+        Args:
+            audio_files: List of (audio_path, duration) tuples
+            
+        Returns:
+            List of DiarizationResult objects
+        """
+        results = []
+        total_duration = sum(duration for _, duration in audio_files)
+        
+        self.logger.info("Starting batch diarization processing", 
+                        file_count=len(audio_files),
+                        total_duration=total_duration)
+        
+        # Pre-load pipeline once for all files
+        if self.pipeline is None:
+            self._load_pipeline()
+        
+        for i, (audio_path, audio_duration) in enumerate(audio_files):
+            self.logger.info(f"Processing batch file {i+1}/{len(audio_files)}", 
+                           file=audio_path, duration=audio_duration)
+            
+            result = self.process_audio(audio_path, audio_duration)
+            results.append(result)
+        
+        avg_processing_time = sum(r.processing_time for r in results) / len(results)
+        avg_realtime_factor = total_duration / sum(r.processing_time for r in results) if results else 0
+        
+        self.logger.info("Batch processing completed",
+                        files_processed=len(results),
+                        avg_processing_time=avg_processing_time,
+                        avg_realtime_factor=avg_realtime_factor)
+        
+        return results
 
 
 def check_diarization_dependencies() -> Tuple[bool, Optional[str]]:

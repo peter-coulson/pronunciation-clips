@@ -2,7 +2,7 @@
 
 ## Overview
 
-The pronunciation clips system includes optional speaker diarization functionality that can automatically detect and separate multiple speakers in audio files. This feature requires additional ML dependencies and authentication setup.
+The pronunciation clips system includes speaker diarization functionality with PyAnnote-based speaker separation, MPS hardware acceleration, and pipeline caching. The system automatically detects and separates multiple speakers in audio files with hardware optimization for M1 Macs.
 
 ## Default Behavior
 
@@ -46,8 +46,8 @@ export ENABLE_DIARIZATION_TESTS="true"
 
 #### 4. Install Dependencies (if not already installed)
 ```bash
-# Dependencies should already be in requirements.txt
-pip install "pyannote.audio>=3.0.0"
+# Dependencies should already be in requirements.txt including both Whisper implementations
+pip install "pyannote.audio>=3.0.0" "faster-whisper>=1.2.0"
 ```
 
 #### 5. Run Full Test Suite

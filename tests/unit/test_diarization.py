@@ -178,12 +178,14 @@ class TestDiarizationProcessor:
         mock_segment3.end = 10.0
         
         mock_diarization_result = Mock()
-        mock_diarization_result.itertracks.return_value = [
-            (mock_segment1, None, "SPEAKER_00"),
-            (mock_segment2, None, "SPEAKER_01"),
-            (mock_segment3, None, "SPEAKER_00")
-        ]
-        mock_pipeline.return_value = mock_diarization_result
+        def mock_itertracks(yield_label=False):
+            return [
+                (mock_segment1, None, "SPEAKER_00"),
+                (mock_segment2, None, "SPEAKER_01"),
+                (mock_segment3, None, "SPEAKER_00")
+            ]
+        mock_diarization_result.itertracks.side_effect = mock_itertracks
+        mock_pipeline.side_effect = lambda audio_path: mock_diarization_result
         
         config = DiarizationConfig()
         processor = DiarizationProcessor(config)

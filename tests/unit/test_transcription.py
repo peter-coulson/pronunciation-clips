@@ -65,7 +65,8 @@ class TestTranscriptionEngine:
         assert engine._model is None  # Lazy loading
         assert engine.logger is not None
     
-    @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch('src.audio_to_json.transcription.openai_whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_model_lazy_loading(self, mock_load_model):
         """Test lazy loading of Whisper model."""
         mock_model = MagicMock()
@@ -83,7 +84,7 @@ class TestTranscriptionEngine:
         model = engine.model
         
         # Now model should be loaded
-        mock_load_model.assert_called_once_with("base")
+        mock_load_model.assert_called_once_with("base", device='mps')
         assert model == mock_model
         assert engine._model == mock_model
         
@@ -93,6 +94,7 @@ class TestTranscriptionEngine:
         assert mock_load_model.call_count == 1  # Still only called once
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_with_word_timestamps(self, mock_load_model):
         """Test transcription with word-level timestamps."""
         # Setup mock model and result
@@ -146,6 +148,7 @@ class TestTranscriptionEngine:
         assert words[1].confidence == 0.8
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_fallback_to_segments(self, mock_load_model):
         """Test transcription fallback when no word timestamps available."""
         # Setup mock model and result without word timestamps
@@ -188,6 +191,7 @@ class TestTranscriptionEngine:
         assert words[1].confidence == -0.5
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_no_words_error(self, mock_load_model):
         """Test error when no words are extracted."""
         # Setup mock model with empty result
@@ -210,6 +214,7 @@ class TestTranscriptionEngine:
             engine.transcribe_audio(audio)
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_filters_empty_words(self, mock_load_model):
         """Test that empty words are filtered out."""
         # Setup mock model with some empty words
@@ -247,6 +252,7 @@ class TestTranscriptionEngine:
         assert words[1].text == "mundo"
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_with_configuration_options(self, mock_load_model):
         """Test that configuration options are passed to Whisper."""
         mock_model = MagicMock()
@@ -292,6 +298,7 @@ class TestTranscriptionEngine:
         assert options["condition_on_previous_text"] is False
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_whisper_error(self, mock_load_model):
         """Test handling of Whisper transcription errors."""
         mock_model = MagicMock()
@@ -312,6 +319,7 @@ class TestTranscriptionEngine:
             engine.transcribe_audio(audio)
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_logging(self, mock_load_model):
         """Test transcription logging functionality."""
         mock_model = MagicMock()
@@ -350,6 +358,7 @@ class TestTranscriptionEngine:
             mock_complete.assert_called_once()
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_audio_error_logging(self, mock_load_model):
         """Test error logging during transcription."""
         mock_model = MagicMock()
@@ -366,7 +375,7 @@ class TestTranscriptionEngine:
         )
         audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
-        with patch.object(engine, 'log_stage_error') as mock_error:
+        with patch.object(engine.logger, 'error') as mock_error:
             with pytest.raises(TranscriptionError):
                 engine.transcribe_audio(audio)
             
@@ -425,6 +434,7 @@ class TestTranscriptionEngineEdgeCases:
     """Test edge cases and boundary conditions."""
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_very_short_audio(self, mock_load_model):
         """Test transcribing very short audio."""
         mock_model = MagicMock()
@@ -456,6 +466,7 @@ class TestTranscriptionEngineEdgeCases:
         assert words[0].text == "a"
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_empty_segments(self, mock_load_model):
         """Test handling of empty segments."""
         mock_model = MagicMock()
@@ -481,6 +492,7 @@ class TestTranscriptionEngineEdgeCases:
             engine.transcribe_audio(audio)
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_missing_probability(self, mock_load_model):
         """Test handling of missing probability field."""
         mock_model = MagicMock()
@@ -513,6 +525,7 @@ class TestTranscriptionEngineEdgeCases:
         assert words[0].confidence == 0.0
     
     @patch('src.audio_to_json.transcription.whisper.load_model')
+    @patch.dict('os.environ', {'USE_FASTER_WHISPER': 'false'})
     def test_transcribe_multiple_segments(self, mock_load_model):
         """Test transcription with multiple segments."""
         mock_model = MagicMock()

@@ -11,9 +11,15 @@
 ## Quick Commands
 - **Quick Tests**: `./pytest_venv.sh tests/ -m quick -v` (~12s)
 - **Full Tests**: `./pytest_venv.sh tests/ -v` (~25s)  
-- **Diarization Tests**: `./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v` (~9s)
+- **Diarization Tests**: `ENABLE_DIARIZATION_TESTS=true ./pytest_venv.sh tests/e2e/test_diarization_e2e.py -m quick -v` (~9s)
+- **faster-whisper Tests**: `USE_FASTER_WHISPER=true ./pytest_venv.sh tests/e2e/test_stage3_transcription_e2e.py -v` (~4s)
 - **Stage Check**: Git status + test results validation
 - **Clean Home**: Remove temp scripts after checkpoints
+
+## Implementation Options
+- **Transcription**: OpenAI Whisper (MPS) or faster-whisper (CPU optimized) via `USE_FASTER_WHISPER` env var
+- **Diarization**: PyAnnote with MPS acceleration and pipeline caching
+- **Batch Processing**: Optimized multi-file processing with model caching
 
 ## Colombian Spanish Focus  
 Zero-gap buffering for continuous speech processing (details in `/context/domains/data.md`)

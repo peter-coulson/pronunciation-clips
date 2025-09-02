@@ -15,9 +15,15 @@ whisper:
   
 # Speaker identification settings
 speakers:
-  enable_diarization: false  # Disable for MVP - manual speaker mapping
+  enable_diarization: true  # PyAnnote-based speaker diarization with MPS acceleration
   min_speakers: 1
   max_speakers: 10
+
+# Diarization configuration  
+diarization:
+  model: "pyannote/speaker-diarization"
+  segmentation_threshold: 0.5
+  clustering_threshold: 0.7
   
 # Output settings
 output:

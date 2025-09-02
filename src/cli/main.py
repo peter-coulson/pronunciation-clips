@@ -92,9 +92,11 @@ def cli(ctx, config: Optional[Path], verbose: bool, quiet: bool):
 @click.option('--resume-from', 
               type=click.Choice(['transcription', 'entities', 'database']),
               help='Resume processing from specific stage')
+@click.option('--language', '-l',
+              help='Override language for transcription (e.g., "en", "es", "auto")')
 @click.pass_context
 def process(ctx, audio_file: Path, output: Optional[Path], 
-           speaker_map: Optional[Path], resume_from: Optional[str]):
+           speaker_map: Optional[Path], resume_from: Optional[str], language: Optional[str]):
     """
     Process an audio file to extract pronunciation clips.
     
@@ -109,11 +111,19 @@ def process(ctx, audio_file: Path, output: Optional[Path],
     verbose = ctx.obj['verbose']
     quiet = ctx.obj['quiet']
     
+    # Override language if specified
+    if language:
+        if language.lower() == 'auto':
+            config.whisper.language = None
+        else:
+            config.whisper.language = language.lower()
+    
     try:
         if not quiet:
             click.echo(f"Processing: {audio_file}")
             if verbose:
                 click.echo(f"  Model: {config.whisper.model}")
+                click.echo(f"  Language: {config.whisper.language or 'auto-detect'}")
                 click.echo(f"  Min confidence: {config.quality.min_confidence}")
                 click.echo(f"  Syllable range: {config.quality.syllable_range}")
         

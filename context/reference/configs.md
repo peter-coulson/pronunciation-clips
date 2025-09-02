@@ -32,13 +32,19 @@ audio:
 ### Speaker Configuration
 ```yaml  
 speakers:
-  enable_diarization: false  # Currently manual speaker mapping only
+  enable_diarization: true   # PyAnnote-based speaker diarization with MPS acceleration
   min_speakers: 1
   max_speakers: 10
   default_speaker:
     name: "Default Speaker"
     gender: "Unknown"
     region: "Unknown"
+
+# Diarization configuration
+diarization:
+  model: "pyannote/speaker-diarization"  # HuggingFace model path
+  segmentation_threshold: 0.5            # Speaker segment detection threshold
+  clustering_threshold: 0.7              # Speaker clustering threshold
 ```
 
 ### Output Configuration
@@ -70,6 +76,11 @@ PRONUNCIATION_CLIPS_QUALITY_MIN_WORD_DURATION=0.2
 # Whisper settings  
 PRONUNCIATION_CLIPS_WHISPER_MODEL=large
 PRONUNCIATION_CLIPS_WHISPER_LANGUAGE=es
+USE_FASTER_WHISPER=true                    # Toggle between OpenAI Whisper and faster-whisper
+
+# Diarization settings
+ENABLE_DIARIZATION_TESTS=true              # Enable diarization testing (requires HF_TOKEN)
+HF_TOKEN=your_huggingface_token            # HuggingFace authentication token
 
 # Logging
 PRONUNCIATION_CLIPS_LOGGING_LEVEL=DEBUG

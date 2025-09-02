@@ -121,11 +121,13 @@ class DiarizationResult(BaseModel):
     @field_validator('segments')
     @classmethod
     def no_overlapping_segments(cls, segments):
-        """Validate no overlapping segments."""
+        """Validate no significant overlapping segments."""
         sorted_segments = sorted(segments, key=lambda x: x.start_time)
         for i in range(len(sorted_segments) - 1):
-            if sorted_segments[i].end_time > sorted_segments[i + 1].start_time:
-                raise ValueError('Segments must not overlap')
+            # Allow small overlaps (up to 50ms) which are common in natural speech
+            overlap = sorted_segments[i].end_time - sorted_segments[i + 1].start_time
+            if overlap > 0.05:  # Only flag overlaps > 50ms as errors
+                raise ValueError(f'Segments must not have significant overlap (overlap: {overlap:.3f}s)')
         return segments
 
 
