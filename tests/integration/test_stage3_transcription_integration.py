@@ -38,20 +38,34 @@ class TestAudioToTranscriptionIntegration:
             # Process audio
             processed_audio = processor.process_audio("test.wav")
             
-            # Mock Whisper model and transcription
+            # Mock faster-whisper model and transcription
             with patch.object(transcription_engine, '_model', None), \
-                 patch('whisper.load_model') as mock_load_model:
+                 patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
                 
                 mock_model = MagicMock()
-                mock_model.transcribe.return_value = {
-                    "segments": [{
-                        "words": [
-                            {"word": " hola", "start": 0.0, "end": 0.5, "probability": 0.9},
-                            {"word": " mundo", "start": 0.5, "end": 1.0, "probability": 0.8}
-                        ]
-                    }]
-                }
-                mock_load_model.return_value = mock_model
+                
+                # Mock word objects for faster-whisper
+                mock_word1 = MagicMock()
+                mock_word1.word = " hola"
+                mock_word1.start = 0.0
+                mock_word1.end = 0.5
+                mock_word1.probability = 0.9
+                
+                mock_word2 = MagicMock()
+                mock_word2.word = " mundo"
+                mock_word2.start = 0.5
+                mock_word2.end = 1.0
+                mock_word2.probability = 0.8
+                
+                # Mock segment with words
+                mock_segment = MagicMock()
+                mock_segment.words = [mock_word1, mock_word2]
+                
+                mock_segments = [mock_segment]
+                mock_info = MagicMock()
+                
+                mock_model.transcribe.return_value = (mock_segments, mock_info)
+                mock_whisper_model.return_value = mock_model
                 
                 # Test transcription integration
                 words = transcription_engine.transcribe_audio(processed_audio)
@@ -81,15 +95,15 @@ class TestWhisperModelManagementIntegration:
             
             transcription_engine = TranscriptionEngine(whisper_config)
             
-            with patch('whisper.load_model') as mock_load_model:
+            with patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
                 mock_model = MagicMock()
-                mock_load_model.return_value = mock_model
+                mock_whisper_model.return_value = mock_model
                 
                 # Access model property to trigger lazy loading
                 _ = transcription_engine.model
                 
-                # Verify correct model was requested
-                mock_load_model.assert_called_once_with(model_name)
+                # Verify correct model was requested with faster-whisper parameters
+                mock_whisper_model.assert_called_once_with(model_name, device="cpu", compute_type="int8")
     
     def test_transcription_options_from_config(self):
         """Test that transcription options are correctly set from config."""
@@ -109,15 +123,26 @@ class TestWhisperModelManagementIntegration:
         processed_audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
-            mock_model.transcribe.return_value = {
-                "segments": [{
-                    "words": [{"word": " test", "start": 0.0, "end": 0.5, "probability": 0.9}]
-                }]
-            }
-            mock_load_model.return_value = mock_model
+            
+            # Mock word object for faster-whisper
+            mock_word = MagicMock()
+            mock_word.word = " test"
+            mock_word.start = 0.0
+            mock_word.end = 0.5
+            mock_word.probability = 0.9
+            
+            # Mock segment with words
+            mock_segment = MagicMock()
+            mock_segment.words = [mock_word]
+            
+            mock_segments = [mock_segment]
+            mock_info = MagicMock()
+            
+            mock_model.transcribe.return_value = (mock_segments, mock_info)
+            mock_whisper_model.return_value = mock_model
             
             # Perform transcription
             transcription_engine.transcribe_audio(processed_audio)
@@ -148,21 +173,36 @@ class TestSpanishLanguageProcessingIntegration:
         processed_audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
-            # Simulate Whisper output with Spanish words (including leading spaces)
-            mock_model.transcribe.return_value = {
-                "segments": [{
-                    "words": [
-                        {"word": " hola", "start": 0.0, "end": 0.5, "probability": 0.9},
-                        {"word": " ¿cómo", "start": 0.5, "end": 1.0, "probability": 0.8},
-                        {"word": " estás?", "start": 1.0, "end": 1.5, "probability": 0.7},
-                        {"word": " niño", "start": 1.5, "end": 2.0, "probability": 0.9}
-                    ]
-                }]
-            }
-            mock_load_model.return_value = mock_model
+            
+            # Mock word objects for faster-whisper
+            mock_words = []
+            spanish_words = [
+                (" hola", 0.0, 0.5, 0.9),
+                (" ¿cómo", 0.5, 1.0, 0.8),
+                (" estás?", 1.0, 1.5, 0.7),
+                (" niño", 1.5, 2.0, 0.9)
+            ]
+            
+            for word_text, start, end, prob in spanish_words:
+                mock_word = MagicMock()
+                mock_word.word = word_text
+                mock_word.start = start
+                mock_word.end = end
+                mock_word.probability = prob
+                mock_words.append(mock_word)
+            
+            # Mock segment with words
+            mock_segment = MagicMock()
+            mock_segment.words = mock_words
+            
+            mock_segments = [mock_segment]
+            mock_info = MagicMock()
+            
+            mock_model.transcribe.return_value = (mock_segments, mock_info)
+            mock_whisper_model.return_value = mock_model
             
             words = transcription_engine.transcribe_audio(processed_audio)
             
@@ -187,18 +227,22 @@ class TestSpanishLanguageProcessingIntegration:
         processed_audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
-            # Simulate Whisper output without word timestamps
-            mock_model.transcribe.return_value = {
-                "segments": [{
-                    "start": 0.0,
-                    "end": 2.0,
-                    "text": " hola mundo español"
-                }]
-            }
-            mock_load_model.return_value = mock_model
+            
+            # Mock segment without word timestamps (words=None)
+            mock_segment = MagicMock()
+            mock_segment.words = None
+            mock_segment.start = 0.0
+            mock_segment.end = 2.0
+            mock_segment.text = " hola mundo español"
+            
+            mock_segments = [mock_segment]
+            mock_info = MagicMock()
+            
+            mock_model.transcribe.return_value = (mock_segments, mock_info)
+            mock_whisper_model.return_value = mock_model
             
             words = transcription_engine.transcribe_audio(processed_audio)
             
@@ -231,11 +275,11 @@ class TestTranscriptionErrorHandlingIntegration:
         processed_audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
             mock_model.transcribe.side_effect = RuntimeError("Whisper model error")
-            mock_load_model.return_value = mock_model
+            mock_whisper_model.return_value = mock_model
             
             # Test error handling
             with pytest.raises(TranscriptionError) as exc_info:
@@ -259,12 +303,14 @@ class TestTranscriptionErrorHandlingIntegration:
         processed_audio = ProcessedAudio(audio_data, 16000, 1.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
             # Simulate empty transcription result
-            mock_model.transcribe.return_value = {"segments": []}
-            mock_load_model.return_value = mock_model
+            mock_segments = []
+            mock_info = MagicMock()
+            mock_model.transcribe.return_value = (mock_segments, mock_info)
+            mock_whisper_model.return_value = mock_model
             
             # Should raise TranscriptionError for empty results
             with pytest.raises(TranscriptionError, match="No words extracted"):
@@ -309,9 +355,9 @@ class TestPerformanceIntegration:
         config = Config()
         transcription_engine = TranscriptionEngine(config.whisper)
         
-        with patch('whisper.load_model') as mock_load_model:
+        with patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             mock_model = MagicMock()
-            mock_load_model.return_value = mock_model
+            mock_whisper_model.return_value = mock_model
             
             # Access model multiple times
             _ = transcription_engine.model
@@ -319,7 +365,7 @@ class TestPerformanceIntegration:
             _ = transcription_engine.model
             
             # Verify model was only loaded once
-            mock_load_model.assert_called_once()
+            mock_whisper_model.assert_called_once()
     
     def test_large_audio_processing_integration(self):
         """Test integration with large audio files."""
@@ -335,21 +381,33 @@ class TestPerformanceIntegration:
         processed_audio = ProcessedAudio(large_audio_data, 16000, 300.0, metadata)
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
             # Simulate many words in long audio
             mock_segments = []
             for i in range(50):  # 50 segments
-                mock_segments.append({
-                    "words": [
-                        {"word": f" word{i*2}", "start": i*2, "end": i*2+0.5, "probability": 0.8},
-                        {"word": f" word{i*2+1}", "start": i*2+0.5, "end": i*2+1, "probability": 0.8}
-                    ]
-                })
+                # Create mock word objects
+                mock_word1 = MagicMock()
+                mock_word1.word = f" word{i*2}"
+                mock_word1.start = i*2
+                mock_word1.end = i*2+0.5
+                mock_word1.probability = 0.8
+                
+                mock_word2 = MagicMock()
+                mock_word2.word = f" word{i*2+1}"
+                mock_word2.start = i*2+0.5
+                mock_word2.end = i*2+1
+                mock_word2.probability = 0.8
+                
+                # Create mock segment
+                mock_segment = MagicMock()
+                mock_segment.words = [mock_word1, mock_word2]
+                mock_segments.append(mock_segment)
             
-            mock_model.transcribe.return_value = {"segments": mock_segments}
-            mock_load_model.return_value = mock_model
+            mock_info = MagicMock()
+            mock_model.transcribe.return_value = (mock_segments, mock_info)
+            mock_whisper_model.return_value = mock_model
             
             words = transcription_engine.transcribe_audio(processed_audio)
             

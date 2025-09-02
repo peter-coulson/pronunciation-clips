@@ -231,12 +231,12 @@ def info(ctx, check_dependencies: bool):
     if check_dependencies:
         click.echo("\nDependency Check:")
         
-        # Check Whisper
+        # Check faster-whisper
         try:
-            import whisper
-            click.echo("  ✓ OpenAI Whisper available")
+            from faster_whisper import WhisperModel
+            click.echo("  ✓ faster-whisper available")
         except ImportError:
-            click.echo("  ✗ OpenAI Whisper not available")
+            click.echo("  ✗ faster-whisper not available")
         
         # Check audio libraries
         try:

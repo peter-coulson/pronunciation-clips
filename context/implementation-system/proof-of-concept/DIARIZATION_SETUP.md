@@ -46,7 +46,7 @@ export ENABLE_DIARIZATION_TESTS="true"
 
 #### 4. Install Dependencies (if not already installed)
 ```bash
-# Dependencies should already be in requirements.txt including both Whisper implementations
+# Dependencies should already be in requirements.txt
 pip install "pyannote.audio>=3.0.0" "faster-whisper>=1.2.0"
 ```
 
@@ -85,7 +85,7 @@ ENABLE_DIARIZATION_TESTS=true HF_TOKEN=xxx ./pytest_venv.sh tests/e2e/
 ```yaml
 # Minimal dependencies, single speaker mode
 dependencies:
-  - whisper
+  - faster-whisper
   - librosa  
   - basic audio processing
 features:
@@ -99,7 +99,7 @@ features:
 ```yaml
 # Complete ML stack, multi-speaker detection  
 dependencies:
-  - whisper
+  - faster-whisper
   - librosa
   - pyannote.audio
   - torch ecosystem

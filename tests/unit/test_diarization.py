@@ -157,12 +157,12 @@ class TestDiarizationProcessor:
             Path(tmp_path).unlink(missing_ok=True)
     
     @patch('src.audio_to_json.diarization.PYANNOTE_AVAILABLE', True)
-    @patch('src.audio_to_json.diarization.Pipeline')
-    def test_process_audio_with_multiple_speakers(self, mock_pipeline_class):
+    @patch('src.audio_to_json.diarization.PipelineCache')
+    def test_process_audio_with_multiple_speakers(self, mock_pipeline_cache):
         """Test audio processing with multiple speakers."""
         # Mock PyAnnote pipeline
         mock_pipeline = Mock()
-        mock_pipeline_class.from_pretrained.return_value = mock_pipeline
+        mock_pipeline_cache.get_pipeline.return_value = mock_pipeline
         
         # Mock segments for multiple speakers
         mock_segment1 = Mock()
@@ -178,14 +178,14 @@ class TestDiarizationProcessor:
         mock_segment3.end = 10.0
         
         mock_diarization_result = Mock()
-        def mock_itertracks(yield_label=False):
+        def mock_itertracks(yield_label=True):
             return [
                 (mock_segment1, None, "SPEAKER_00"),
                 (mock_segment2, None, "SPEAKER_01"),
                 (mock_segment3, None, "SPEAKER_00")
             ]
-        mock_diarization_result.itertracks.side_effect = mock_itertracks
-        mock_pipeline.side_effect = lambda audio_path: mock_diarization_result
+        mock_diarization_result.itertracks.return_value = mock_itertracks(yield_label=True)
+        mock_pipeline.return_value = mock_diarization_result
         
         config = DiarizationConfig()
         processor = DiarizationProcessor(config)
@@ -408,12 +408,14 @@ class TestPipelineIntegration:
     """Test integration aspects of the diarization processor."""
     
     @patch('src.audio_to_json.diarization.PYANNOTE_AVAILABLE', True)
-    @patch('src.audio_to_json.diarization.Pipeline')
-    def test_load_pipeline_success(self, mock_pipeline_class):
+    @patch('src.audio_to_json.diarization.PipelineCache')
+    def test_load_pipeline_success(self, mock_pipeline_cache):
         """Test successful pipeline loading."""
         mock_pipeline = Mock()
         mock_pipeline.instantiate = Mock()
-        mock_pipeline_class.from_pretrained.return_value = mock_pipeline
+        # Ensure hasattr check passes
+        mock_pipeline.instantiate.return_value = None
+        mock_pipeline_cache.get_pipeline.return_value = mock_pipeline
         
         config = DiarizationConfig(
             model="test-model",
@@ -427,9 +429,9 @@ class TestPipelineIntegration:
         processor._load_pipeline()
         
         # Verify pipeline was loaded with correct model
-        # Note: use_auth_token may be set from environment variable
-        call_args = mock_pipeline_class.from_pretrained.call_args
-        assert call_args[0] == ("test-model",)
+        mock_pipeline_cache.get_pipeline.assert_called_once()
+        call_args = mock_pipeline_cache.get_pipeline.call_args
+        assert call_args[0][0] == "test-model"  # model name
         # Don't assert specific token value since it may come from environment
         
         # Verify pipeline was configured
@@ -454,10 +456,10 @@ class TestPipelineIntegration:
         assert "pip install pyannote.audio torch" in str(exc_info.value)
     
     @patch('src.audio_to_json.diarization.PYANNOTE_AVAILABLE', True)
-    @patch('src.audio_to_json.diarization.Pipeline')
-    def test_load_pipeline_failure(self, mock_pipeline_class):
+    @patch('src.audio_to_json.diarization.PipelineCache')
+    def test_load_pipeline_failure(self, mock_pipeline_cache):
         """Test pipeline loading failure."""
-        mock_pipeline_class.from_pretrained.side_effect = Exception("Model not found")
+        mock_pipeline_cache.get_pipeline.side_effect = Exception("Model not found")
         
         config = DiarizationConfig()
         processor = DiarizationProcessor(config)

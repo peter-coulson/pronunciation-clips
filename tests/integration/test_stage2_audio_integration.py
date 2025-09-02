@@ -47,17 +47,28 @@ class TestAudioProcessorToTranscriptionIntegration:
             assert processed_audio.data.dtype == np.float32
             assert processed_audio.sample_rate == config.audio.sample_rate
             
-            # Mock transcription
+            # Mock transcription with faster-whisper
             with patch.object(transcription_engine, '_model', None), \
-                 patch('whisper.load_model') as mock_load_model:
+                 patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
                 
                 mock_model = MagicMock()
-                mock_model.transcribe.return_value = {
-                    "segments": [{
-                        "words": [{"word": " test", "start": 0.0, "end": 0.5, "probability": 0.9}]
-                    }]
-                }
-                mock_load_model.return_value = mock_model
+                
+                # Mock word objects for faster-whisper
+                mock_word = MagicMock()
+                mock_word.word = " test"
+                mock_word.start = 0.0
+                mock_word.end = 0.5
+                mock_word.probability = 0.9
+                
+                # Mock segment with words
+                mock_segment = MagicMock()
+                mock_segment.words = [mock_word]
+                
+                mock_segments = [mock_segment]
+                mock_info = MagicMock()
+                
+                mock_model.transcribe.return_value = (mock_segments, mock_info)
+                mock_whisper_model.return_value = mock_model
                 
                 words = transcription_engine.transcribe_audio(processed_audio)
                 
@@ -364,11 +375,11 @@ class TestErrorHandlingIntegrationAcrossComponents:
         )
         
         with patch.object(transcription_engine, '_model', None), \
-             patch('whisper.load_model') as mock_load_model:
+             patch('src.audio_to_json.transcription.WhisperModel') as mock_whisper_model:
             
             mock_model = MagicMock()
             mock_model.transcribe.side_effect = Exception("Transcription failed")
-            mock_load_model.return_value = mock_model
+            mock_whisper_model.return_value = mock_model
             
             with pytest.raises(Exception):
                 transcription_engine.transcribe_audio(invalid_audio)

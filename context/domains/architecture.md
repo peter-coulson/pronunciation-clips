@@ -16,7 +16,7 @@
 
 ### Pipeline Stages
 1. **Audio Processing**: Format validation, metadata extraction, resampling
-2. **Transcription**: Dual Whisper implementation (OpenAI Whisper with MPS or faster-whisper with CPU optimization)
+2. **Transcription**: faster-whisper with CPU optimization
 2.5. **Speaker Diarization**: Optional PyAnnote-based speaker separation with MPS acceleration
 3. **Entity Creation**: Convert words to typed entities with quality filtering and speaker assignment
 4. **Database Creation**: Assemble complete WordDatabase with metadata
@@ -33,7 +33,7 @@
 
 #### Audio-to-JSON Pipeline (`src/audio_to_json/`)
 - **Audio Processor**: Format handling, validation, metadata extraction
-- **Transcription Engine**: Dual Whisper implementation with hardware acceleration and faster-whisper support
+- **Transcription Engine**: faster-whisper with CPU optimization
 - **Diarization Processor**: PyAnnote-based speaker diarization with MPS acceleration and pipeline caching
 - **Entity Creation**: Word-to-entity conversion with quality filters and speaker assignment
 - **Speaker Identification**: Speaker mapping and diarization support with batch processing

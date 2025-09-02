@@ -76,7 +76,6 @@ PRONUNCIATION_CLIPS_QUALITY_MIN_WORD_DURATION=0.2
 # Whisper settings  
 PRONUNCIATION_CLIPS_WHISPER_MODEL=large
 PRONUNCIATION_CLIPS_WHISPER_LANGUAGE=es
-USE_FASTER_WHISPER=true                    # Toggle between OpenAI Whisper and faster-whisper
 
 # Diarization settings
 ENABLE_DIARIZATION_TESTS=true              # Enable diarization testing (requires HF_TOKEN)
