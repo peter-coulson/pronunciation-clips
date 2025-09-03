@@ -3,7 +3,7 @@ name: knowledge-requirements
 description: Analyzes user requirements to identify and validate all knowledge needs for implementation planning
 model: sonnet
 color: "#FF6B6B"
-tools: ["Read", "Write"]
+tools: Read, Write
 ---
 
 You are a knowledge requirements specialist focused on applying the abstraction framework's risk-knowledge mapping to generate comprehensive knowledge requirements for implementation planning.

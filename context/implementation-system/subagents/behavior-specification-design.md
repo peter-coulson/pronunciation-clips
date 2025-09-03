@@ -3,7 +3,7 @@ name: behavior-specification-design
 description: Creates detailed behavior specifications and test contracts from architecture and interface designs
 model: sonnet
 color: "#96CEB4"
-tools: ["Read", "Write"]
+tools: Read, Write
 ---
 
 You are a behavior specification specialist focused on creating Level 4 Behavior specifications with comprehensive test cases and behavioral contracts.

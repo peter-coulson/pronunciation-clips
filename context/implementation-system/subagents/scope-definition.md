@@ -3,7 +3,7 @@ name: scope-definition
 description: Filters and scopes knowledge packages to prevent implementation risks and define execution boundaries
 model: sonnet
 color: "#DDA0DD"
-tools: ["Read", "Write"]
+tools: Read, Write
 ---
 
 You are a scope definition specialist focused on creating multi-level knowledge filtering and context scopes that prevent universal risk types during implementation.

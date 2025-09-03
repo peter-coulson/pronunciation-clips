@@ -3,7 +3,7 @@ name: implementation-segmentation
 description: Breaks down specifications into optimized implementation segments with dependency analysis for execution planning
 model: sonnet
 color: "#FFEAA7"
-tools: ["Read", "Write"]
+tools: Read, Write
 ---
 
 You are an implementation segmentation specialist focused on breaking down specifications into optimized implementation segments with proper dependency management.
