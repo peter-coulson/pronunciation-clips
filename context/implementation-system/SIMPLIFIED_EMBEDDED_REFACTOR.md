@@ -125,6 +125,9 @@ context/implementation-system/
 │   ├── task-management.md       # TodoWrite patterns & state lifecycle
 │   ├── template-completion.md   # Common template filling workflows
 │   └── validation-patterns.md   # Success criteria & handoff standards
+├── shared/templates/
+│   ├── context-requirements.md   # Template for identifying needed context
+│   ├── context-load-report.md    # Template for documenting loaded context
 ├── sessions/ (unchanged)
 └── proof-of-concept/ (unchanged)
 ```
