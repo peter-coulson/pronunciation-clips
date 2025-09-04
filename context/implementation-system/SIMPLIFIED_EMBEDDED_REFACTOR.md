@@ -30,28 +30,25 @@
 ### New Agents  
 - `architecture-design` - Split from combined architecture-interface agent
 - `interface-design` - Split from combined architecture-interface agent
-- `standards-session` - Session-scoped standards gathering
 
 ### Modified Agents
 - All main agents now include embedded context gathering with validation
 
 ## New Workflow
 
-**Session Setup**: Standards-session agent creates `sessions/{session-name}/1-standards/standards-session.md` combining context domains + repository patterns.
-
 **Stage 1: Architecture Design**  
-- Input: User requirements + standards-session.md
-- Process: Requirements scan → context extraction + validation → architecture design
+- Input: User requirements
+- Process: Context requirements identification → context loading → architecture design
 - Output: Architecture specification
 
 **Stage 2: Interface Design**
-- Input: Architecture specification + standards-session.md  
-- Process: Requirements scan → context extraction + validation → interface design
+- Input: Architecture specification
+- Process: Context requirements identification → context loading → interface design
 - Output: Interface specification
 
 **Stage 3: Behavior Specification**
-- Input: Interface specification + standards-session.md
-- Process: Requirements scan → context extraction + validation → behavior specification  
+- Input: Interface specification
+- Process: Context requirements identification → context loading → behavior specification  
 - Output: Behavior specification + test contracts
 
 **Stage 4: Implementation Preparation** (unchanged)
@@ -65,74 +62,70 @@
 ## Agent Structure (Example: Architecture Design)
 
 ```
-1. Requirements Scan
-   - Based on user requirements + standards
+1. Context Requirements Identification
+   - Based on user requirements
    - "What architectural context do I need?"
+   - Identify specific files/patterns needed
 
-2. Context Extraction + Validation  
-   - Scan codebase for specific requirements
-   - Focus on architectural patterns only
-   - Validate requirements coverage
-   - Flag missing context explicitly
+2. Context Loading 
+   - Read identified context files (/context/domains/, existing code)
+   - Load relevant repository patterns
+   - Validate coverage of requirements
 
 3. Architecture Design
-   - Use extracted context + standards
+   - Use loaded context
    - Generate architecture specification
 ```
 
-## Standards Implementation
+## Context Loading Strategy
 
-**Session-Scoped**: Standards-session agent combines `/context/domains/` + repository scan into single `standards-session.md`
-**Single Source**: All agents reference same session standards file - no duplication or conflicts
-**DRY Compliant**: No duplicate context structures, leverages existing domain organization
+**Direct Access**: Agents read `/context/domains/` files directly when needed
+**No Duplication**: No session standards files - use source context directly
+**On-Demand**: Load only the specific context needed for each agent's task
 
 ## Quality Assurance
 
-**Self-Validation**: Each agent validates its own context extraction against requirements
+**Self-Validation**: Each agent validates its own context loading against requirements
 **Clear Failures**: Missing context is explicitly flagged, not silently ignored  
 **Independent Testing**: Each agent can be tested in isolation with known inputs
 
 ## Universal Templates
 
-**Requirements Scan Template**
+**Context Requirements Template**
 ```markdown
-# {Agent Name} Requirements Scan
+# {Agent Name} Context Requirements
 
-## Context Requirements Identified
-### Level-Specific Needs
-- **{requirement_type}**: {description}
+## Required Context
+### Domain Files Needed
+- **{domain_file}**: {reason}
 
-### Cross-Cutting Concerns  
-- **{concern_type}**: {description}
+### Repository Files Needed
+- **{file_path}**: {reason}
 
-## Priority Assessment
-### Critical Requirements
-### Nice-to-Have Requirements
+## Context Loading Plan
+### Priority 1 (Critical)
+- {files_needed}
+
+### Priority 2 (Nice-to-Have)  
+- {files_needed}
 ```
 
-**Context Extraction + Validation Template**
+**Context Loading Validation Template**
 ```markdown
-# {Agent Name} Context Extraction
+# {Agent Name} Context Loading
 
-## Files Read Into Context
+## Context Loaded
 - **{file_path}**: {size/lines} - {relevance_reason}
-
-## Files Analyzed  
-- **{file_path}**: {relevance_reason}
 
 ## Patterns Identified
 - **{pattern_type}**: {description}
 
-## Constraints Found
-- **{constraint_type}**: {impact}
-
-## Gap Validation
-### Requirements Coverage
+## Requirements Coverage
 - ✅ **{requirement}**: Found in {source}
 - ❌ **{requirement}**: Missing - {impact}
 
-### Validation Status
-- **Ready to Proceed**: {yes/no}
+## Ready to Proceed
+- **Status**: {yes/no}
 - **Blocking Issues**: {list}
 ```
 
