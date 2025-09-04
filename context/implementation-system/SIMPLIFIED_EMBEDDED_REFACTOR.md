@@ -36,27 +36,39 @@
 
 ## New Workflow
 
-**Stage 1: Architecture Design**  
+**Agent 01: Architecture Design**  
 - Input: User requirements
 - Process: Context requirements identification → context loading → architecture design
 - Output: Architecture specification
 
-**Stage 2: Interface Design**
+**Agent 02: Interface Design**
 - Input: Architecture specification
 - Process: Context requirements identification → context loading → interface design
 - Output: Interface specification
 
-**Stage 3: Behavior Specification**
+**Agent 03: Behavior Specification**
 - Input: Interface specification
 - Process: Context requirements identification → context loading → behavior specification  
 - Output: Behavior specification + test contracts
 
-**Stage 4: Implementation Preparation** (unchanged)
+**Agent 04: Implementation Segmentation**
 - Input: Behavior specifications
-- Output: Coordination plan + implementation segments
+- Process: Context requirements identification → context loading → implementation planning
+- Output: Implementation segments
 
-**Stage 5: Code Generation** (unchanged)  
+**Agent 05: Execution Orchestration**
+- Input: Implementation segments
+- Process: Context requirements identification → context loading → coordination planning
+- Output: Coordination plan
+
+**Agent 06: Test Implementation**
+- Input: Behavior specifications + coordination plan
+- Process: Context requirements identification → context loading → test generation
+- Output: Test code
+
+**Agent 07: Segmented Implementation**
 - Input: Coordination plan
+- Process: Context requirements identification → context loading → code generation
 - Output: Generated code
 
 ## Agent Structure (Example: Architecture Design)
