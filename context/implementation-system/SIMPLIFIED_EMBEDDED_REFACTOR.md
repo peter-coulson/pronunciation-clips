@@ -23,36 +23,34 @@
 
 ## Refactor Changes
 
-### Eliminated Agents
+### Removed Agents
 - `knowledge-requirements` - Embedded in main agents
 - `knowledge-extraction` - Embedded in main agents
 
 ### New Agents  
 - `architecture-design` - Split from combined architecture-interface agent
 - `interface-design` - Split from combined architecture-interface agent
+- `standards-session` - Session-scoped standards gathering
 
 ### Modified Agents
 - All main agents now include embedded context gathering with validation
 
-### One-Time Setup
-- **Standards detection** creates `context/standards/` with lightweight pattern files
-
 ## New Workflow
 
-**One-time Setup**: Standards detection scans project and creates `context/standards/` with lightweight pattern files.
+**Session Setup**: Standards-session agent creates `sessions/{session-name}/1-standards/standards-session.md` combining context domains + repository patterns.
 
 **Stage 1: Architecture Design**  
-- Input: User requirements + standards
+- Input: User requirements + standards-session.md
 - Process: Requirements scan → context extraction + validation → architecture design
 - Output: Architecture specification
 
 **Stage 2: Interface Design**
-- Input: Architecture specification + standards  
+- Input: Architecture specification + standards-session.md  
 - Process: Requirements scan → context extraction + validation → interface design
 - Output: Interface specification
 
 **Stage 3: Behavior Specification**
-- Input: Interface specification + standards
+- Input: Interface specification + standards-session.md
 - Process: Requirements scan → context extraction + validation → behavior specification  
 - Output: Behavior specification + test contracts
 
@@ -84,9 +82,9 @@
 
 ## Standards Implementation
 
-**Detection**: Simple project scan creates lightweight standards files
-**Loading**: Each agent receives relevant standards as reference context
-**Structure**: Minimal - naming conventions, test patterns, error handling per stack
+**Session-Scoped**: Standards-session agent combines `/context/domains/` + repository scan into single `standards-session.md`
+**Single Source**: All agents reference same session standards file - no duplication or conflicts
+**DRY Compliant**: No duplicate context structures, leverages existing domain organization
 
 ## Quality Assurance
 
