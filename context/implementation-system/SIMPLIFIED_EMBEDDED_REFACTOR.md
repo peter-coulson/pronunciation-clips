@@ -178,3 +178,40 @@ context/implementation-system/
 4. **Phase 4**: Update all documentation and tooling to reference new structure
 
 This structure directly supports the embedded context gathering approach while providing a cleaner, more intuitive organization model.
+
+## DRY Methodology Structure
+
+### Shared Methodologies
+```
+context/implementation-system/shared/methodologies/
+├── context-gathering.md      # Universal requirements → load → validate process
+├── context-application.md    # 4-step knowledge application strategy
+├── task-management.md       # TodoWrite patterns & state lifecycle
+├── template-completion.md   # Common template filling workflows
+└── validation-patterns.md   # Success criteria & handoff standards
+```
+
+### Content Separation
+**System Prompt**: Identity, behavior, tool permissions  
+**Agent Methodology**: Domain-specific process + references to shared procedures  
+**Shared Methodology**: Reusable cross-agent procedures  
+
+### Agent Methodology Pattern
+```markdown
+# [Agent] Methodology
+
+## Process Overview
+> **Context Gathering**: Follow `/shared/methodologies/context-gathering.md`
+> **Task Management**: Follow `/shared/methodologies/task-management.md`
+
+## Agent-Specific Process
+**Cognitive Focus**: "[Domain-specific focus]"
+**Tasks**: [Specific task list]
+**Process**: [Domain logic + shared procedure references]
+```
+
+### DRY Benefits
+- **Eliminates redundancy**: Common procedures written once
+- **Consistent behavior**: Shared patterns ensure uniformity
+- **Easy maintenance**: Updates to shared methods propagate automatically
+- **Clear separation**: System prompt vs process vs reusable procedures
