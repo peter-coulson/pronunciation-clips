@@ -4,10 +4,10 @@
 > Universal methodology for embedded context gathering across all agents
 > Eliminates knowledge-requirements and knowledge-extraction agent dependencies
 
-## Universal 4-Step Process
+## Universal 3-Stage Process
 
-### Step 1: Create Context Requirements Document
-#### Purpose
+### Stage 1: Identify Context Requirements
+#### Purpose  
 Identify and document exactly what context, files, patterns, and domain knowledge the agent needs to complete its core task. Creates a concrete requirements specification that prevents assumptions and guides targeted context loading.
 
 #### Process
@@ -15,7 +15,7 @@ Identify and document exactly what context, files, patterns, and domain knowledg
 - Identify required domain files from `/context/domains/`
 - Identify required repository patterns and existing code
 - Specify validation criteria for context completeness
-- Use `/shared/templates/context-requirements.md` template
+- Use `/shared/templates/CONTEXT_REQUIREMENTS_TEMPLATE.md` template
 
 #### Deliverables
 - Completed context requirements document
@@ -28,66 +28,48 @@ Identify and document exactly what context, files, patterns, and domain knowledg
 - Validation criteria are measurable
 - No assumptions about available context
 
-### Step 2: Load Context and Create Partial Output Document
+### Stage 2: Load Required Context
 #### Purpose
-Load identified context and create the agent's target output document with initial structure and any content that can be determined from loaded context alone. Prevents context corruption by capturing early insights before deep analysis.
+Systematically load all identified context and document what was obtained. Ensures comprehensive context gathering before task execution begins.
 
 #### Process
 - Load all files specified in requirements document
-- Read and organize loaded context by relevance
-- Create target output document structure
-- Fill in sections that can be completed from loaded context
-- Use `/shared/templates/context-load-report.md` to document what was loaded
+- Read and organize loaded context by relevance and priority
+- Use `/shared/templates/CONTEXT_LOAD_REPORT_TEMPLATE.md` to document results
+- Validate coverage against requirements document
+- Flag any critical missing context that would block progress
 
 #### Deliverables
-- Partially completed output document
 - Context load report documenting what was loaded
-- Clear indication of sections requiring further analysis
+- Organized context ready for task execution
+- Coverage validation against requirements
 
 #### Success Criteria
-- All required context successfully loaded
-- Output document structure matches agent's specification
+- All required context successfully loaded and documented
 - Context load report confirms requirement coverage
-- Partial content reflects only loaded context, no speculation
+- Any missing critical context identified and flagged
+- Context is organized for efficient task execution
 
-### Step 3: Complete Output Document
+### Stage 3: Complete Output with Integrated Validation
 #### Purpose
-Apply domain expertise and analysis to complete the output document using loaded context. Focus purely on task execution without additional context loading.
+Execute the core task using loaded context and validate output completeness in a single integrated process. Ensures quality while eliminating redundant validation steps.
 
 #### Process
-- Analyze loaded context to complete remaining sections
-- Apply domain-specific methodologies and patterns
-- Ensure all outputs are grounded in loaded context
-- Complete all required sections per agent specification
+- Create target output document structure
+- Apply domain expertise and analysis to complete all sections
+- Use loaded context to ground all decisions and outputs
+- Continuously validate output against context requirements
+- Cross-check completeness and quality during creation
+- Confirm handoff requirements are met
 
 #### Deliverables
-- Fully completed output document ready for validation
-- All sections filled with context-grounded content
+- Fully completed output document ready for next agent
+- Integrated validation confirming quality and completeness
+- Clear handoff with no ambiguities or assumptions
 
 #### Success Criteria
 - Output document is complete per agent specification
 - All content is traceable to loaded context
 - Domain expertise appropriately applied
-- Output meets handoff requirements for next agent
-
-### Step 4: Validate and Confirm Handoff Readiness
-#### Purpose
-Verify output completeness, validate against original context requirements, and confirm the deliverable is ready for the next stage in the implementation system.
-
-#### Process
-- Cross-check output against context requirements document
-- Verify all required sections are complete and accurate
-- Validate content quality and consistency
-- Confirm handoff requirements are met
-- Document any gaps or limitations
-
-#### Deliverables
-- Validation report confirming output quality
-- Confirmed handoff readiness or identified gaps
-- Updated output document if corrections needed
-
-#### Success Criteria
 - Output fully satisfies context requirements
-- All quality checks pass
 - Next agent can proceed without additional context gathering
-- Clear handoff with no ambiguities or assumptions

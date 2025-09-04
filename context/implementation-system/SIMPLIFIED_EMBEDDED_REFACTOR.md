@@ -126,8 +126,8 @@ context/implementation-system/
 │   ├── template-completion.md   # Common template filling workflows
 │   └── validation-patterns.md   # Success criteria & handoff standards
 ├── shared/templates/
-│   ├── context-requirements.md   # Template for identifying needed context
-│   ├── context-load-report.md    # Template for documenting loaded context
+│   ├── CONTEXT_REQUIREMENTS_TEMPLATE.md   # Template for identifying needed context
+│   ├── CONTEXT_LOAD_REPORT_TEMPLATE.md    # Template for documenting loaded context
 ├── sessions/ (unchanged)
 └── proof-of-concept/ (unchanged)
 ```
