@@ -1,4 +1,4 @@
-# Subagents Directory
+# Agents Directory
 
 Claude Code subagent definitions for the 4-stage implementation system. Each subagent specializes in specific sub-processes within the sequential processing pipeline.
 
@@ -26,10 +26,7 @@ System prompt defining role, objectives, and methodology references
 
 ## Deployment
 
-Deploy subagents to `.claude/agents/` for use with Claude Code's Task tool:
-```bash
-cp subagents/*.md .claude/agents/
-```
+Subagent definitions are maintained in `.claude/agents/` for direct use with Claude Code's Task tool.
 
 Invoke via Task tool:
 ```
