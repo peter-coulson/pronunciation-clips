@@ -1,77 +1,68 @@
 # Simplified Embedded Refactor: Self-Contained Progressive Agents
 
-## Fundamental Principles Preserved
+## Executive Summary
 
-- **Progressive Discovery**: Don't know what context is needed until previous level completes
-- **Quality Control**: Validate requirements against actual extraction to prevent assumptions
-- **Standards Consistency**: Leverage proven patterns instead of inferring from incomplete examples
-- **Stage Independence**: Clean handoffs with no orchestration complexity
-
-## Core Problem Solved
-
-**Current**: Separate knowledge-requirements and knowledge-extraction agents create coordination complexity and front-load all context discovery.
+**Current Problem**: Separate knowledge-requirements and knowledge-extraction agents create coordination complexity and front-load all context discovery.
 
 **Solution**: Embed context gathering directly into main agents with validation steps.
 
-## Key Benefits
-
+**Core Benefits**:
 - ✅ **Eliminates orchestration complexity** - No separate knowledge agents to coordinate
-- ✅ **Perfect context targeting** - Each agent gets exactly what it needs when it needs it  
+- ✅ **Enables perfect context targeting** - Each agent gets exactly what it needs when it needs it  
 - ✅ **Maintains quality control** - Built-in requirement validation prevents missing context
-- ✅ **Self-contained agents** - Each agent is independently testable and debuggable
-- ✅ **Standards efficiency** - Agents scan for "how to apply patterns" not "what are patterns"
+- ✅ **Creates self-contained agents** - Each agent is independently testable and debuggable
+- ✅ **Improves standards efficiency** - Agents scan for "how to apply patterns" not "what are patterns"
 
-## Refactor Changes
+## Key Principles Preserved
 
-### Removed Agents
+- **Progressive Discovery**: Context needs emerge as previous levels complete
+- **Quality Control**: Requirements validated against actual extraction to prevent assumptions
+- **Standards Consistency**: Proven patterns leveraged instead of inferring from incomplete examples
+- **Stage Independence**: Clean handoffs maintained with no orchestration complexity
+
+## Refactored Agent Workflow
+
+### Agent Structure Overview
+
+All agents now follow a unified pattern: **Context Requirements → Context Loading → Core Task → Validation**
+
+**Agent 01: Architecture Design**  
+- Input: User requirements → Output: Architecture specification
+
+**Agent 02: Interface Design**
+- Input: Architecture specification → Output: Interface specification
+
+**Agent 03: Behavior Specification**
+- Input: Interface specification → Output: Behavior specification + test contracts
+
+**Agent 04: Implementation Segmentation**
+- Input: Behavior specifications → Output: Implementation segments
+
+**Agent 05: Execution Orchestration**
+- Input: Implementation segments → Output: Coordination plan
+
+**Agent 06: Test Implementation**
+- Input: Behavior specifications + coordination plan → Output: Test code
+
+**Agent 07: Segmented Implementation**
+- Input: Coordination plan → Output: Generated code
+
+### Structural Changes
+
+**Removed Agents**:
 - `knowledge-requirements` - Embedded in main agents
 - `knowledge-extraction` - Embedded in main agents
 
-### New Agents  
+**New Agents**:  
 - `architecture-design` - Split from combined architecture-interface agent
 - `interface-design` - Split from combined architecture-interface agent
 
-### Modified Agents
+**Modified Agents**:
 - All main agents now include embedded context gathering with validation
 
-## New Workflow
+## Embedded Context Gathering Process
 
-**Agent 01: Architecture Design**  
-- Input: User requirements
-- Process: Context requirements identification → context loading → architecture design
-- Output: Architecture specification
-
-**Agent 02: Interface Design**
-- Input: Architecture specification
-- Process: Context requirements identification → context loading → interface design
-- Output: Interface specification
-
-**Agent 03: Behavior Specification**
-- Input: Interface specification
-- Process: Context requirements identification → context loading → behavior specification  
-- Output: Behavior specification + test contracts
-
-**Agent 04: Implementation Segmentation**
-- Input: Behavior specifications
-- Process: Context requirements identification → context loading → implementation planning
-- Output: Implementation segments
-
-**Agent 05: Execution Orchestration**
-- Input: Implementation segments
-- Process: Context requirements identification → context loading → coordination planning
-- Output: Coordination plan
-
-**Agent 06: Test Implementation**
-- Input: Behavior specifications + coordination plan
-- Process: Context requirements identification → context loading → test generation
-- Output: Test code
-
-**Agent 07: Segmented Implementation**
-- Input: Coordination plan
-- Process: Context requirements identification → context loading → code generation
-- Output: Generated code
-
-## Agent Structure (Example: Architecture Design)
+### Universal Agent Pattern (Example: Architecture Design)
 
 ```
 1. Context Requirements Identification
@@ -84,66 +75,24 @@
    - Load relevant repository patterns
    - Validate coverage of requirements
 
-3. Architecture Design
+3. Core Task Execution
    - Use loaded context
-   - Generate architecture specification
+   - Generate specified outputs
+   - Apply domain expertise
+
+4. Self-Validation
+   - Verify context completeness
+   - Flag missing requirements
+   - Confirm handoff readiness
 ```
 
-## Context Loading Strategy
+### Context Loading Strategy
 
-**Direct Access**: Agents read `/context/domains/` files directly when needed
-**No Duplication**: No session standards files - use source context directly
-**On-Demand**: Load only the specific context needed for each agent's task
+- **Direct Access**: Read `/context/domains/` files directly when needed
+- **On-Demand**: Load only specific context required for each task
+- **Self-Validation**: Each agent validates context completeness against requirements
 
-## Quality Assurance
-
-**Self-Validation**: Each agent validates its own context loading against requirements
-**Clear Failures**: Missing context is explicitly flagged, not silently ignored  
-**Independent Testing**: Each agent can be tested in isolation with known inputs
-
-## Universal Templates
-
-**Context Requirements Template**
-```markdown
-# {Agent Name} Context Requirements
-
-## Required Context
-### Domain Files Needed
-- **{domain_file}**: {reason}
-
-### Repository Files Needed
-- **{file_path}**: {reason}
-
-## Context Loading Plan
-### Priority 1 (Critical)
-- {files_needed}
-
-### Priority 2 (Nice-to-Have)  
-- {files_needed}
-```
-
-**Context Loading Validation Template**
-```markdown
-# {Agent Name} Context Loading
-
-## Context Loaded
-- **{file_path}**: {size/lines} - {relevance_reason}
-
-## Patterns Identified
-- **{pattern_type}**: {description}
-
-## Requirements Coverage
-- ✅ **{requirement}**: Found in {source}
-- ❌ **{requirement}**: Missing - {impact}
-
-## Ready to Proceed
-- **Status**: {yes/no}
-- **Blocking Issues**: {list}
-```
-
-This approach eliminates coordination complexity while preserving all quality and progressive discovery benefits.
-
-## New Repository Structure
+## Repository Structure & Organization
 
 ### Proposed Agents Folder Structure
 ```
@@ -170,43 +119,22 @@ context/implementation-system/
 │   └── 07-segmented-implementation/
 │       ├── methodology.md
 │       └── templates/
+├── shared/methodologies/
+│   ├── context-gathering.md      # Universal requirements → load → validate process
+│   ├── context-application.md    # 4-step knowledge application strategy
+│   ├── task-management.md       # TodoWrite patterns & state lifecycle
+│   ├── template-completion.md   # Common template filling workflows
+│   └── validation-patterns.md   # Success criteria & handoff standards
 ├── sessions/ (unchanged)
 └── proof-of-concept/ (unchanged)
 ```
 
 ### Structure Benefits
 
-- **Flat Organization**: Eliminates stage hierarchy complexity since agents are now self-contained
-- **Clear Sequencing**: Numbered agents (01, 02, etc.) show execution order without folder nesting
-- **Independent Agents**: Each agent folder is complete and self-contained with methodology and templates
-- **Easy Reordering**: Simple to add, remove, or resequence agents without restructuring
-- **Terminology Alignment**: "Agents" terminology matches the self-contained nature (no more "subagents")
-
-### Migration Strategy
-
-1. **Phase 1**: Create new `agents/` folder structure alongside existing structure
-2. **Phase 2**: Migrate each agent individually as refactor is implemented
-3. **Phase 3**: Remove old stage-based folders once migration is complete
-4. **Phase 4**: Update all documentation and tooling to reference new structure
-
-This structure directly supports the embedded context gathering approach while providing a cleaner, more intuitive organization model.
-
-## DRY Methodology Structure
-
-### Shared Methodologies
-```
-context/implementation-system/shared/methodologies/
-├── context-gathering.md      # Universal requirements → load → validate process
-├── context-application.md    # 4-step knowledge application strategy
-├── task-management.md       # TodoWrite patterns & state lifecycle
-├── template-completion.md   # Common template filling workflows
-└── validation-patterns.md   # Success criteria & handoff standards
-```
-
-### Content Separation
-**System Prompt**: Identity, behavior, tool permissions  
-**Agent Methodology**: Domain-specific process + references to shared procedures  
-**Shared Methodology**: Reusable cross-agent procedures  
+- **Numbered Sequencing**: Clear execution order (01, 02, etc.) without complex nesting
+- **Self-Contained Units**: Each agent includes complete methodology and templates
+- **Shared Procedures**: Common methodologies eliminate redundancy across agents
+- **Simple Reordering**: Easy to modify agent sequence without restructuring
 
 ### Agent Methodology Pattern
 ```markdown
@@ -222,8 +150,11 @@ context/implementation-system/shared/methodologies/
 **Process**: [Domain logic + shared procedure references]
 ```
 
-### DRY Benefits
-- **Eliminates redundancy**: Common procedures written once
-- **Consistent behavior**: Shared patterns ensure uniformity
-- **Easy maintenance**: Updates to shared methods propagate automatically
-- **Clear separation**: System prompt vs process vs reusable procedures
+### Migration Strategy
+
+1. **Phase 1**: Create new `agents/` folder structure alongside existing structure
+2. **Phase 2**: Migrate each agent individually as refactor is implemented  
+3. **Phase 3**: Remove old stage-based folders once migration is complete
+4. **Phase 4**: Update all documentation and tooling to reference new structure
+
+This approach eliminates coordination complexity while preserving all quality and progressive discovery benefits.
