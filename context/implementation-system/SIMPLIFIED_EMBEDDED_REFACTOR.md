@@ -130,3 +130,51 @@
 ```
 
 This approach eliminates coordination complexity while preserving all quality and progressive discovery benefits.
+
+## New Repository Structure
+
+### Proposed Agents Folder Structure
+```
+context/implementation-system/
+├── agents/
+│   ├── 01-architecture-design/
+│   │   ├── methodology.md
+│   │   └── templates/
+│   ├── 02-interface-design/
+│   │   ├── methodology.md  
+│   │   └── templates/
+│   ├── 03-behavior-specification/
+│   │   ├── methodology.md
+│   │   └── templates/
+│   ├── 04-implementation-segmentation/
+│   │   ├── methodology.md
+│   │   └── templates/
+│   ├── 05-execution-orchestration/
+│   │   ├── methodology.md
+│   │   └── templates/
+│   ├── 06-test-implementation/
+│   │   ├── methodology.md
+│   │   └── templates/
+│   └── 07-segmented-implementation/
+│       ├── methodology.md
+│       └── templates/
+├── sessions/ (unchanged)
+└── proof-of-concept/ (unchanged)
+```
+
+### Structure Benefits
+
+- **Flat Organization**: Eliminates stage hierarchy complexity since agents are now self-contained
+- **Clear Sequencing**: Numbered agents (01, 02, etc.) show execution order without folder nesting
+- **Independent Agents**: Each agent folder is complete and self-contained with methodology and templates
+- **Easy Reordering**: Simple to add, remove, or resequence agents without restructuring
+- **Terminology Alignment**: "Agents" terminology matches the self-contained nature (no more "subagents")
+
+### Migration Strategy
+
+1. **Phase 1**: Create new `agents/` folder structure alongside existing structure
+2. **Phase 2**: Migrate each agent individually as refactor is implemented
+3. **Phase 3**: Remove old stage-based folders once migration is complete
+4. **Phase 4**: Update all documentation and tooling to reference new structure
+
+This structure directly supports the embedded context gathering approach while providing a cleaner, more intuitive organization model.
