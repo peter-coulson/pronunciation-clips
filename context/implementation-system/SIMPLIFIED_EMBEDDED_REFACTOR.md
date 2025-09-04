@@ -35,25 +35,25 @@
 - All main agents now include embedded context gathering with validation
 
 ### One-Time Setup
-- **Standards detection** creates `~/.claude/standards/` with lightweight pattern files
+- **Standards detection** creates `context/standards/` with lightweight pattern files
 
 ## New Workflow
 
-**One-time Setup**: Standards detection scans project and creates `~/.claude/standards/` with lightweight pattern files.
+**One-time Setup**: Standards detection scans project and creates `context/standards/` with lightweight pattern files.
 
 **Stage 1: Architecture Design**  
 - Input: User requirements + standards
-- Process: Requirements scan → context extraction → gap validation → architecture design
+- Process: Requirements scan → context extraction + validation → architecture design
 - Output: Architecture specification
 
 **Stage 2: Interface Design**
 - Input: Architecture specification + standards  
-- Process: Requirements scan → context extraction → gap validation → interface design
+- Process: Requirements scan → context extraction + validation → interface design
 - Output: Interface specification
 
 **Stage 3: Behavior Specification**
 - Input: Interface specification + standards
-- Process: Requirements scan → context extraction → gap validation → behavior specification  
+- Process: Requirements scan → context extraction + validation → behavior specification  
 - Output: Behavior specification + test contracts
 
 **Stage 4: Implementation Preparation** (unchanged)
@@ -71,15 +71,13 @@
    - Based on user requirements + standards
    - "What architectural context do I need?"
 
-2. Targeted Extraction  
+2. Context Extraction + Validation  
    - Scan codebase for specific requirements
    - Focus on architectural patterns only
-
-3. Gap Validation
-   - "Did I find everything I needed?"
+   - Validate requirements coverage
    - Flag missing context explicitly
 
-4. Architecture Design
+3. Architecture Design
    - Use extracted context + standards
    - Generate architecture specification
 ```
@@ -95,5 +93,49 @@
 **Self-Validation**: Each agent validates its own context extraction against requirements
 **Clear Failures**: Missing context is explicitly flagged, not silently ignored  
 **Independent Testing**: Each agent can be tested in isolation with known inputs
+
+## Universal Templates
+
+**Requirements Scan Template**
+```markdown
+# {Agent Name} Requirements Scan
+
+## Context Requirements Identified
+### Level-Specific Needs
+- **{requirement_type}**: {description}
+
+### Cross-Cutting Concerns  
+- **{concern_type}**: {description}
+
+## Priority Assessment
+### Critical Requirements
+### Nice-to-Have Requirements
+```
+
+**Context Extraction + Validation Template**
+```markdown
+# {Agent Name} Context Extraction
+
+## Files Read Into Context
+- **{file_path}**: {size/lines} - {relevance_reason}
+
+## Files Analyzed  
+- **{file_path}**: {relevance_reason}
+
+## Patterns Identified
+- **{pattern_type}**: {description}
+
+## Constraints Found
+- **{constraint_type}**: {impact}
+
+## Gap Validation
+### Requirements Coverage
+- ✅ **{requirement}**: Found in {source}
+- ❌ **{requirement}**: Missing - {impact}
+
+### Validation Status
+- **Ready to Proceed**: {yes/no}
+- **Blocking Issues**: {list}
+```
 
 This approach eliminates coordination complexity while preserving all quality and progressive discovery benefits.
