@@ -2,24 +2,27 @@
 
 ## Process Structure
 
-### **Stage**
-One of 4 main processing units in sequential order:
-1. **Requirements Analysis** (`1-requirement-analysis/`)
-2. **Specification Design** (`2-specification-design/`) 
-3. **Implementation Preparation** (`3-implementation-preparation/`)
-4. **Code Generation** (`4-code-generation/`)
+### **Process**
+One of 7 main implementation workflows executed sequentially:
+1. **Architecture Design** (`01-architecture-design/`)
+2. **Interface Design** (`02-interface-design/`)
+3. **Behavior Specification** (`03-behavior-specification/`)
+4. **Implementation Segmentation** (`04-implementation-segmentation/`)
+5. **Execution Orchestration** (`05-execution-orchestration/`)
+6. **Test Implementation** (`06-test-implementation/`)
+7. **Segmented Implementation** (`07-segmented-implementation/`)
 
-### **Phase** 
-Major subdivisions within a stage (e.g., Knowledge Requirements Generation, Knowledge Extraction within Requirements Analysis stage)
+### **Subprocess**
+Individual execution steps within a process that follow shared patterns (e.g., context loading, validation gates, template completion)
 
-### **Sub-Process**
-Individual processing units that execute specific methodologies within phases/stages
+### **Universal Agent**
+Single agent with core execution patterns in system prompt that dynamically loads methodology files for specialization
 
-### **Coordination**
-Management of execution sequence and handoffs between stages, phases, and sub-processes
+### **Methodology File**
+Process-specific instructions (`methodology.md`) containing todo generation, subprocess steps, context requirements, and validation gates
 
 ### **Session**
-Single execution instance of the complete 4-stage system for one implementation request
+Single execution instance of the complete 7-process system for one implementation request
 
 ### **Session Name**
 Filesystem-safe directory identifier for session (kebab-case, no spaces/special chars)

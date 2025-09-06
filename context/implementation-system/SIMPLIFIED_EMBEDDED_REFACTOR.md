@@ -1,17 +1,24 @@
-# Simplified Embedded Refactor: Self-Contained Progressive Agents
+# Simplified Embedded Refactor: Single Agent System
 
 ## Executive Summary
 
-**Current Problem**: Separate knowledge-requirements and knowledge-extraction agents create coordination complexity and front-load all context discovery.
+**Current Problem**: Multiple specialized agents create coordination complexity and duplicate core execution patterns.
 
-**Solution**: Embed context gathering directly into main agents with validation steps.
+**Solution**: Single universal agent with dynamic methodology loading for specialization without duplication.
 
 **Core Benefits**:
-- ✅ **Eliminates orchestration complexity** - No separate knowledge agents to coordinate
-- ✅ **Enables perfect context targeting** - Each agent gets exactly what it needs when it needs it  
-- ✅ **Maintains quality control** - Built-in requirement validation prevents missing context
-- ✅ **Creates self-contained agents** - Each agent is independently testable and debuggable
-- ✅ **Improves standards efficiency** - Agents scan for "how to apply patterns" not "what are patterns"
+- ✅ **Eliminates agent orchestration** - One agent handles all processes
+- ✅ **DRY principle compliance** - Shared execution patterns, specialized instructions
+- ✅ **Perfect context targeting** - Sequential subprocess execution with cumulative context
+- ✅ **Simplified architecture** - Methodology files replace separate agent definitions
+
+## System Architecture
+
+### Single Agent + Dynamic Methodologies
+- **One Agent**: Universal execution patterns in system prompt
+- **Dynamic Specialization**: Process-specific instructions loaded from methodology files
+- **Sequential Execution**: Subprocess-by-subprocess with validation gates
+- **Context Building**: Each subprocess builds upon previous context
 
 ## Key Principles Preserved
 
@@ -20,144 +27,139 @@
 - **Standards Consistency**: Proven patterns leveraged instead of inferring from incomplete examples
 - **Stage Independence**: Clean handoffs maintained with no orchestration complexity
 
-## Refactored Agent Workflow
+## Process Workflow
 
-### Agent Structure Overview
+### Single Agent Process Execution
 
-All agents now follow a unified pattern: **Context Requirements → Context Loading → Core Task → Validation**
+The universal agent sequentially executes processes, loading methodology files as needed:
 
-**Agent 01: Architecture Design**  
+**Process 01: Architecture Design**  
+- Methodology: `01-architecture-design/methodology.md`
 - Input: User requirements → Output: Architecture specification
 
-**Agent 02: Interface Design**
+**Process 02: Interface Design**
+- Methodology: `02-interface-design/methodology.md`
 - Input: Architecture specification → Output: Interface specification
 
-**Agent 03: Behavior Specification**
+**Process 03: Behavior Specification**
+- Methodology: `03-behavior-specification/methodology.md`
 - Input: Interface specification → Output: Behavior specification + test contracts
 
-**Agent 04: Implementation Segmentation**
+**Process 04: Implementation Segmentation**
+- Methodology: `04-implementation-segmentation/methodology.md`
 - Input: Behavior specifications → Output: Implementation segments
 
-**Agent 05: Execution Orchestration**
+**Process 05: Execution Orchestration**
+- Methodology: `05-execution-orchestration/methodology.md`
 - Input: Implementation segments → Output: Coordination plan
 
-**Agent 06: Test Implementation**
+**Process 06: Test Implementation**
+- Methodology: `06-test-implementation/methodology.md`
 - Input: Behavior specifications + coordination plan → Output: Test code
 
-**Agent 07: Segmented Implementation**
+**Process 07: Segmented Implementation**
+- Methodology: `07-segmented-implementation/methodology.md`
 - Input: Coordination plan → Output: Generated code
 
-### Structural Changes
+### System Prompt vs Methodology Separation
 
-**Removed Agents**:
-- `knowledge-requirements` - Embedded in main agents
-- `knowledge-extraction` - Embedded in main agents
+**System Prompt Contains**:
+- Core execution patterns (todo management, validation gates)
+- General behavioral instructions (thoroughness, error handling)
+- Meta-instructions for loading and following methodology files
 
-**New Agents**:  
-- `architecture-design` - Split from combined architecture-interface agent
-- `interface-design` - Split from combined architecture-interface agent
+**Methodology Files Contain**:
+- Process-specific steps and domain knowledge
+- Context requirements and loading instructions
+- Subprocess validation criteria
 
-**Modified Agents**:
-- All main agents now include embedded context gathering with validation
+## Universal Agent Execution Pattern
 
-## Embedded Context Gathering Process
-
-### Universal Agent Pattern (Example: Architecture Design)
+### Process Execution Flow
 
 ```
-1. Context Requirements Identification
-   - Based on user requirements
-   - "What architectural context do I need?"
-   - Identify specific files/patterns needed
+1. Todo List Generation
+   - Agent reads methodology.md for current process
+   - Creates subprocess todo list via TodoWrite
+   - Tracks validation gates and handoff requirements
 
-2. Context Loading 
-   - Read identified context files (/context/domains/, existing code)
-   - Load relevant repository patterns
-   - Validate coverage of requirements
+2. Sequential Subprocess Execution
+   - Load subprocess context as specified in methodology
+   - Execute subprocess steps with validation
+   - Build upon previous subprocess outputs
+   - Complete validation gates before proceeding
 
-3. Core Task Execution
-   - Use loaded context
-   - Generate specified outputs
-   - Apply domain expertise
-
-4. Self-Validation
-   - Verify context completeness
-   - Flag missing requirements
-   - Confirm handoff readiness
+3. Process Completion
+   - Verify all validation criteria met
+   - Generate required handoff artifacts
+   - Proceed to next process or complete
 ```
 
-### Context Loading Strategy
+### Context Strategy
 
-- **Direct Access**: Read `/context/domains/` files directly when needed
-- **On-Demand**: Load only specific context required for each task
-- **Self-Validation**: Each agent validates context completeness against requirements
+- **Cumulative Context**: Each process builds upon previous context
+- **Methodology-Driven Loading**: Context requirements specified in methodology files
+- **Validation Gates**: Context completeness verified at each process boundary
 
-## Repository Structure & Organization
+## Repository Structure
 
-### Proposed Agents Folder Structure
+### New Folder Structure
 ```
 context/implementation-system/
-├── agents/
+├── processes/
 │   ├── 01-architecture-design/
 │   │   ├── methodology.md
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   ├── 02-interface-design/
 │   │   ├── methodology.md  
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   ├── 03-behavior-specification/
 │   │   ├── methodology.md
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   ├── 04-implementation-segmentation/
 │   │   ├── methodology.md
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   ├── 05-execution-orchestration/
 │   │   ├── methodology.md
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   ├── 06-test-implementation/
 │   │   ├── methodology.md
-│   │   └── templates/
+│   │   ├── templates/
+│   │   └── subprocesses/
 │   └── 07-segmented-implementation/
 │       ├── methodology.md
-│       └── templates/
-├── shared/methodologies/
-│   ├── context-gathering.md      # Universal requirements → load → validate process
-│   ├── context-application.md    # 4-step knowledge application strategy
-│   ├── task-management.md       # TodoWrite patterns & state lifecycle
-│   ├── template-completion.md   # Common template filling workflows
-│   └── validation-patterns.md   # Success criteria & handoff standards
-├── shared/templates/
-│   ├── CONTEXT_REQUIREMENTS_TEMPLATE.md   # Template for identifying needed context
-│   ├── CONTEXT_LOAD_REPORT_TEMPLATE.md    # Template for documenting loaded context
+│       ├── templates/
+│       └── subprocesses/
+├── shared/
+│   ├── subprocesses/
+│   │   ├── context-loading.md        # Universal context loading patterns
+│   │   ├── validation-gates.md       # Subprocess validation criteria  
+│   │   ├── todo-management.md        # TodoWrite patterns & lifecycle
+│   │   └── template-completion.md    # Template filling workflows
+│   └── templates/
+│       ├── handoff-report.md         # Standard handoff documentation
+│       └── validation-checklist.md   # Subprocess completion criteria
 ├── sessions/ (unchanged)
 └── proof-of-concept/ (unchanged)
 ```
 
-### Structure Benefits
-
-- **Numbered Sequencing**: Clear execution order (01, 02, etc.) without complex nesting
-- **Self-Contained Units**: Each agent includes complete methodology and templates
-- **Shared Procedures**: Common methodologies eliminate redundancy across agents
-- **Simple Reordering**: Easy to modify agent sequence without restructuring
-
-### Agent Methodology Pattern
-```markdown
-# [Agent] Methodology
-
-## Process Overview
-> **Context Gathering**: Follow `/shared/methodologies/context-gathering.md`
-> **Task Management**: Follow `/shared/methodologies/task-management.md`
-
-## Agent-Specific Process
-**Cognitive Focus**: "[Domain-specific focus]"
-**Tasks**: [Specific task list]
-**Process**: [Domain logic + shared procedure references]
-```
-
 ### Migration Strategy
 
-1. **Phase 1**: Create new `agents/` folder structure alongside existing structure
-2. **Phase 2**: Migrate each agent individually as refactor is implemented  
-3. **Phase 3**: Remove old stage-based folders once migration is complete
-4. **Phase 4**: Update all documentation and tooling to reference new structure
+1. **Phase 1**: Create new `processes/` folder structure alongside existing structure
+2. **Phase 2**: Convert agent definitions to methodology files 
+3. **Phase 3**: Create universal agent with system prompt execution patterns
+4. **Phase 4**: Remove old stage-based folders and agent definitions
+5. **Phase 5**: Update all tooling to reference single agent + methodology system
 
-This approach eliminates coordination complexity while preserving all quality and progressive discovery benefits.
+### Key Benefits
+
+- **Eliminates agent coordination complexity** - Single agent execution path
+- **Maintains specialization** - Process-specific methodology files  
+- **Enables DRY compliance** - Shared execution patterns and subprocess workflows
+- **Simplifies maintenance** - Update methodology files without touching agent definitions
+- **Preserves quality control** - Validation gates and progressive context building
