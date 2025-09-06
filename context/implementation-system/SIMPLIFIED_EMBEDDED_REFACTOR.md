@@ -1,5 +1,21 @@
 # Simplified Embedded Refactor: Single Agent System
 
+## Stage 1 Approach: Single Process Implementation
+
+**First Stage Strategy**: We will implement a single process with no shared templates or subprocesses to test the core agent approach. This allows us to validate the single agent methodology before abstracting shared templates and processes.
+
+**Implementation Plan**:
+- Create one complete process implementation as a proof of concept
+- Embed all templates and subprocesses directly within the single process
+- Test the agent's ability to execute the full methodology end-to-end
+- Once validated, abstract shared components to the planned shared structure
+
+**Stage 1 Benefits**:
+- Rapid prototyping and validation of the core concept
+- No premature abstraction until patterns are proven
+- Complete testing of the agent execution model
+- Foundation for later refactoring to shared components
+
 ## Executive Summary
 
 **Current Problem**: Multiple specialized agents create coordination complexity and duplicate core execution patterns.
@@ -139,7 +155,6 @@ context/implementation-system/
 │   ├── subprocesses/
 │   │   ├── context-loading.md        # Universal context loading patterns
 │   │   ├── validation-gates.md       # Subprocess validation criteria  
-│   │   ├── todo-management.md        # TodoWrite patterns & lifecycle
 │   │   └── template-completion.md    # Template filling workflows
 │   └── templates/
 │       ├── handoff-report.md         # Standard handoff documentation
