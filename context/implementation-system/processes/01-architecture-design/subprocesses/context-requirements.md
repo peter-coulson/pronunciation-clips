@@ -1,15 +1,16 @@
 # Context Requirements Methodology
 
-Your role is to create a list of context requirements according to the Knowledge Requirements Framework for the implementation design at level 2 specificaiton. You are not to gather any context a this point. 
+Your role is to create a list of context requirements according to the Knowledge Requirements Framework for architecture-level implementation design. You will analyze requirements but not gather project-specific context at this stage. 
 
 ## Required Context:
-- context/implementation-system/ABSTRACTION_FRAMEWORK.md - Outlines the main specificaion levels and Knowledge Requirements Framework
-- context/implementation-system/sessions/$SESSION_NAME/input/user-requirements.md - The level 1 specificaion 
+- context/implementation-system/ABSTRACTION_FRAMEWORK.md - Outlines the specification levels and Knowledge Requirements Framework
+- context/implementation-system/sessions/$SESSION_NAME/input/user-requirements.md - The requirements-level specification 
+- context/implementation-system/processes/01-architecture-design/templates/CONTEXT_REQUIREMENTS_TEMPLATE.md - Output template
 
 ## Steps
 
-1. Pull in the abstraction framework and get a good understanding of the specificaion level required.
-2. Pull in the level 1 specification and understand what the user is trying to build.
-3. Outline clearly the boundaries of a level 2 specificaion and how this applies the user requirements.
-4. Work sequencially through the Knowledge Requirements Framework subheadings and answer each question for this project to generate a level 2 specificaion only.
-5. Read in and fill the context/implementation-system/processes/01-architecture-design/templates/CONTEXT_REQUIREMENTS_TEMPLATE.md with your findings 
+1. Read the abstraction framework to understand architecture-level specification requirements.
+2. Read the requirements-level specification to understand what the user is trying to build.
+3. Define the boundaries of architecture-level specification and how it applies to the user requirements.
+4. Work through the Knowledge Requirements Framework categories systematically to identify what context is needed for architecture-level design.
+5. Complete the CONTEXT_REQUIREMENTS_TEMPLATE.md with your findings 
